@@ -9,8 +9,11 @@ public class KeyInput extends KeyAdapter {
     private GameObject player;
     private final boolean[] keyDown = new boolean[4];
 
-    public KeyInput(Handler handler) {
+    Game game;
+
+    public KeyInput(Handler handler, Game game) {
         this.handler = handler;
+        this.game = game;
 
         // 'w' key
         keyDown[0] = false;
@@ -50,14 +53,26 @@ public class KeyInput extends KeyAdapter {
 
         }
 
-        if (key == KeyEvent.VK_SPACE){
+        if (key == KeyEvent.VK_SPACE) {
             for (int i = 0; i < handler.object.size(); i++) {
-                if (handler.object.get(i).getId() == ID.Player){
+                if (handler.object.get(i).getId() == ID.Player) {
                     player = handler.object.get(i);
                 }
 
             }
-            handler.addObject(new Bullet(player.getX() + 8, player.getY(), ID.Bullet,handler));
+            handler.addObject(new Bullet(player.getX() + 8, player.getY(), ID.Bullet, handler));
+
+
+        }
+
+        if (key == KeyEvent.VK_P) {
+            if (Game.gameState == Game.STATE.Game) {
+                if (Game.paused) {
+                    Game.paused = false;
+                } else {
+                    Game.paused = true;
+                }
+            }
         }
 
         if (key == KeyEvent.VK_ESCAPE) {

@@ -26,21 +26,51 @@ public class Menu extends MouseAdapter {
         if (Game.gameState == Game.STATE.Menu) {
             // Play button
             if (mouseOver(mx, my, 210, 150, 200, 64)) {
-                Game.gameState = Game.STATE.Game;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-                handler.clearEnemys();
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
-
+                Game.gameState = Game.STATE.Select;
+                return;
             }
             // Quit button
             if (mouseOver(mx, my, 210, 350, 200, 64)) {
                 System.exit(1);
             }
         }
-        // Help Button
-        if (mouseOver(mx, my, 210, 250, 200, 64)) {
-            Game.gameState = Game.STATE.Help;
+
+        if (Game.gameState == Game.STATE.Select) {
+            // Normal button
+            if (mouseOver(mx, my, 210, 150, 200, 64)) {
+                Game.gameState = Game.STATE.Game;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.clearEnemys();
+                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
+
+                Game.diff = 0;
+            }
+            // Hard button
+            if (mouseOver(mx, my, 210, 275, 200, 64)) {
+                Game.gameState = Game.STATE.Game;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.clearEnemys();
+                handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+
+                Game.diff = 1;
+            }
         }
+
+        // Back Button
+        if (Game.gameState == Game.STATE.Select) {
+            if (mouseOver(mx, my, 210, 350, 200, 64)) {
+                Game.gameState = Game.STATE.Menu;
+                return;
+            }
+        }
+
+        // Help Button
+        if (Game.gameState == Game.STATE.Menu) {
+            if (mouseOver(mx, my, 210, 250, 200, 64)) {
+                Game.gameState = Game.STATE.Help;
+            }
+        }
+
         //Back button for help
         if (Game.gameState == Game.STATE.Help) {
             if (mouseOver(mx, my, 210, 350, 200, 64)) {
@@ -48,15 +78,13 @@ public class Menu extends MouseAdapter {
                 return;
             }
         }
-        //Back button for h
+
+        //Back button for enn
         if (Game.gameState == Game.STATE.End) {
             if (mouseOver(mx, my, 210, 350, 200, 64)) {
-                Game.gameState = Game.STATE.Game;
+                Game.gameState = Game.STATE.Menu;
                 hud.setLevel(1);
                 hud.setScore(0);
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
-                handler.clearEnemys();
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
             }
         }
     }
@@ -77,6 +105,7 @@ public class Menu extends MouseAdapter {
     }
 
     public void tick() {
+
     }
 
     public void render(Graphics g) {
@@ -113,7 +142,7 @@ public class Menu extends MouseAdapter {
             g.setFont(fnt2);
             g.drawRect(210, 350, 200, 64);
             g.drawString("Back", 275, 395);
-        }else if (Game.gameState == Game.STATE.End) {
+        } else if (Game.gameState == Game.STATE.End) {
             Font fnt = new Font("arial", Font.BOLD, 50);
             Font fnt2 = new Font("arial", Font.BOLD, 35);
             Font fnt3 = new Font("arial", Font.BOLD, 20);
@@ -129,6 +158,24 @@ public class Menu extends MouseAdapter {
             g.drawRect(210, 350, 200, 64);
             g.drawString("Try Again", 230, 395);
 
+        } else if (Game.gameState == Game.STATE.Select) {
+            Font fnt = new Font("arial", 1, 50);
+            Font fnt2 = new Font("arial", 1, 35);
+
+
+            g.setFont(fnt);
+            g.setColor(Color.white);
+            g.drawString("Select Difficult", 140, 70);
+
+            g.setFont(fnt2);
+            g.drawRect(210, 150, 200, 64);
+            g.drawString("Normal", 275, 195);
+
+            g.drawRect(210, 250, 200, 64);
+            g.drawString("Hard", 275, 295);
+
+            g.drawRect(210, 350, 200, 64);
+            g.drawString("Back", 275, 395);
         }
 
     }

@@ -1,7 +1,6 @@
 package zombieGame;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Bullet extends GameObject {
 
@@ -10,7 +9,7 @@ public class Bullet extends GameObject {
     private float x;
     private float y;
 
-    public Bullet(float x, float y, ID id,Handler handler){
+    public Bullet(float x, float y, ID id, Handler handler){
         super(x,y,id);
         this.x = x;
         this.y = y;

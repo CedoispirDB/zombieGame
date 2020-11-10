@@ -1,5 +1,6 @@
 package zombieGame;
 
+
 import java.awt.*;
 
 public class HUD {
@@ -7,7 +8,7 @@ public class HUD {
     public static float HEALTH = 100;
     private float greenValue = 255;
 
-    private int score = 0;
+    private int score;
     private int level = 1;
 
     public void tick() {
@@ -15,8 +16,6 @@ public class HUD {
         greenValue = Game.clamp(greenValue, 0, 255);
 
         greenValue = HEALTH * 2;
-
-        score++;
 
 
     }
