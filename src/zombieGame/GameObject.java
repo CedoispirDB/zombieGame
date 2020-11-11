@@ -8,11 +8,15 @@ public abstract class GameObject {
     protected float x, y;
     protected ID id;
     protected float velX, velY;
+    private Handler handler;
+    private HUD hud;
 
-    public GameObject(Handler handler, Game game, float x, float y, ID id) {
+    public GameObject(Game game, float x, float y, ID id, Handler handler, HUD hud) {
         this.x = x;
         this.y = y;
         this.id = id;
+        this.handler = handler;
+        this.hud = hud;
     }
 
     public GameObject(float x, float y, ID id) {
@@ -22,6 +26,26 @@ public abstract class GameObject {
 
     }
 
+    public void hit() {
+        if (handler.object.size() != 0) {
+
+            for (int i = 0; i < handler.object.size(); i++) {
+                GameObject tempObject = handler.object.get(i);
+
+                if (tempObject.getId() == ID.Bullet) {
+                    // tempObject is now Bullet
+                    if (getBounds().intersects(tempObject.getBounds())) {
+                        // Collision code
+                        handler.object.remove(this);
+                        handler.object.remove(tempObject);
+                        int x = hud.getScore();
+                        hud.setScore(x + 1);
+                    }
+
+                }
+            }
+        }
+    }
 
     public abstract void tick();
 

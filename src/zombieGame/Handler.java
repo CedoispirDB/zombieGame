@@ -6,6 +6,12 @@ import java.util.LinkedList;
 public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<>();
+    private HUD hud;
+
+    public Handler(HUD hud){
+        this.hud = hud;
+    }
+
 
     public void tick() {
         for (int i = 0; i < object.size(); i++) {
@@ -27,7 +33,7 @@ public class Handler {
             if (tempObject.getId() == ID.Player){
                 object.clear();
                 if (Game.gameState !=  Game.STATE.End) {
-                    addObject(new Player((int) tempObject.getX(), (int) tempObject.getY(), ID.Player, this));
+                    addObject(new Player((int) tempObject.getX(), (int) tempObject.getY(), ID.Player, this,hud));
                 }
             }
         }

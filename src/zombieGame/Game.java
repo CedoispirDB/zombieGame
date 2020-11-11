@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable {
     private final HUD hud;
     private final Spawn spawner;
     private final Menu menu;
+    private final EnemyBoss eb;
+
     Random r = new Random();
 
 
@@ -32,17 +34,17 @@ public class Game extends Canvas implements Runnable {
         End
     }
 
-    public static STATE gameState = STATE.Game;
+    public static STATE gameState = STATE.Menu;
 
     // Constructor
     public Game() {
         hud = new HUD();
+        handler = new Handler(hud);
+        eb = new EnemyBoss((WIDTH / 2) - 48, -115,ID.EnemyBoss, handler, hud);
+        menu = new Menu(this, handler, hud, eb);
 
-        handler = new Handler();
-        menu = new Menu(this, handler, hud);
 
-
-        this.addKeyListener(new KeyInput(handler, this));
+        this.addKeyListener(new KeyInput(handler, this, hud));
         this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "Game", this);
@@ -50,7 +52,7 @@ public class Game extends Canvas implements Runnable {
         spawner = new Spawn(handler, hud, this);
 
         if (gameState == STATE.Game) {
-            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, hud));
             handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
         } else {
             for (int i = 0; i < 10; i++) {

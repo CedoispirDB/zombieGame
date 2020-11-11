@@ -11,11 +11,14 @@ public class Menu extends MouseAdapter {
     private final Handler handler;
     private final Random r = new Random();
     private final HUD hud;
+    private EnemyBoss eb;
 
-    public Menu(Game game, Handler handler, HUD hud) {
+    public Menu(Game game, Handler handler, HUD hud, EnemyBoss eb) {
         this.game = game;
         this.handler = handler;
         this.hud = hud;
+        this.eb = eb;
+
 
     }
 
@@ -39,18 +42,18 @@ public class Menu extends MouseAdapter {
             // Normal button
             if (mouseOver(mx, my, 210, 150, 200, 64)) {
                 Game.gameState = Game.STATE.Game;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler, hud));
                 handler.clearEnemys();
-                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
-
+//                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
+                handler.addObject(new EnemyBoss(((Game.WIDTH / 2) - 48), -115 , ID.EnemyBoss, handler, hud));
                 Game.diff = 0;
             }
             // Hard button
             if (mouseOver(mx, my, 210, 275, 200, 64)) {
                 Game.gameState = Game.STATE.Game;
-                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler));
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler, hud));
                 handler.clearEnemys();
-                handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
+                handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
 
                 Game.diff = 1;
             }
@@ -79,12 +82,14 @@ public class Menu extends MouseAdapter {
             }
         }
 
-        //Back button for enn
+        //Back button for end
         if (Game.gameState == Game.STATE.End) {
             if (mouseOver(mx, my, 210, 350, 200, 64)) {
                 Game.gameState = Game.STATE.Menu;
                 hud.setLevel(1);
                 hud.setScore(0);
+                eb.setEnemyHealth(100);
+
             }
         }
     }

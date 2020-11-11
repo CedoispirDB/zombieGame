@@ -8,6 +8,7 @@ public enum ID {
     SmartEnemy(),
     HardEnemy(),
     EnemyBoss(),
+    Hit(),
     EnemyBullet(),
     Bullet(),
     Trial(),
