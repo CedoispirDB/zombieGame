@@ -9,6 +9,7 @@ public enum ID {
     HardEnemy(),
     EnemyBoss(),
     Hit(),
+    Obstacles(),
     EnemyBullet(),
     Bullet(),
     Trial(),

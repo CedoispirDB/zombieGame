@@ -10,6 +10,8 @@ public abstract class GameObject {
     protected float velX, velY;
     private Handler handler;
     private HUD hud;
+    private float h;
+    private float w;
 
     public GameObject(Game game, float x, float y, ID id, Handler handler, HUD hud) {
         this.x = x;
@@ -47,11 +49,15 @@ public abstract class GameObject {
         }
     }
 
+
+
     public abstract void tick();
 
     public abstract void render(Graphics g);
 
     public abstract Rectangle getBounds();
+
+    public abstract Rectangle getBounds2();
 
     public void setX(int x) {
         this.x = x;
@@ -91,6 +97,14 @@ public abstract class GameObject {
 
     public float getVelY() {
         return velY;
+    }
+
+    public float getW(){
+        return w;
+    }
+
+    public float getH(){
+        return h;
     }
 
 }

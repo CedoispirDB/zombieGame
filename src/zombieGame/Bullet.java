@@ -48,8 +48,17 @@ public class Bullet extends GameObject {
 
     }
 
+    public int getDir(){
+        return dir;
+    }
+
 
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 16, 16);
+    }
+
+    @Override
+    public Rectangle getBounds2() {
+        return null;
     }
 }

@@ -6,7 +6,7 @@ import java.awt.*;
 public class HUD {
 
     public static float HEALTH = 100;
-    private float greenValue = 255;
+    private float greenValue = 102;
 
     private int score;
     private int level = 1;
@@ -25,7 +25,7 @@ public class HUD {
         g.setColor(Color.gray);
         g.fillRect(15, 15, 200, 32);
 
-        g.setColor(new Color(75, (int)greenValue, 0));
+        g.setColor(new Color(75, (int)greenValue, 0).darker());
         g.fillRect(15, 15, (int) (HEALTH * 2), 32);
 
         g.setColor(Color.white);

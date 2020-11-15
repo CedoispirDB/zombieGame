@@ -11,7 +11,7 @@ public class Menu extends MouseAdapter {
     private final Handler handler;
     private final Random r = new Random();
     private final HUD hud;
-    private EnemyBoss eb;
+    private final EnemyBoss eb;
 
     public Menu(Game game, Handler handler, HUD hud, EnemyBoss eb) {
         this.game = game;
@@ -45,7 +45,9 @@ public class Menu extends MouseAdapter {
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler, hud));
                 handler.clearEnemys();
 //                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
-                handler.addObject(new EnemyBoss(((Game.WIDTH / 2) - 48), -115 , ID.EnemyBoss, handler, hud));
+//                handler.addObject(new EnemyBoss(((Game.WIDTH / 2) - 48), -115 , ID.EnemyBoss, handler, hud));
+                handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+
                 Game.diff = 0;
             }
             // Hard button
@@ -115,8 +117,8 @@ public class Menu extends MouseAdapter {
 
     public void render(Graphics g) {
         if (Game.gameState == Game.STATE.Menu) {
-            Font fnt = new Font("arial", 1, 50);
-            Font fnt2 = new Font("arial", 1, 35);
+            Font fnt = new Font("arial", Font.BOLD, 50);
+            Font fnt2 = new Font("arial", Font.BOLD, 35);
 
 
             g.setFont(fnt);
@@ -164,8 +166,8 @@ public class Menu extends MouseAdapter {
             g.drawString("Try Again", 230, 395);
 
         } else if (Game.gameState == Game.STATE.Select) {
-            Font fnt = new Font("arial", 1, 50);
-            Font fnt2 = new Font("arial", 1, 35);
+            Font fnt = new Font("arial", Font.BOLD, 50);
+            Font fnt2 = new Font("arial", Font.BOLD, 35);
 
 
             g.setFont(fnt);

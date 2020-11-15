@@ -11,6 +11,7 @@ public class EnemyBoss extends GameObject {
 
     public static float enemyHealth = 100;
     private float greenValue = 255;
+    private boolean vulnerability = true;
 
     private int timer = 80;
     private int timer2 = 50;
@@ -42,7 +43,7 @@ public class EnemyBoss extends GameObject {
                         if (tempObject.getX() != this.getX() && tempObject.getY() != this.getY()) {
                             for (int j = 0; j < handler.object.size(); j++) {
                                 GameObject enemy = handler.object.get(j);
-                                if (enemy.getId() == ID.EnemyBoss){
+                                if (enemy.getId() == ID.EnemyBoss && !vulnerability){
                                     enemyHealth = enemyHealth - 5;
                                     handler.object.remove(tempObject);
                                     int x = hud.getScore();
@@ -60,6 +61,11 @@ public class EnemyBoss extends GameObject {
 
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 96, 96);
+    }
+
+    @Override
+    public Rectangle getBounds2() {
+        return null;
     }
 
     public void tick() {
@@ -81,6 +87,7 @@ public class EnemyBoss extends GameObject {
             timer2--;
         }
         if (timer2 <= 0) {
+            vulnerability = false;
             if (velX == 0) {
                 velX = 3;
             }

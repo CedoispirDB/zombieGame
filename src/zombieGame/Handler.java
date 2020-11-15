@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<>();
-    private HUD hud;
+    private final HUD hud;
 
     public Handler(HUD hud){
         this.hud = hud;

@@ -3,7 +3,6 @@ package zombieGame;
 import java.util.Random;
 
 public class Spawn {
-
     private final Handler handler;
     private final HUD hud;
     private int scoreKeep = 0;
@@ -18,12 +17,34 @@ public class Spawn {
 
     }
 
-    public void tick() {
-        scoreKeep++;
+//    public static boolean timer() {
+//        long startTime = System.currentTimeMillis();
+//        while (true) {
+//            long elapsedTime = System.currentTimeMillis() - startTime;
+//            long elapsedSeconds = elapsedTime / 60000;
+//            if (elapsedSeconds == 1) {
+//                return true;
+//            }
+//        }
+//    }
 
-//        if (scoreKeep >= 250) {
-//            scoreKeep = 0;
-//            hud.setLevel(hud.getLevel() + 1);
+    public void tick() {
+//        boolean pass = false;
+//        if (timer()){
+//            pass = true;
+//        }
+//        if (pass) {
+//            handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+//        }
+
+
+        scoreKeep++;
+        if (scoreKeep >= 75) {
+            scoreKeep = 0;
+
+            handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+
+        }
 //            if (Game.diff == 0) {
 //                if (hud.getLevel() == 2) {
 //                    handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));

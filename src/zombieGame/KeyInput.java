@@ -9,7 +9,7 @@ public class KeyInput extends KeyAdapter {
     private final Handler handler;
     private GameObject player;
     private final boolean[] keyDown = new boolean[4];
-    private  int dir;
+    private int dir;
     private int anteriorKey;
     private HUD hud;
 
@@ -41,53 +41,48 @@ public class KeyInput extends KeyAdapter {
             if (tempObject.getId() == ID.Player) {
                 //All keys events for player 1
 
-                if (key == KeyEvent.VK_W) {
+                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
                     tempObject.setVelY(-5);
                     keyDown[0] = true;
                     dir = 0;
+
                 }
 
-                if (key == KeyEvent.VK_S) {
+                if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
                     tempObject.setVelY(5);
                     keyDown[1] = true;
                     dir = 1;
                 }
-                if (key == KeyEvent.VK_D) {
+                if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
                     tempObject.setVelX(5);
                     keyDown[2] = true;
                     dir = 2;
                 }
-                if (key == KeyEvent.VK_A) {
+                if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
                     tempObject.setVelX(-5);
                     keyDown[3] = true;
                     dir = 3;
                 }
                 if (key == KeyEvent.VK_SPACE) {
-
-                    handler.addObject(new Bullet(player.getX() + 8, player.getY(), ID.Bullet, handler, dir));
+                    handler.addObject(new Bullet(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, dir));
 
                 }
 
             }
 
-        }
 
-
-        if (key == KeyEvent.VK_P) {
-            if (Game.gameState == Game.STATE.Game) {
-                if (Game.paused) {
-                    Game.paused = false;
-                } else {
-                    Game.paused = true;
+            if (key == KeyEvent.VK_P) {
+                if (Game.gameState == Game.STATE.Game) {
+                    Game.paused = !Game.paused;
                 }
             }
+
+            if (key == KeyEvent.VK_ESCAPE) {
+                System.exit(1);
+            }
+
+
         }
-
-        if (key == KeyEvent.VK_ESCAPE) {
-            System.exit(1);
-        }
-
-
     }
 
     public void keyReleased(KeyEvent e) {
@@ -97,19 +92,20 @@ public class KeyInput extends KeyAdapter {
             GameObject tempObject = handler.object.get(i);
             if (tempObject.getId() == ID.Player) {
                 //All keys events for player 1
-                if (key == KeyEvent.VK_W) {
+                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
 //                    tempObject.setVelY(0);
                     keyDown[0] = false;
+
                 }
-                if (key == KeyEvent.VK_S) {
+                if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
 //                    tempObject.setVelY(0);
                     keyDown[1] = false;
                 }
-                if (key == KeyEvent.VK_D) {
+                if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
 //                    tempObject.setVelX(0);
                     keyDown[2] = false;
                 }
-                if (key == KeyEvent.VK_A) {
+                if (key == KeyEvent.VK_A | key == KeyEvent.VK_LEFT) {
 //                    tempObject.setVelX(0);
                     keyDown[3] = false;
                 }
@@ -126,7 +122,6 @@ public class KeyInput extends KeyAdapter {
 
 
             }
-
         }
     }
 }

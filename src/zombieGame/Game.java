@@ -6,13 +6,15 @@ import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
 
-    public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+    public static final int WIDTH = 1200, HEIGHT = WIDTH / 12 * 8;
 
     private Thread thread;
     private boolean running = false;
 
+
     public static boolean paused = false;
     public static int diff = 0;
+    public static Color backGroundColor = new Color(0, 255, 51);
 
     // 0 = normal
     // 1 == hard
@@ -40,9 +42,8 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         hud = new HUD();
         handler = new Handler(hud);
-        eb = new EnemyBoss((WIDTH / 2) - 48, -115,ID.EnemyBoss, handler, hud);
+        eb = new EnemyBoss((WIDTH / 2) - 48, -115, ID.EnemyBoss, handler, hud);
         menu = new Menu(this, handler, hud, eb);
-
 
         this.addKeyListener(new KeyInput(handler, this, hud));
         this.addMouseListener(menu);
@@ -53,7 +54,23 @@ public class Game extends Canvas implements Runnable {
 
         if (gameState == STATE.Game) {
             handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, hud));
-            handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
+//            for (int i = 0; i <= 10; i++ ) {
+            handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
+            handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
+            handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+
+
+//            }
+//            handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
+
         } else {
             for (int i = 0; i < 10; i++) {
                 handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
@@ -122,9 +139,29 @@ public class Game extends Canvas implements Runnable {
 
                 if (HUD.HEALTH <= 0) {
                     HUD.HEALTH = 100;
+                    //Change State to end *not to game*
+                    gameState = STATE.Game;
+                    handler.clearEnemys();
+//                    for (int i = 0; i < 10; i++) {
+//                        handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
+//                    }
+                    handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
+                    handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
+                    handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+                }
+                if (EnemyBoss.enemyHealth <= 0) {
+                    EnemyBoss.enemyHealth = 200;
                     gameState = STATE.End;
                     handler.clearEnemys();
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i <= 10; i++) {
                         handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
                     }
                 }
@@ -147,7 +184,7 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
 
-        g.setColor(Color.black);
+        g.setColor(backGroundColor.darker());
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);

@@ -2,23 +2,26 @@ package zombieGame;
 
 import java.awt.*;
 
-public class Player extends GameObject {
+public class EasyZombie extends GameObject {
 
-    private Handler handler;
-    private HUD hud;
+    private final Handler handler;
     private GameObject player;
-    private KeyInput input;
+    private final HUD hud;
+    private final Color zombieCol = new Color(0, 102, 0);
 
 
-    private float acc = 1f;
-    private float dcc = 0.5f;
-
-
-    public Player(int x, int y, ID id, Handler handler, HUD hud) {
+    public EasyZombie(int x, int y, ID id, Handler handler, HUD hud) {
         super(x, y, id);
 
-        this.handler = handler;
         this.hud = hud;
+        this.handler = handler;
+
+        for (int i = 0; i < handler.object.size(); i++) {
+            if (handler.object.get(i).getId() == ID.Player) {
+                player = handler.object.get(i);
+            }
+
+        }
 
     }
 
@@ -46,15 +49,20 @@ public class Player extends GameObject {
     }
 
     public void tick() {
-
         x += velX;
         y += velY;
 
-        x = Game.clamp(x, 0, Game.WIDTH - 35);
-        y = Game.clamp(y, 0, Game.HEIGHT - 56);
+        float diffX = x - player.getX();
+        float diffY = y - player.getY();
+        float difference = (float) Math.sqrt((x - player.getX()) * (x - player.getX()) + (y - player.getY()) * (y - player.getY()));
 
 
-        collision();
+        velX = (float) ((-1.0 / difference) * diffX);
+        velY = (float) ((-1.0 / difference) * diffY);
+
+//        collision();
+        hit();
+
     }
 
     private void collision() {
@@ -68,11 +76,13 @@ public class Player extends GameObject {
                     if (velX > 0) {// Going to the right
 
                         velX = 0;
+                        velY = 5;
                         x = tempObject.getX() - 33;
                         velX = 5;
 
                     } else if (velX < 0) {// Going to the left
                         velX = 0;
+                        velY = 5;
                         x = tempObject.getX() + 28;
                         velX = -5;
 
@@ -99,51 +109,39 @@ public class Player extends GameObject {
             }
 
         }
+    }
 
-        for (int i = 0; i < handler.object.size(); i++) {
-//            System.out.print(handler.object.size());
-            GameObject tempObject = handler.object.get(i);
+    public void hit() {
+        if (handler.object.size() != 0) {
 
-            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
-                // tempObject is now enemy
-                if (getBounds().intersects(tempObject.getBounds())) {
-                    // Collision code
-                    HUD.HEALTH -= 2;
+            for (int i = 0; i < handler.object.size(); i++) {
+                GameObject tempObject = handler.object.get(i);
 
-                    if (tempObject.getId() != ID.EnemyBoss && hud.getLevel() == 10) {
-                        handler.removeObject(tempObject);
-                    }
-
-                }
-
-                if (hud.getLevel() == 10) {
-                    for (int j = 0; j < handler.object.size(); j++) {
-                        player = handler.object.get(j);
-                    }
-                    if (player.getY() < 135) {
-                        HUD.HEALTH -= 2;
-
+                if (tempObject.getId() == ID.Bullet) {
+                    // tempObject is now Bullet
+                    if (getBounds().intersects(tempObject.getBounds())) {
+                        // Collision code
+                        for (int j = 0; j < handler.object.size(); j++) {
+                            GameObject enemy = handler.object.get(j);
+                            if (enemy.getId() == ID.SmartEnemy) {
+                                handler.object.remove(this);
+                                handler.object.remove(tempObject);
+                                int x = hud.getScore();
+                                hud.setScore(x + 1);
+                                return;
+                            }
+                        }
                     }
 
                 }
             }
-
         }
     }
 
 
     public void render(Graphics g) {
+        g.setColor(zombieCol.darker());
+        g.fillRect((int) x, (int) y, 20, 20);
 
-//        Shows the hit box
-//        Graphics2D g2d = (Graphics2D) g;
-//        g.setColor(Color.red);
-//        g2d.draw(getBounds());
-//        g.setColor(Color.yellow);
-//        g2d.draw(getBounds2());
-
-        g.setColor(Color.white);
-        g.fillRect((int) x, (int) y, 32, 32);
     }
-
-
 }
