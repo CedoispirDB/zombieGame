@@ -37,7 +37,7 @@ public class Bullet extends GameObject {
 
 
         if (y >= Game.HEIGHT || y <= 0 || x <= 0 || x >= Game.WIDTH){
-            handler.removeObject(this);
+//            handler.removeObject(this);
         }
 
     }

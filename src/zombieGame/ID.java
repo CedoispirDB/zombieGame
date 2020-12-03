@@ -14,7 +14,8 @@ public enum ID {
     Bullet(),
     Trial(),
     MenuParticle(),
-    Block()
+    Block(),
+    Enemy(),
 
 
 }

@@ -3,12 +3,15 @@ package zombieGame;
 import java.awt.*;
 
 public class Block extends GameObject {
+
+    private final Handler handler;
+
     public Block(Game game, float x, float y, ID id, Handler handler, HUD hud) {
         super(game, x, y, id, handler, hud);
+        this.handler = handler;
     }
 
     public void tick() {
-
     }
 
     public void render(Graphics g) {

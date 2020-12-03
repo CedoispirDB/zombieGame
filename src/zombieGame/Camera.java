@@ -11,8 +11,8 @@ public class Camera {
     }
 
     public void tick(GameObject object) {
-        x = object.getX() - 600;
-        y = object.getY() - 600;
+        x = object.getX() - 700;
+        y = object.getY() - 400;
 //        x += ((object.getX() - x));
 //        y += ((object.getY() - y));
 
@@ -24,10 +24,10 @@ public class Camera {
         }
 
         if (y <= 0) {
-            y = 0;
+            y = 0 ;
         }
-        if (y >= Game.HEIGHT) {
-            y = Game.HEIGHT;
+        if (y >= 1200) {
+            y = 1200;
         }
     }
 

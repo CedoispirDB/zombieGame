@@ -20,7 +20,6 @@ public class EasyZombie extends GameObject {
             if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
             }
-
         }
 
     }

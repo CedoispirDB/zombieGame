@@ -12,8 +12,7 @@ public class KeyInput extends KeyAdapter {
     private int dir;
     private int anteriorKey;
     private HUD hud;
-
-    Game game;
+    private Game game;
 
     public KeyInput(Handler handler, Game game, HUD hud) {
         this.handler = handler;
@@ -65,7 +64,7 @@ public class KeyInput extends KeyAdapter {
                 }
                 if (key == KeyEvent.VK_SPACE) {
                     handler.addObject(new Bullet(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, dir));
-
+                    game.ammo--;
                 }
 
             }
@@ -77,7 +76,7 @@ public class KeyInput extends KeyAdapter {
                 }
             }
 
-            if (key == KeyEvent.VK_ESCAPE) {
+            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q) {
                 System.exit(1);
             }
 

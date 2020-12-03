@@ -31,6 +31,7 @@ public class Game extends Canvas implements Runnable {
     private final EnemyBoss eb;
     private final MouseInput mouseInput;
     private final Camera camera;
+    public int ammo = 100;
 
     Random r = new Random();
 
@@ -66,7 +67,7 @@ public class Game extends Canvas implements Runnable {
         spawner = new Spawn(handler, hud, this);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage level = loader.loadImage("/levelC.png");
+        BufferedImage level = loader.loadImage("/levelEnemy2.png");
 
 
         if (gameState == STATE.Game) {
@@ -90,6 +91,7 @@ public class Game extends Canvas implements Runnable {
 
         } else if (gameState == STATE.Test) {
             loadLevel(level);
+
         } else {
             for (int i = 0; i < 10; i++) {
                 handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
@@ -261,6 +263,10 @@ public class Game extends Canvas implements Runnable {
 
                 if (blue == 255) {
                     handler.addObject(new Player(x * 32, y * 32, ID.Player, handler, hud));
+                }
+
+                if (green == 255) {
+                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud));
                 }
             }
         }

@@ -59,51 +59,93 @@ public class Player extends GameObject {
         collision();
     }
 
+//    private void collision() {
+//
+//        for (int i = 0; i < handler.object.size(); i++) {
+//            GameObject tempObject = handler.object.get(i);
+//            if (tempObject.getId() == ID.Obstacles) {
+//
+//                if (getBounds().intersects(tempObject.getBounds())) {
+//
+//                    if (velX > 0) {// Going to the right
+//
+//                        velX = 0;
+//                        x = tempObject.getX() - 33;
+//                        velX = 5;
+//
+//                    } else if (velX < 0) {// Going to the left
+//                        velX = 0;
+//                        x = tempObject.getX() + 28;
+//                        velX = -5;
+//
+//                    }
+//
+//                }
+//
+//                if (getBounds2().intersects(tempObject.getBounds())) {
+//
+//                    if (velY > 0) {// Going to Down
+//
+//                        velY = 0;
+//                        y = tempObject.getY() - 34;
+//                        velY = 5;
+//
+//                    } else if (velY < 0) {// Going up
+//                        velY = 0;
+//                        y = tempObject.getY() + tempObject.getH() + 3;
+//                        velY = -5;
+//
+//                    }
+//                }
+//
+//            }
+//
+//        }
+//
+//        for (int i = 0; i < handler.object.size(); i++) {
+////            System.out.print(handler.object.size());
+//            GameObject tempObject = handler.object.get(i);
+//
+//            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
+//                // tempObject is now enemy
+//                if (getBounds().intersects(tempObject.getBounds())) {
+//                    // Collision code
+//                    HUD.HEALTH -= 2;
+//
+//                    if (tempObject.getId() != ID.EnemyBoss && hud.getLevel() == 10) {
+//                        handler.removeObject(tempObject);
+//                    }
+//
+//                }
+//
+//                if (hud.getLevel() == 10) {
+//                    for (int j = 0; j < handler.object.size(); j++) {
+//                        player = handler.object.get(j);
+//                    }
+//                    if (player.getY() < 135) {
+//                        HUD.HEALTH -= 2;
+//
+//                    }
+//
+//                }
+//            }
+//
+//        }
+//    }
+
     private void collision() {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-            if (tempObject.getId() == ID.Obstacles) {
-
+            if (tempObject.getId() == ID.Block) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-
-                    if (velX > 0) {// Going to the right
-
-                        velX = 0;
-                        x = tempObject.getX() - 33;
-                        velX = 5;
-
-                    } else if (velX < 0) {// Going to the left
-                        velX = 0;
-                        x = tempObject.getX() + 28;
-                        velX = -5;
-
-                    }
-
+                    x += velX * -1;
+                    y += velY * -1;
                 }
-
-                if (getBounds2().intersects(tempObject.getBounds())) {
-
-                    if (velY > 0) {// Going to Down
-
-                        velY = 0;
-                        y = tempObject.getY() - 34;
-                        velY = 5;
-
-                    } else if (velY < 0) {// Going up
-                        velY = 0;
-                        y = tempObject.getY() + tempObject.getH() + 3;
-                        velY = -5;
-
-                    }
-                }
-
             }
-
         }
 
         for (int i = 0; i < handler.object.size(); i++) {
-//            System.out.print(handler.object.size());
             GameObject tempObject = handler.object.get(i);
 
             if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
@@ -117,22 +159,9 @@ public class Player extends GameObject {
                     }
 
                 }
-
-                if (hud.getLevel() == 10) {
-                    for (int j = 0; j < handler.object.size(); j++) {
-                        player = handler.object.get(j);
-                    }
-                    if (player.getY() < 135) {
-                        HUD.HEALTH -= 2;
-
-                    }
-
-                }
             }
-
         }
     }
-
 
     public void render(Graphics g) {
 
