@@ -13,7 +13,8 @@ public enum ID {
     EnemyBullet(),
     Bullet(),
     Trial(),
-    MenuParticle()
+    MenuParticle(),
+    Block()
 
 
 }

@@ -4,14 +4,14 @@ import java.awt.*;
 
 public class Player extends GameObject {
 
-    private Handler handler;
-    private HUD hud;
+    private final Handler handler;
+    private final HUD hud;
     private GameObject player;
     private KeyInput input;
 
 
-    private float acc = 1f;
-    private float dcc = 0.5f;
+    private final float acc = 1f;
+    private final float dcc = 0.5f;
 
 
     public Player(int x, int y, ID id, Handler handler, HUD hud) {
@@ -47,6 +47,8 @@ public class Player extends GameObject {
 
     public void tick() {
 
+        // x max = 1165
+        // y max = 744
         x += velX;
         y += velY;
 

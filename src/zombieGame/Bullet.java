@@ -42,13 +42,37 @@ public class Bullet extends GameObject {
 
     }
 
+//    public void tick() {
+//
+//        float angle = (float) Math.atan2(my - y, mx - x);
+//        int bulletVel = 5;
+//
+//
+//        if (i == 1) {
+//            velX = (float) ((bulletVel) * Math.cos(angle));
+//            velY = (float) ((bulletVel) * Math.sin(angle));
+//        }
+////        printTools.d("velX: " + (int) velX);
+////        printTools.d("velY: " + (int) velY);
+//
+//        x += velX;
+//        y += velY;
+//        i++;
+////        printTools.d("x: " + (int) x);
+////        printTools.d("y: " + (int) y);
+//
+//        if (y >= Game.HEIGHT || y <= 0 || x <= 0 || x >= Game.WIDTH) {
+//            handler.removeObject(this);
+//        }
+//    }
+
     public void render(Graphics g) {
         g.setColor(Color.white);
         g.fillRect((int) x, (int) y, 16, 16);
 
     }
 
-    public int getDir(){
+    public int getDir() {
         return dir;
     }
 
@@ -57,7 +81,6 @@ public class Bullet extends GameObject {
         return new Rectangle((int) x, (int) y, 16, 16);
     }
 
-    @Override
     public Rectangle getBounds2() {
         return null;
     }
