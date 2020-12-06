@@ -57,8 +57,8 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler(hud, this, ss);
 //        eb = new EnemyBoss((WIDTH / 2) - 48, -115, ID.EnemyBoss, handler, hud);
 //        menu = new Menu(this, handler, hud, eb);
-        mouseInput = new MouseInput(handler);
         camera = new Camera(0, 0);
+        mouseInput = new MouseInput(handler, camera);
 
 
         this.addKeyListener(new KeyInput(handler, this, hud));

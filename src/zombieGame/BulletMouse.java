@@ -25,24 +25,26 @@ public class BulletMouse extends GameObject {
 
     public void tick() {
 
-        float angle = (float) Math.atan2(my - y - 8, mx - x - 8);
-        int bulletVel = 5;
-
-
-        if (i == 1) {
-            velX = (float) ((bulletVel) * Math.cos(angle));
-            velY = (float) ((bulletVel) * Math.sin(angle));
-        }
-
-
-
         x += velX;
         y += velY;
-        i++;
-
-        if (y >= Game.HEIGHT || y <= 0 || x <= 0 || x >= Game.WIDTH) {
-            handler.removeObject(this);
-        }
+//        float angle = (float) Math.atan2(my - y - 8, mx - x - 8);
+//        int bulletVel = 5;
+//
+//
+//        if (i == 1) {
+//            velX = (float) ((bulletVel) * Math.cos(angle));
+//            velY = (float) ((bulletVel) * Math.sin(angle));
+//        }
+//
+//
+//
+//        x += velX;
+//        y += velY;
+//        i++;
+//
+//        if (y >= Game.HEIGHT || y <= 0 || x <= 0 || x >= Game.WIDTH) {
+//            handler.removeObject(this);
+//        }
     }
 
     public void render(Graphics g) {
