@@ -78,7 +78,7 @@ public class KeyInput extends KeyAdapter {
                 }
             }
 
-            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q) {
+            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q ) {
                 System.exit(1);
             }
 

@@ -38,7 +38,7 @@ public class BulletMouse extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.white);
+        g.setColor(Color.green);
         g.fillRect((int) x, (int) y, 8, 8);
 
     }

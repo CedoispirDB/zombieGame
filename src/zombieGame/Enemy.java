@@ -1,6 +1,7 @@
 package zombieGame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Enemy extends GameObject {
@@ -11,10 +12,21 @@ public class Enemy extends GameObject {
     int hp = 100;
     protected SpriteSheet ss;
 
+    private BufferedImage[] enemySkin = new BufferedImage[3];
+
+    Animation anim;
+
     public Enemy(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
         super(game, x, y, id, handler, hud, ss);
         this.handler = handler;
         this.ss = ss;
+
+        enemySkin[0] = ss.grabImage(4, 1, 32, 32);
+        enemySkin[1] = ss.grabImage(5, 1, 32, 32);
+        enemySkin[2] = ss.grabImage(6, 1, 32, 32);
+
+        anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
+
     }
 
     public void tick() {
@@ -56,11 +68,12 @@ public class Enemy extends GameObject {
             handler.removeObject(this);
         }
 
+        anim.runAnimation();
+
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.yellow);
-        g.fillRect((int) x, (int) y, 32, 32);
+        anim.drawAnimation(g, x, y, 0);
     }
 
     public Rectangle getBounds() {

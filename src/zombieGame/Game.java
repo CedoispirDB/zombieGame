@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
 
-    public static int WIDTH = 2020;
-    public static int HEIGHT = 1275;
+    public static int WIDTH = 2000;
+    public static int HEIGHT = 1140;
     //HEIGHT = WIDTH / 12 * 8;
 
     private Thread thread;
@@ -27,13 +27,14 @@ public class Game extends Canvas implements Runnable {
     private final Handler handler;
     private final HUD hud;
     //    private final Spawn spawner;
-//    private final Menu menu;
+    //    private final Menu menu;
     //    private final EnemyBoss eb;
     private final MouseInput mouseInput;
     private final Camera camera;
     private SpriteSheet ss;
 
     public int ammo = 100;
+    public int hp = 100;
 
     private BufferedImage spriteSheet;
     private BufferedImage floor;
@@ -54,12 +55,12 @@ public class Game extends Canvas implements Runnable {
 
     // Constructor
     public Game() throws IOException {
-        hud = new HUD();
+        hud = new HUD(this);
         handler = new Handler(hud, this, ss);
 //        eb = new EnemyBoss((WIDTH / 2) - 48, -115, ID.EnemyBoss, handler, hud);
 //        menu = new Menu(this, handler, hud, eb);
         camera = new Camera(0, 0);
-        mouseInput = new MouseInput(handler, camera);
+        mouseInput = new MouseInput(this, handler, camera);
 
 
         this.addKeyListener(new KeyInput(handler, this, hud));
@@ -72,7 +73,7 @@ public class Game extends Canvas implements Runnable {
 //        spawner = new Spawn(handler, hud, this);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage level = loader.loadImage("/level2.png");
+        BufferedImage level = loader.loadImage("/n.png");
         spriteSheet = loader.loadImage("/SS.png");
         ss = new SpriteSheet(spriteSheet);
         floor = ss.grabImage(4, 2, 32, 32);
@@ -239,6 +240,8 @@ public class Game extends Canvas implements Runnable {
         handler.render(g);
 
         g2d.translate(camera.getX(), camera.getY());
+
+        hud.render(g);
 
 
         if (paused) {

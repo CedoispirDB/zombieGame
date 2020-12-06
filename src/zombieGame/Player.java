@@ -6,25 +6,32 @@ import java.awt.image.BufferedImage;
 public class Player extends GameObject {
 
     private final Handler handler;
-    private final HUD hud;
     private GameObject player;
     private KeyInput input;
-    private Game game;
+    private final Game game;
     protected SpriteSheet ss;
 
-    private BufferedImage playerSkin;
+    private final BufferedImage[] playerSkin = new BufferedImage[3];
 
 
     private final float acc = 1f;
     private final float dcc = 0.5f;
+
+    Animation anim;
 
 
     public Player(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
         super(x, y, id, ss);
 
         this.handler = handler;
-        this.hud = hud;
         this.game = game;
+
+        playerSkin[0] = ss.grabImage(1, 1, 32, 48);
+        playerSkin[1] = ss.grabImage(2, 1, 32, 48);
+        playerSkin[2] = ss.grabImage(3, 1, 32, 48);
+
+        anim = new Animation(3, playerSkin[0], playerSkin[1], playerSkin[2]);
+
     }
 
     //Horizontal collision
@@ -60,8 +67,9 @@ public class Player extends GameObject {
         x = Game.clamp(x, 0, Game.WIDTH - 35);
         y = Game.clamp(y, 0, Game.HEIGHT - 56);
 
-
         collision();
+
+        anim.runAnimation();
     }
 
 //    private void collision() {
@@ -163,20 +171,31 @@ public class Player extends GameObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-
-            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
-                // tempObject is now enemy
+            if (tempObject.getId() == ID.Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    // Collision code
-                    HUD.HEALTH -= 2;
-
-                    if (tempObject.getId() != ID.EnemyBoss && hud.getLevel() == 10) {
-                        handler.removeObject(tempObject);
-                    }
-
+                    HUD.HEALTH--;
                 }
             }
         }
+
+
+
+//        for (int i = 0; i < handler.object.size(); i++) {
+//            GameObject tempObject = handler.object.get(i);
+//
+//            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
+//                // tempObject is now enemy
+//                if (getBounds().intersects(tempObject.getBounds())) {
+//                    // Collision code
+//                    HUD.HEALTH -= 2;
+//
+//                    if (tempObject.getId() != ID.EnemyBoss && hud.getLevel() == 10) {
+//                        handler.removeObject(tempObject);
+//                    }
+//
+//                }
+//            }
+//        }
     }
 
     public void render(Graphics g) {
@@ -187,9 +206,12 @@ public class Player extends GameObject {
 //        g2d.draw(getBounds());
 //        g.setColor(Color.yellow);
 //        g2d.draw(getBounds2());
+        if (velX == 0 && velY == 0) {
+            g.drawImage(playerSkin[0], (int) x, (int) y, null);
+        } else {
+            anim.drawAnimation(g, x, y, 0);
 
-        g.setColor(Color.white);
-        g.fillRect((int) x, (int) y, 32, 32);
+        }
     }
 
 
