@@ -26,12 +26,16 @@ public class Game extends Canvas implements Runnable {
 
     private final Handler handler;
     private final HUD hud;
-    private final Spawn spawner;
-    private final Menu menu;
-    private final EnemyBoss eb;
+    //    private final Spawn spawner;
+//    private final Menu menu;
+    //    private final EnemyBoss eb;
     private final MouseInput mouseInput;
     private final Camera camera;
+    private SpriteSheet ss;
+
     public int ammo = 100;
+
+    private BufferedImage spriteSheet = null;
 
     Random r = new Random();
 
@@ -50,53 +54,57 @@ public class Game extends Canvas implements Runnable {
     // Constructor
     public Game() throws IOException {
         hud = new HUD();
-        handler = new Handler(hud);
-        eb = new EnemyBoss((WIDTH / 2) - 48, -115, ID.EnemyBoss, handler, hud);
-        menu = new Menu(this, handler, hud, eb);
+        handler = new Handler(hud, this, ss);
+//        eb = new EnemyBoss((WIDTH / 2) - 48, -115, ID.EnemyBoss, handler, hud);
+//        menu = new Menu(this, handler, hud, eb);
         mouseInput = new MouseInput(handler);
         camera = new Camera(0, 0);
 
 
         this.addKeyListener(new KeyInput(handler, this, hud));
         this.addMouseListener(mouseInput);
-        this.addMouseListener(menu);
+//        this.addMouseListener(menu);
 
 
         new Window(WIDTH, HEIGHT, "Game", this);
 
-        spawner = new Spawn(handler, hud, this);
+//        spawner = new Spawn(handler, hud, this);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage level = loader.loadImage("/levelEnemy2.png");
+        BufferedImage level = loader.loadImage("/level2.png");
+        spriteSheet = loader.loadImage("/player.png");
+        ss = new SpriteSheet(spriteSheet);
 
 
-        if (gameState == STATE.Game) {
-            handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, hud));
-//            for (int i = 0; i <= 10; i++ ) {
-            handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
-            handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
-            handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
-
-
+//        if (gameState == STATE.Game) {
+//            handler.addObject(new Player(this, WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, hud, ss));
+////            for (int i = 0; i <= 10; i++ ) {
+//            handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
+//            handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
+//            handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+//
+//
+////            }
+////            handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
+//
+//        } else if (gameState == STATE.Test) {
+//            loadLevel(level);
+//
+//        } else {
+//            for (int i = 0; i < 10; i++) {
+//                handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
 //            }
-//            handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
+//        }
 
-        } else if (gameState == STATE.Test) {
-            loadLevel(level);
-
-        } else {
-            for (int i = 0; i < 10; i++) {
-                handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-            }
-        }
+        loadLevel(level);
 
 
     }
@@ -157,50 +165,52 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-        if (gameState == STATE.Game) {
-            if (!paused) {
-                hud.tick();
-                spawner.tick();
-                handler.tick();
-
-                if (HUD.HEALTH <= 0) {
-                    HUD.HEALTH = 100;
-                    //Change State to end *not to game*
-                    gameState = STATE.Game;
-                    handler.clearEnemys();
-//                    for (int i = 0; i < 10; i++) {
+//        if (gameState == STATE.Game) {
+//            if (!paused) {
+//                hud.tick();
+////                spawner.tick();
+//                handler.tick();
+//
+//                if (HUD.HEALTH <= 0) {
+//                    HUD.HEALTH = 100;
+//                    //Change State to end *not to game*
+//                    gameState = STATE.Game;
+//                    handler.clearEnemys();
+////                    for (int i = 0; i < 10; i++) {
+////                        handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
+////                    }
+//                    handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
+//                    handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
+//                    handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
+//                    hud.setScore(0);
+//                }
+//                if (EnemyBoss.enemyHealth <= 0) {
+//                    EnemyBoss.enemyHealth = 200;
+//                    gameState = STATE.End;
+//                    handler.clearEnemys();
+//                    for (int i = 0; i <= 10; i++) {
 //                        handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
 //                    }
-                    handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
-                    handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
-                    handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
-                    hud.setScore(0);
-                }
-                if (EnemyBoss.enemyHealth <= 0) {
-                    EnemyBoss.enemyHealth = 200;
-                    gameState = STATE.End;
-                    handler.clearEnemys();
-                    for (int i = 0; i <= 10; i++) {
-                        handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-                    }
-                }
-            }
-        } else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
-            menu.tick();
-            handler.tick();
-        } else if (gameState == STATE.Test) {
-            hud.tick();
-            handler.tick();
-        }
+//                }
+//            }
+//        } else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
+//            menu.tick();
+//            handler.tick();
+//        } else if (gameState == STATE.Test) {
+//            hud.tick();
+//            handler.tick();
+//        }
 
+        hud.tick();
+        handler.tick();
     }
 
     private void render() {
@@ -258,15 +268,19 @@ public class Game extends Canvas implements Runnable {
                 int blue = (pixel) & 0xff;
 
                 if (red == 255) {
-                    handler.addObject(new Block(this, x * 32, y * 32, ID.Block, handler, hud));
+                    handler.addObject(new Block(this, x * 32, y * 32, ID.Block, handler, hud, ss));
                 }
 
-                if (blue == 255) {
-                    handler.addObject(new Player(x * 32, y * 32, ID.Player, handler, hud));
+                if (blue == 255 && green == 0) {
+                    handler.addObject(new Player(this, x * 32, y * 32, ID.Player, handler, hud, ss));
                 }
 
-                if (green == 255) {
-                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud));
+                if (green == 255 && blue == 0) {
+                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
+                }
+
+                if (green == 255 && blue == 255) {
+                    handler.object.add(new Crate(this, x * 32, y * 32, ID.Crate, handler, hud, ss));
                 }
             }
         }

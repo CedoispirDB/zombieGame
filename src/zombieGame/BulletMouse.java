@@ -13,8 +13,8 @@ public class BulletMouse extends GameObject {
     private int my;
     private int i = 1;
 
-    public BulletMouse(float x, float y, ID id, Handler handler, int mx, int my) {
-        super(x, y, id);
+    public BulletMouse(float x, float y, ID id, Handler handler, int mx, int my, SpriteSheet ss) {
+        super(x, y, id, ss);
         this.x = x;
         this.y = y;
         this.mx = mx;

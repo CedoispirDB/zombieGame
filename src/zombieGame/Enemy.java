@@ -9,10 +9,12 @@ public class Enemy extends GameObject {
     Random r = new Random();
     int choose = 0;
     int hp = 100;
+    protected SpriteSheet ss;
 
-    public Enemy(Game game, float x, float y, ID id, Handler handler, HUD hud) {
-        super(game, x, y, id, handler, hud);
+    public Enemy(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
+        super(game, x, y, id, handler, hud, ss);
         this.handler = handler;
+        this.ss = ss;
     }
 
     public void tick() {
@@ -37,10 +39,15 @@ public class Enemy extends GameObject {
                 }
             }
 
+
+        }
+
+        for (int i = 0; i < handler.bullets.size(); i++) {
+            GameObject tempObject = handler.bullets.get(i);
             if (tempObject.getId() == ID.Bullet) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     hp -= 50;
-                    handler.removeObject(tempObject);
+                    handler.removeBullet(tempObject);
                 }
             }
         }

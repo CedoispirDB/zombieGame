@@ -8,6 +8,7 @@ public class MouseInput extends MouseAdapter {
     private Handler handler;
     private GameObject player;
     private int dir;
+    protected SpriteSheet ss;
 
     public MouseInput(Handler handler) {
         this.handler = handler;
@@ -48,7 +49,7 @@ public class MouseInput extends MouseAdapter {
                 player = handler.object.get(i);
             }
         }
-        handler.addObject(new BulletMouse(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, mx, my));
+        handler.addObject(new BulletMouse(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, mx, my, ss));
 
     }
 

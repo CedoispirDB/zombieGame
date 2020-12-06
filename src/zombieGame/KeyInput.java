@@ -2,7 +2,6 @@ package zombieGame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 
 public class KeyInput extends KeyAdapter {
 
@@ -13,6 +12,7 @@ public class KeyInput extends KeyAdapter {
     private int anteriorKey;
     private HUD hud;
     private Game game;
+    protected SpriteSheet ss;
 
     public KeyInput(Handler handler, Game game, HUD hud) {
         this.handler = handler;
@@ -63,8 +63,10 @@ public class KeyInput extends KeyAdapter {
                     dir = 3;
                 }
                 if (key == KeyEvent.VK_SPACE) {
-                    handler.addObject(new Bullet(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, dir));
-                    game.ammo--;
+                    if (game.ammo >= 1) {
+                        handler.addBullet(new Bullet(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, dir, ss));
+                        game.ammo--;
+                    }
                 }
 
             }

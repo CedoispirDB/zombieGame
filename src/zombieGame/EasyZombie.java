@@ -10,8 +10,8 @@ public class EasyZombie extends GameObject {
     private final Color zombieCol = new Color(0, 102, 0);
 
 
-    public EasyZombie(int x, int y, ID id, Handler handler, HUD hud) {
-        super(x, y, id);
+    public EasyZombie(int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
+        super(x, y, id, ss);
 
         this.hud = hud;
         this.handler = handler;

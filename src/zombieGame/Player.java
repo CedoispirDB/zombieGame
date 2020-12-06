@@ -8,18 +8,20 @@ public class Player extends GameObject {
     private final HUD hud;
     private GameObject player;
     private KeyInput input;
+    private Game game;
+    protected SpriteSheet ss;
 
 
     private final float acc = 1f;
     private final float dcc = 0.5f;
 
 
-    public Player(int x, int y, ID id, Handler handler, HUD hud) {
-        super(x, y, id);
+    public Player(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
+        super(x, y, id, ss);
 
         this.handler = handler;
         this.hud = hud;
-
+        this.game = game;
     }
 
     //Horizontal collision
@@ -136,11 +138,22 @@ public class Player extends GameObject {
     private void collision() {
 
         for (int i = 0; i < handler.object.size(); i++) {
+//            System.out.println(handler.object.get(i));
             GameObject tempObject = handler.object.get(i);
             if (tempObject.getId() == ID.Block) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     x += velX * -1;
                     y += velY * -1;
+                }
+            }
+        }
+
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if (tempObject.getId() == ID.Crate) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    game.ammo += 10;
+                    handler.removeObject(tempObject);
                 }
             }
         }

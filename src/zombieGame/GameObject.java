@@ -12,21 +12,26 @@ public abstract class GameObject {
     private HUD hud;
     private float h;
     private float w;
+    protected SpriteSheet ss;
 
-    public GameObject(Game game, float x, float y, ID id, Handler handler, HUD hud) {
+    public GameObject(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.handler = handler;
         this.hud = hud;
+        this.ss = ss;
     }
 
-    public GameObject(float x, float y, ID id) {
+    public GameObject(float x, float y, ID id, SpriteSheet ss) {
         this.x = x;
         this.y = y;
         this.id = id;
-
+        this.ss = ss;
     }
+
+
+
 
     public void hit() {
         if (handler.object.size() != 0) {

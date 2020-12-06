@@ -16,6 +16,7 @@ public enum ID {
     MenuParticle(),
     Block(),
     Enemy(),
+    Crate(),
 
 
 }
