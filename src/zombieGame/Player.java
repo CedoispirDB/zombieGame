@@ -1,6 +1,7 @@
 package zombieGame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
 
@@ -10,6 +11,8 @@ public class Player extends GameObject {
     private KeyInput input;
     private Game game;
     protected SpriteSheet ss;
+
+    private BufferedImage playerSkin;
 
 
     private final float acc = 1f;

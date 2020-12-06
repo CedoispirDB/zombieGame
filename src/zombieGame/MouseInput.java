@@ -47,9 +47,10 @@ public class MouseInput extends MouseAdapter {
         for (int i = 0; i < handler.object.size(); i++) {
             if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
+                handler.addBullet(new BulletMouse(player.getX() + 9, player.getY() + 24, ID.Bullet, handler, mx, my, ss));
+
             }
         }
-        handler.addBullet(new BulletMouse(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, mx, my, ss));
 
     }
 

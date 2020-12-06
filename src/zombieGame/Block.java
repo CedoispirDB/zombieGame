@@ -12,14 +12,14 @@ public class Block extends GameObject {
     }
 
     public void tick() {
-        for (int i = 0; i < handler.bullets.size(); i++) {
-            GameObject tempObject = handler.bullets.get(i);
-            if (tempObject.getId() == ID.Bullet) {
-                if (getBounds().intersects(tempObject.getBounds())) {
-                    handler.removeBullet(tempObject);
-                }
-            }
-        }
+//        for (int i = 0; i < handler.bullets.size(); i++) {
+//            GameObject tempObject = handler.bullets.get(i);
+//            if (tempObject.getId() == ID.Bullet) {
+//                if (getBounds().intersects(tempObject.getBounds())) {
+//                    handler.removeBullet(tempObject);
+//                }
+//            }
+//        }
     }
 
     public void render(Graphics g) {

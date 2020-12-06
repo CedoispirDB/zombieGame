@@ -35,7 +35,8 @@ public class Game extends Canvas implements Runnable {
 
     public int ammo = 100;
 
-    private BufferedImage spriteSheet = null;
+    private BufferedImage spriteSheet;
+    private BufferedImage floor;
 
     Random r = new Random();
 
@@ -72,8 +73,9 @@ public class Game extends Canvas implements Runnable {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage level = loader.loadImage("/level2.png");
-        spriteSheet = loader.loadImage("/player.png");
+        spriteSheet = loader.loadImage("/SS.png");
         ss = new SpriteSheet(spriteSheet);
+        floor = ss.grabImage(4, 2, 32, 32);
 
 
 //        if (gameState == STATE.Game) {
@@ -224,10 +226,15 @@ public class Game extends Canvas implements Runnable {
         Graphics2D g2d = (Graphics2D) g;
 
 
-        g.setColor(backGroundColor.darker());
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-
         g2d.translate(-camera.getX(), -camera.getY());
+
+        for (int x = 0; x < 30 * 72; x += 32) {
+            for (int y = 0; y < 30 * 72; y += 32) {
+                g.drawImage(floor, x, y, null);
+
+            }
+
+        }
 
         handler.render(g);
 
