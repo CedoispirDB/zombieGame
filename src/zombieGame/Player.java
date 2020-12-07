@@ -70,6 +70,7 @@ public class Player extends GameObject {
         collision();
 
         anim.runAnimation();
+
     }
 
 //    private void collision() {

@@ -42,15 +42,6 @@ public class Game extends Canvas implements Runnable {
     Random r = new Random();
 
 
-    public enum STATE {
-        Menu,
-        Select,
-        Help,
-        Game,
-        End,
-        Test
-    }
-
     public static STATE gameState = STATE.Test;
 
     // Constructor
@@ -75,6 +66,8 @@ public class Game extends Canvas implements Runnable {
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage level = loader.loadImage("/n.png");
         spriteSheet = loader.loadImage("/SS.png");
+
+
         ss = new SpriteSheet(spriteSheet);
         floor = ss.grabImage(4, 2, 32, 32);
 
@@ -226,16 +219,17 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
+        g.setColor(backGroundColor.darker());
+        g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g2d.translate(-camera.getX(), -camera.getY());
 
-        for (int x = 0; x < 30 * 72; x += 32) {
-            for (int y = 0; y < 30 * 72; y += 32) {
-                g.drawImage(floor, x, y, null);
-
-            }
-
-        }
+//        for (int x = 0; x < 30 * 72; x += 32) {
+//            for (int y = 0; y < 30 * 72; y += 32) {
+//                g.drawImage(floor, x, y, null);
+//
+//            }
+//        }
 
         handler.render(g);
 
