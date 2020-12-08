@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-import java.io.IOException;
-import java.util.Random;
-
 public class Game extends Canvas implements Runnable {
 
     public static int WIDTH = 2000;
@@ -18,87 +15,44 @@ public class Game extends Canvas implements Runnable {
 
 
     public static boolean paused = false;
-    public static int diff = 0;
-    public static Color backGroundColor = new Color(11, 191, 47);
+//    public static Color backGroundColor = new Color(11, 191, 47);
 
     // 0 = normal
     // 1 == hard
 
     private final Handler handler;
     private final HUD hud;
-    //    private final Spawn spawner;
-    //    private final Menu menu;
-    //    private final EnemyBoss eb;
-    private final MouseInput mouseInput;
     private final Camera camera;
     private SpriteSheet ss;
 
     public int ammo = 100;
-    public int hp = 100;
 
-    private BufferedImage spriteSheet;
-    private BufferedImage floor;
-
-    Random r = new Random();
+    private final BufferedImage floor;
 
 
     public static STATE gameState = STATE.Test;
 
     // Constructor
-    public Game() throws IOException {
+    public Game() {
         hud = new HUD(this);
         handler = new Handler(hud, this, ss);
-//        eb = new EnemyBoss((WIDTH / 2) - 48, -115, ID.EnemyBoss, handler, hud);
-//        menu = new Menu(this, handler, hud, eb);
         camera = new Camera(0, 0);
-        mouseInput = new MouseInput(this, handler, camera);
+
+        MouseInput mouseInput = new MouseInput(this, handler, camera);
 
 
-        this.addKeyListener(new KeyInput(handler, this, hud));
+        this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(mouseInput);
-//        this.addMouseListener(menu);
 
 
         new Window(WIDTH, HEIGHT, "Game", this);
 
-//        spawner = new Spawn(handler, hud, this);
-
         BufferedImageLoader loader = new BufferedImageLoader();
         BufferedImage level = loader.loadImage("/n.png");
-        spriteSheet = loader.loadImage("/SS.png");
-
+        BufferedImage spriteSheet = loader.loadImage("/MSS.png");
 
         ss = new SpriteSheet(spriteSheet);
         floor = ss.grabImage(4, 2, 32, 32);
-
-
-//        if (gameState == STATE.Game) {
-//            handler.addObject(new Player(this, WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, hud, ss));
-////            for (int i = 0; i <= 10; i++ ) {
-//            handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
-//            handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
-//            handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
-//
-//
-////            }
-////            handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
-//
-//        } else if (gameState == STATE.Test) {
-//            loadLevel(level);
-//
-//        } else {
-//            for (int i = 0; i < 10; i++) {
-//                handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-//            }
-//        }
 
         loadLevel(level);
 
@@ -161,50 +115,6 @@ public class Game extends Canvas implements Runnable {
             }
         }
 
-//        if (gameState == STATE.Game) {
-//            if (!paused) {
-//                hud.tick();
-////                spawner.tick();
-//                handler.tick();
-//
-//                if (HUD.HEALTH <= 0) {
-//                    HUD.HEALTH = 100;
-//                    //Change State to end *not to game*
-//                    gameState = STATE.Game;
-//                    handler.clearEnemys();
-////                    for (int i = 0; i < 10; i++) {
-////                        handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-////                    }
-//                    handler.addObject(new Obstacles(this, 100, 100, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 400, 90, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 800, 200, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 300, 300, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 200, 500, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 900, 500, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 700, 600, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 600, 400, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 1100, 400, ID.Obstacles, handler, hud));
-//                    handler.addObject(new Obstacles(this, 1000, 90, ID.Obstacles, handler, hud));
-//                    handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
-//                    hud.setScore(0);
-//                }
-//                if (EnemyBoss.enemyHealth <= 0) {
-//                    EnemyBoss.enemyHealth = 200;
-//                    gameState = STATE.End;
-//                    handler.clearEnemys();
-//                    for (int i = 0; i <= 10; i++) {
-//                        handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
-//                    }
-//                }
-//            }
-//        } else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
-//            menu.tick();
-//            handler.tick();
-//        } else if (gameState == STATE.Test) {
-//            hud.tick();
-//            handler.tick();
-//        }
-
         hud.tick();
         handler.tick();
     }
@@ -219,17 +129,14 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
-        g.setColor(backGroundColor.darker());
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-
         g2d.translate(-camera.getX(), -camera.getY());
 
-//        for (int x = 0; x < 30 * 72; x += 32) {
-//            for (int y = 0; y < 30 * 72; y += 32) {
-//                g.drawImage(floor, x, y, null);
-//
-//            }
-//        }
+        for (int x = 0; x < 30 * 72; x += 32) {
+            for (int y = 0; y < 30 * 72; y += 32) {
+                g.drawImage(floor, x, y, null);
+
+            }
+        }
 
         handler.render(g);
 
@@ -242,16 +149,6 @@ public class Game extends Canvas implements Runnable {
             g.setColor(Color.white);
             g.drawString("PAUSED", 100, 100);
         }
-
-//
-//        if (gameState == STATE.Game) {
-//            hud.render(g);
-//        } else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select) {
-//            menu.render(g);
-//        } else if (gameState == STATE.Test) {
-//            hud.render(g);
-//        }
-
 
         g.dispose();
         bs.show();
@@ -300,7 +197,7 @@ public class Game extends Canvas implements Runnable {
         return var;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Game();
     }
 

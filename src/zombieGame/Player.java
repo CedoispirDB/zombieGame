@@ -7,15 +7,10 @@ public class Player extends GameObject {
 
     private final Handler handler;
     private GameObject player;
-    private KeyInput input;
     private final Game game;
     protected SpriteSheet ss;
 
     private final BufferedImage[] playerSkin = new BufferedImage[3];
-
-
-    private final float acc = 1f;
-    private final float dcc = 0.5f;
 
     Animation anim;
 
@@ -37,10 +32,10 @@ public class Player extends GameObject {
     //Horizontal collision
     public Rectangle getBounds() {
 
-        float bx = x + velX;
+        float bx = x + velX + 2;
         float by = y;
         float bw = 32 + (velX - 5) / 2;
-        float bh = 32;
+        float bh = 48;
 
         return new Rectangle((int) bx, (int) by, (int) bw, (int) bh);
     }
@@ -117,7 +112,7 @@ public class Player extends GameObject {
 //        }
 //
 //        for (int i = 0; i < handler.object.size(); i++) {
-////            System.out.print(handler.object.size());
+//            System.out.print(handler.object.size());
 //            GameObject tempObject = handler.object.get(i);
 //
 //            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
@@ -150,7 +145,6 @@ public class Player extends GameObject {
     private void collision() {
 
         for (int i = 0; i < handler.object.size(); i++) {
-//            System.out.println(handler.object.get(i));
             GameObject tempObject = handler.object.get(i);
             if (tempObject.getId() == ID.Block) {
                 if (getBounds().intersects(tempObject.getBounds())) {
@@ -179,34 +173,19 @@ public class Player extends GameObject {
             }
         }
 
-
-
-//        for (int i = 0; i < handler.object.size(); i++) {
-//            GameObject tempObject = handler.object.get(i);
-//
-//            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.SmartEnemy || tempObject.getId() == ID.EnemyBullet || tempObject.getId() == ID.EnemyBoss) {
-//                // tempObject is now enemy
-//                if (getBounds().intersects(tempObject.getBounds())) {
-//                    // Collision code
-//                    HUD.HEALTH -= 2;
-//
-//                    if (tempObject.getId() != ID.EnemyBoss && hud.getLevel() == 10) {
-//                        handler.removeObject(tempObject);
-//                    }
-//
-//                }
-//            }
-//        }
     }
 
     public void render(Graphics g) {
 
 //        Shows the hit box
+
 //        Graphics2D g2d = (Graphics2D) g;
 //        g.setColor(Color.red);
 //        g2d.draw(getBounds());
 //        g.setColor(Color.yellow);
 //        g2d.draw(getBounds2());
+
+//        g.drawImage(PS, (int) x, (int) y, null);
         if (velX == 0 && velY == 0) {
             g.drawImage(playerSkin[0], (int) x, (int) y, null);
         } else {

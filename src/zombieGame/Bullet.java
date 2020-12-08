@@ -4,17 +4,14 @@ import java.awt.*;
 
 public class Bullet extends GameObject {
 
-    private Handler handler;
-    private GameObject player;
     private float x;
     private float y;
-    private int dir;
+    private final int dir;
 
-    public Bullet(float x, float y, ID id, Handler handler, int dir, SpriteSheet ss) {
+    public Bullet(float x, float y, ID id, int dir, SpriteSheet ss) {
         super(x, y, id, ss);
         this.x = x;
         this.y = y;
-        this.handler = handler;
         this.dir = dir;
     }
 
@@ -30,14 +27,6 @@ public class Bullet extends GameObject {
         }
         if (dir == 3) {
             x -= 5;
-        }
-        if (dir== 4){
-            System.out.println("hey");
-        }
-
-
-        if (y >= Game.HEIGHT || y <= 0 || x <= 0 || x >= Game.WIDTH){
-//            handler.removeObject(this);
         }
 
     }
@@ -71,11 +60,6 @@ public class Bullet extends GameObject {
         g.fillRect((int) x, (int) y, 16, 16);
 
     }
-
-    public int getDir() {
-        return dir;
-    }
-
 
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 16, 16);

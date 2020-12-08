@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Crate extends GameObject {
 
-    private BufferedImage crateTexture;
+    private final BufferedImage crateTexture;
 
     public Crate(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
         super(game, x, y, id, handler, hud, ss);

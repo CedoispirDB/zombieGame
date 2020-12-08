@@ -6,18 +6,14 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter {
 
     private final Handler handler;
-    private GameObject player;
     private final boolean[] keyDown = new boolean[4];
     private int dir;
-    private int anteriorKey;
-    private HUD hud;
-    private Game game;
+    private final Game game;
     protected SpriteSheet ss;
 
-    public KeyInput(Handler handler, Game game, HUD hud) {
+    public KeyInput(Handler handler, Game game) {
         this.handler = handler;
         this.game = game;
-        this.hud = hud;
 
         // 'w' key
         keyDown[0] = false;
@@ -27,16 +23,14 @@ public class KeyInput extends KeyAdapter {
         keyDown[2] = false;
         // 'a' key
         keyDown[3] = false;
-
-
     }
+
+
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        anteriorKey = key;
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-            player = tempObject;
             if (tempObject.getId() == ID.Player) {
                 //All keys events for player 1
 
@@ -64,7 +58,7 @@ public class KeyInput extends KeyAdapter {
                 }
                 if (key == KeyEvent.VK_SPACE) {
                     if (game.ammo >= 1) {
-                        handler.addBullet(new Bullet(player.getX() + 8, player.getY() + 8, ID.Bullet, handler, dir, ss));
+                        handler.addBullet(new Bullet(tempObject.getX() + 8, tempObject.getY() + 8, ID.Bullet, dir, ss));
                         game.ammo--;
                     }
                 }

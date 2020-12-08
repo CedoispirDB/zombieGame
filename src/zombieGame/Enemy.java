@@ -12,14 +12,14 @@ public class Enemy extends GameObject {
     int hp = 100;
     protected SpriteSheet ss;
 
-    private BufferedImage[] enemySkin = new BufferedImage[3];
-
     Animation anim;
 
     public Enemy(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
         super(game, x, y, id, handler, hud, ss);
         this.handler = handler;
         this.ss = ss;
+
+        BufferedImage[] enemySkin = new BufferedImage[3];
 
         enemySkin[0] = ss.grabImage(4, 1, 32, 32);
         enemySkin[1] = ss.grabImage(5, 1, 32, 32);

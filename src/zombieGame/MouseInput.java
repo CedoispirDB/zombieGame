@@ -5,12 +5,12 @@ import java.awt.event.MouseEvent;
 
 public class MouseInput extends MouseAdapter {
 
-    private Handler handler;
+    private final Handler handler;
     private GameObject player;
     private int dir;
     protected SpriteSheet ss;
-    private Camera camera;
-    private Game game;
+    private final Camera camera;
+    private final Game game;
 
     public MouseInput(Game game, Handler handler, Camera camera) {
         this.handler = handler;
@@ -58,5 +58,11 @@ public class MouseInput extends MouseAdapter {
         }
 
     }
+
+    public void mx(MouseEvent e){
+        System.out.println(e.getX());
+    }
+
+
 
 }

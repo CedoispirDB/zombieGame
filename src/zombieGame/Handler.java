@@ -41,7 +41,7 @@ public class Handler {
 
     }
 
-    public void clearEnemys() {
+    public void clearEnemies() {
         for (int i = 0; i < object.size(); i++) {
             GameObject tempObject = object.get(i);
             if (tempObject.getId() == ID.Player) {
@@ -70,10 +70,5 @@ public class Handler {
         this.bullets.remove(object);
     }
 
-    public void createLevel() {
-        for (int i = 0; i < 50; i++) {
-
-        }
-    }
 
 }

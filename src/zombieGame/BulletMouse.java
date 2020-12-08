@@ -1,12 +1,12 @@
 package zombieGame;
 
-import java.awt.*;
-
-import utils.printTools;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Color;
 
 public class BulletMouse extends GameObject {
 
-    private Handler handler;
+    private final Handler handler;
     private float x;
     private float y;
 

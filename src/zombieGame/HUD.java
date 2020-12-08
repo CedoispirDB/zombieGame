@@ -9,7 +9,6 @@ public class HUD {
     private float greenValue = 102;
 
     private int score;
-    private int level = 1;
     Game game;
 
     public HUD(Game game) {
@@ -35,13 +34,6 @@ public class HUD {
         g.setColor(Color.black);
         g.drawRect(15, 15, 200, 32);
 
-
-
-//        g.setColor(Color.white);
-//        g.drawRect(15, 15, 200, 32);
-//        g.drawString("Score: " + score, 15, 64);
-//        g.drawString("Level: " + level, 15, 80);
-
         // Ammo
         g.setColor(Color.white.brighter());
         g.drawString("Ammo: " + game.ammo, 16, 60);
@@ -57,11 +49,4 @@ public class HUD {
         return score;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
 }
