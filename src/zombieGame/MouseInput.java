@@ -7,39 +7,16 @@ public class MouseInput extends MouseAdapter {
 
     private final Handler handler;
     private GameObject player;
-    private int dir;
-    protected SpriteSheet ss;
+    protected SpriteSheet bss;
     private final Camera camera;
     private final Game game;
 
-    public MouseInput(Game game, Handler handler, Camera camera) {
+    public MouseInput(Game game, Handler handler, Camera camera, SpriteSheet bss) {
         this.handler = handler;
         this.camera = camera;
         this.game = game;
+        this.bss = bss;
     }
-
-//    public void mousePressed(MouseEvent e) {
-//
-//        int mx = e.getX();
-//        int my = e.getY();
-//
-//        if (tempPlayer != null) {
-//
-//            float angle = (float) Math.atan2(my - tempPlayer.y, mx - tempPlayer.x);
-//            int bulletVel = 5;
-//            handler.addObject(new Bullet(tempPlayer.x + 8, tempPlayer.y + 8, ID.Bullet, handler, dir));
-//            for (int i = 0; i < handler.object.size(); i++) {
-//                if (handler.object.get(i).getId() == ID.Bullet) {
-//                    GameObject tempBullet = handler.object.get(i);
-//
-//                    tempBullet.velX = (float)((bulletVel) * Math.cos(angle));
-//                    tempBullet.velY = (float)((bulletVel) * Math.sin(angle));
-//                }
-//            }
-//        } else{
-//            findPlayer();
-//        }
-//    }
 
     public void mousePressed(MouseEvent e) {
 
@@ -49,8 +26,9 @@ public class MouseInput extends MouseAdapter {
         for (int i = 0; i < handler.object.size(); i++) {
             if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
+
                 if (game.ammo >= 1) {
-                    handler.addBullet(new BulletMouse(player.getX() + 16, player.getY() + 24, ID.Bullet, handler, mx, my, ss));
+                    handler.addBullet(new Spell(player.getX() + 16, player.getY() + 24, ID.Spell, handler, mx, my, bss));
 
                     game.ammo--;
                 }

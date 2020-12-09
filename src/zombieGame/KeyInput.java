@@ -58,7 +58,7 @@ public class KeyInput extends KeyAdapter {
                 }
                 if (key == KeyEvent.VK_SPACE) {
                     if (game.ammo >= 1) {
-                        handler.addBullet(new Bullet(tempObject.getX() + 8, tempObject.getY() + 8, ID.Bullet, dir, ss));
+                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, ss));
                         game.ammo--;
                     }
                 }

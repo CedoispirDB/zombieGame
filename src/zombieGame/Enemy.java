@@ -1,16 +1,15 @@
 package zombieGame;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Random;
+import java.awt.Graphics;
 
 public class Enemy extends GameObject {
 
     private final Handler handler;
-    Random r = new Random();
-    int choose = 0;
     int hp = 100;
     protected SpriteSheet ss;
+    private GameObject player;
 
     Animation anim;
 
@@ -27,13 +26,27 @@ public class Enemy extends GameObject {
 
         anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
 
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject tempObject = handler.object.get(i);
+            if (tempObject.getId() == ID.Player){
+                player = tempObject;
+            }
+        }
+
     }
 
     public void tick() {
+
         x += velX;
         y += velY;
 
-        choose = r.nextInt(10);
+        float diffX = x - player.getX();
+        float diffY = y - player.getY();
+        float difference = (float) Math.sqrt((x - player.getX()) * (x - player.getX()) + (y - player.getY()) * (y - player.getY()));
+
+
+        velX = (float) ((-1.0 / difference) * diffX);
+        velY = (float) ((-1.0 / difference) * diffY);
 
         for (int i = 0; i < handler.object.size(); i++) {
 
@@ -45,20 +58,23 @@ public class Enemy extends GameObject {
                     y += (velY * 5) * -1;
                     velX *= -1;
                     velY *= -1;
-                } else if (choose == 0) {
-                    velX = (r.nextInt(4 - -4) + -4);
-                    velY = (r.nextInt(4 - -4) + -4);
                 }
             }
 
-
         }
+
 
         for (int i = 0; i < handler.bullets.size(); i++) {
             GameObject tempObject = handler.bullets.get(i);
-            if (tempObject.getId() == ID.Bullet) {
+            if (tempObject.getId() == ID.MagicBomb) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     hp -= 50;
+                    handler.removeBullet(tempObject);
+                }
+            }
+            if (tempObject.getId() == ID.Spell) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    hp -= 25;
                     handler.removeBullet(tempObject);
                 }
             }

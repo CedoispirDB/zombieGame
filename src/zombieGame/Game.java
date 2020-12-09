@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 public class Game extends Canvas implements Runnable {
 
     public static int WIDTH = 2000;
-    public static int HEIGHT = 1140;
+    public static int HEIGHT = 1250;
     //HEIGHT = WIDTH / 12 * 8;
 
     private Thread thread;
@@ -23,12 +23,13 @@ public class Game extends Canvas implements Runnable {
     private final Handler handler;
     private final HUD hud;
     private final Camera camera;
-    private SpriteSheet ss;
 
-    public int ammo = 100;
+    private SpriteSheet ss;
+    private SpriteSheet bss;
 
     private final BufferedImage floor;
 
+    public int ammo = 100;
 
     public static STATE gameState = STATE.Test;
 
@@ -38,23 +39,34 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler(hud, this, ss);
         camera = new Camera(0, 0);
 
-        MouseInput mouseInput = new MouseInput(this, handler, camera);
+        new Window(WIDTH, HEIGHT, "Game", this);
 
+        BufferedImageLoader loader = new BufferedImageLoader();
+        // Load level
+//        BufferedImage level = loader.loadImage("/O.png");
+        // Load Sprite Sheet
+        BufferedImage spriteSheet = loader.loadImage("/B.png");
+        ss = new SpriteSheet(spriteSheet);
+
+        // Load Bullet sprite sheet
+//        BufferedImage bulletSS = loader.loadImage("/S.png");
+//        bss = new SpriteSheet(bulletSS);
+
+
+        MouseInput mouseInput = new MouseInput(this, handler, camera, ss);
 
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(mouseInput);
 
 
-        new Window(WIDTH, HEIGHT, "Game", this);
+        handler.addObject(new Player(this, 32, 32, ID.Player, handler, hud, ss));
+//        handler.addObject(new Enemy(this,  48,  48, ID.Enemy, handler, hud, ss));
+        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
 
-        BufferedImageLoader loader = new BufferedImageLoader();
-        BufferedImage level = loader.loadImage("/n.png");
-        BufferedImage spriteSheet = loader.loadImage("/MSS.png");
 
-        ss = new SpriteSheet(spriteSheet);
         floor = ss.grabImage(4, 2, 32, 32);
 
-        loadLevel(level);
+//        loadLevel(level);
 
 
     }
@@ -177,11 +189,11 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (green == 255 && blue == 0) {
-                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
+//                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
                 }
 
                 if (green == 255 && blue == 255) {
-                    handler.object.add(new Crate(this, x * 32, y * 32, ID.Crate, handler, hud, ss));
+//                    handler.object.add(new Crate(this, x * 32, y * 32, ID.Crate, handler, hud, ss));
                 }
             }
         }

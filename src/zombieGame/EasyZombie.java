@@ -116,7 +116,7 @@ public class EasyZombie extends GameObject {
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
 
-                if (tempObject.getId() == ID.Bullet) {
+                if (tempObject.getId() == ID.MagicBomb) {
                     // tempObject is now Bullet
                     if (getBounds().intersects(tempObject.getBounds())) {
                         // Collision code

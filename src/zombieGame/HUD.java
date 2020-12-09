@@ -8,6 +8,8 @@ public class HUD {
     public static float HEALTH = 100;
     private float greenValue = 102;
 
+    private Color manaColor = new Color(0, 255, 255);
+
     private int score;
     Game game;
 
@@ -34,9 +36,14 @@ public class HUD {
         g.setColor(Color.black);
         g.drawRect(15, 15, 200, 32);
 
-        // Ammo
-        g.setColor(Color.white.brighter());
-        g.drawString("Ammo: " + game.ammo, 16, 60);
+        // Mana
+        g.setColor(Color.gray);
+        g.fillRect(15, 50, 200, 16);
+        g.setColor(manaColor);
+        g.fillRect(15, 50,  game.ammo + 100, 16);
+        g.setColor(Color.black);
+        g.drawRect(15, 50, 200, 16);
+
 
 
     }
