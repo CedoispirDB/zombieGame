@@ -12,6 +12,7 @@ public enum ID {
     Crate(),
     Spell(),
     Poppy(),
+    AI(),
 
 
 }

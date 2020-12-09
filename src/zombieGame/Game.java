@@ -8,6 +8,7 @@ public class Game extends Canvas implements Runnable {
 
     public static int WIDTH = 2000;
     public static int HEIGHT = 1250;
+    public static STATE gameState;
     //HEIGHT = WIDTH / 12 * 8;
 
     private Thread thread;
@@ -31,10 +32,10 @@ public class Game extends Canvas implements Runnable {
 
     public int ammo = 100;
 
-    public static STATE gameState = STATE.Test;
-
     // Constructor
     public Game() {
+
+
         hud = new HUD(this);
         handler = new Handler(hud, this, ss);
         camera = new Camera(0, 0);
@@ -60,9 +61,10 @@ public class Game extends Canvas implements Runnable {
 
 
         handler.addObject(new Player(this, 32, 32, ID.Player, handler, hud, ss));
-//        handler.addObject(new Enemy(this,  48,  48, ID.Enemy, handler, hud, ss));
-        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
+        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
+//        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
 
+//        handler.addObject(new AI(this, 100 ,100,ID.AI, handler, hud, ss));
 
         floor = ss.grabImage(4, 2, 32, 32);
 
@@ -132,6 +134,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void render() {
+
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
             this.createBufferStrategy(3);
@@ -140,7 +143,6 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
-
         g2d.translate(-camera.getX(), -camera.getY());
 
         for (int x = 0; x < 30 * 72; x += 32) {

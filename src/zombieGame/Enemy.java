@@ -37,16 +37,22 @@ public class Enemy extends GameObject {
 
     public void tick() {
 
+
+        if (x < player.getX()) {
+            this.setVelX(2);
+        }
+        if (x > player.getX()) {
+            this.setVelX(-2);
+        }
+        if (y < player.getY()) {
+            this.setVelY(2);
+        }
+        if (y> player.getY()) {
+            this.setVelY(-2);
+        }
+
         x += velX;
         y += velY;
-
-        float diffX = x - player.getX();
-        float diffY = y - player.getY();
-        float difference = (float) Math.sqrt((x - player.getX()) * (x - player.getX()) + (y - player.getY()) * (y - player.getY()));
-
-
-        velX = (float) ((-1.0 / difference) * diffX);
-        velY = (float) ((-1.0 / difference) * diffY);
 
         for (int i = 0; i < handler.object.size(); i++) {
 
