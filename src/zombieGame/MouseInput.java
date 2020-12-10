@@ -27,10 +27,11 @@ public class MouseInput extends MouseAdapter {
             if (handler.object.get(i).getId() == ID.Player) {
                 player = handler.object.get(i);
 
-                if (game.ammo >= 1) {
+                if (Game.mana >= 1) {
                     handler.addBullet(new Spell(player.getX() + 16, player.getY() + 24, ID.Spell, handler, mx, my, bss));
 
-                    game.ammo--;
+                    Game.mana--;
+                    HUD.manaSize -= 1.3;
                 }
             }
         }

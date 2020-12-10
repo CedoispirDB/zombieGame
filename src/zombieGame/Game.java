@@ -6,9 +6,8 @@ import java.awt.image.BufferedImage;
 
 public class Game extends Canvas implements Runnable {
 
-    public static int WIDTH = 2000;
-    public static int HEIGHT = 1250;
-    public static STATE gameState;
+    public static int WIDTH = 1400;
+    public static int HEIGHT = 800;
     //HEIGHT = WIDTH / 12 * 8;
 
     private Thread thread;
@@ -24,51 +23,75 @@ public class Game extends Canvas implements Runnable {
     private final Handler handler;
     private final HUD hud;
     private final Camera camera;
+    private final Menu menu;
+    private final Spawn spawn;
 
     private SpriteSheet ss;
     private SpriteSheet bss;
+    private SpriteSheet sc;
 
     private final BufferedImage floor;
+    BufferedImage level;
 
-    public int ammo = 100;
+    public static int mana = 100;
+    public static boolean started = false;
+    public static int i = 0;
+
+
+    public enum STATE {
+        Menu,
+        Select,
+        Help,
+        Game,
+        End,
+    }
+
+    public STATE gameState = STATE.Menu;
+
 
     // Constructor
     public Game() {
-
 
         hud = new HUD(this);
         handler = new Handler(hud, this, ss);
         camera = new Camera(0, 0);
 
-        new Window(WIDTH, HEIGHT, "Game", this);
-
         BufferedImageLoader loader = new BufferedImageLoader();
         // Load level
-//        BufferedImage level = loader.loadImage("/O.png");
+        level = loader.loadImage("/M.png");
         // Load Sprite Sheet
         BufferedImage spriteSheet = loader.loadImage("/B.png");
         ss = new SpriteSheet(spriteSheet);
+        //Load Santa(Boss)
+        BufferedImage santa = loader.loadImage("/C.png");
+        sc = new SpriteSheet(santa);
 
+        spawn = new Spawn(handler, hud, this, ss);
         // Load Bullet sprite sheet
-//        BufferedImage bulletSS = loader.loadImage("/S.png");
-//        bss = new SpriteSheet(bulletSS);
+        //BufferedImage bulletSS = loader.loadImage("/S.png");
+        //bss = new SpriteSheet(bulletSS);
 
 
         MouseInput mouseInput = new MouseInput(this, handler, camera, ss);
+
 
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(mouseInput);
 
 
-        handler.addObject(new Player(this, 32, 32, ID.Player, handler, hud, ss));
-        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
+        new Window(WIDTH, HEIGHT, "Demon King", this);
+
+        menu = new Menu(this, handler, hud, ss, sc, spawn);
+        this.addMouseListener(menu);
+
+
+        if (gameState == STATE.Game) {
+            handler.addObject(new DemonKing(this, 32, 32, ID.Player, handler, hud, ss));
+//        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
 //        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
-
-//        handler.addObject(new AI(this, 100 ,100,ID.AI, handler, hud, ss));
-
+            handler.addObject(new Santa(this, 500, 500, ID.Santa, handler, hud, sc, ss));
+        }
         floor = ss.grabImage(4, 2, 32, 32);
-
-//        loadLevel(level);
 
 
     }
@@ -123,18 +146,34 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
 
+
         for (int i = 0; i < handler.object.size(); i++) {
             if (handler.object.get(i).getId() == ID.Player) {
                 camera.tick(handler.object.get(i));
             }
         }
+        if (gameState == STATE.Game) {
+            if (!paused) {
+                hud.tick();
+                handler.tick();
+                if (HUD.HEALTH <= 0) {
+                    gameState = STATE.End;
+                }
 
-        hud.tick();
-        handler.tick();
+            }
+            if (i == 0) {
+                loadLevel(level);
+                i++;
+            }
+
+
+        } else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
+            menu.tick();
+            handler.tick();
+        }
     }
 
     private void render() {
-
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null) {
             this.createBufferStrategy(3);
@@ -143,22 +182,33 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
-        g2d.translate(-camera.getX(), -camera.getY());
 
-        for (int x = 0; x < 30 * 72; x += 32) {
-            for (int y = 0; y < 30 * 72; y += 32) {
-                g.drawImage(floor, x, y, null);
+        if (gameState == STATE.Game) {
+            g2d.translate(-camera.getX(), -camera.getY());
 
+            for (int x = 0; x < 30 * 72; x += 32) {
+                for (int y = 0; y < 30 * 72; y += 32) {
+                    g.drawImage(floor, x, y, null);
+
+                }
             }
+
+            handler.render(g);
+
+            g2d.translate(camera.getX(), camera.getY());
+
+            hud.render(g);
+        } else if (gameState == STATE.Menu) {
+            for (int x = 0; x < 30 * 72; x += 32) {
+                for (int y = 0; y < 30 * 72; y += 32) {
+                    g.drawImage(floor, x, y, null);
+
+                }
+            }
+            menu.render(g);
+        } else if (gameState == STATE.End) {
+            menu.render(g);
         }
-
-        handler.render(g);
-
-        g2d.translate(camera.getX(), camera.getY());
-
-        hud.render(g);
-
-
         if (paused) {
             g.setColor(Color.white);
             g.drawString("PAUSED", 100, 100);
@@ -187,7 +237,9 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (blue == 255 && green == 0) {
-                    handler.addObject(new Player(this, x * 32, y * 32, ID.Player, handler, hud, ss));
+                    handler.addObject(new Santa(this, x * 32, y * 32, ID.Santa, handler, hud, sc, ss));
+//                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
+
                 }
 
                 if (green == 255 && blue == 0) {

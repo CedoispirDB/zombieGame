@@ -3,6 +3,8 @@ package zombieGame;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
 
 public class Enemy extends GameObject {
 
@@ -10,6 +12,7 @@ public class Enemy extends GameObject {
     int hp = 100;
     protected SpriteSheet ss;
     private GameObject player;
+    BufferedImage s;
 
     Animation anim;
 
@@ -23,12 +26,12 @@ public class Enemy extends GameObject {
         enemySkin[0] = ss.grabImage(4, 1, 32, 32);
         enemySkin[1] = ss.grabImage(5, 1, 32, 32);
         enemySkin[2] = ss.grabImage(6, 1, 32, 32);
-
-        anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
+        s = ss.grabImage(4, 1, 32, 32);
+//        anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-            if (tempObject.getId() == ID.Player){
+            if (tempObject.getId() == ID.Player) {
                 player = tempObject;
             }
         }
@@ -47,7 +50,7 @@ public class Enemy extends GameObject {
         if (y < player.getY()) {
             this.setVelY(2);
         }
-        if (y> player.getY()) {
+        if (y > player.getY()) {
             this.setVelY(-2);
         }
 
@@ -90,12 +93,17 @@ public class Enemy extends GameObject {
             handler.removeObject(this);
         }
 
-        anim.runAnimation();
+//        anim.runAnimation();
 
     }
 
     public void render(Graphics g) {
-        anim.drawAnimation(g, x, y, 0);
+//        anim.drawAnimation(g, x, y, 0);
+//        Graphics2D g2d = (Graphics2D) g;
+//        g.setColor(Color.red);
+//        g2d.draw(getBounds());
+
+        g.drawImage(s, (int) x, (int) y, null);
     }
 
     public Rectangle getBounds() {

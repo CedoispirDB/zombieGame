@@ -13,6 +13,8 @@ public enum ID {
     Spell(),
     Poppy(),
     AI(),
+    Santa(),
+    SantaSpell(),
 
 
 }

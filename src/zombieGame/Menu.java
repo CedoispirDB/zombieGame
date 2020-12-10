@@ -1,191 +1,174 @@
-//package zombieGame;
-//
-//import java.awt.*;
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
-//import java.util.Random;
-//
-//public class Menu extends MouseAdapter {
-//
-//    private final Game game;
-//    private final Handler handler;
-//    private final Random r = new Random();
-//    private final HUD hud;
-//    private final EnemyBoss eb;
-//
-//    public Menu(Game game, Handler handler, HUD hud, EnemyBoss eb) {
-//        this.game = game;
-//        this.handler = handler;
-//        this.hud = hud;
-//        this.eb = eb;
-//
-//
-//    }
-//
-//    public void mousePressed(MouseEvent e) {
-//        int mx = e.getX();
-//        int my = e.getY();
-//
-//        if (Game.gameState == Game.STATE.Menu) {
-//            // Play button
-//            if (mouseOver(mx, my, 210, 150, 200, 64)) {
-//                Game.gameState = Game.STATE.Select;
-//                return;
-//            }
-//            // Quit button
-//            if (mouseOver(mx, my, 210, 350, 200, 64)) {
-//                System.exit(1);
-//            }
-//        }
-//
-//        if (Game.gameState == Game.STATE.Select) {
-//            // Normal button
-//            if (mouseOver(mx, my, 210, 150, 200, 64)) {
-//                Game.gameState = Game.STATE.Game;
-//                handler.addObject(new Player(game, Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler, hud));
-//                handler.clearEnemys();
-////                handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
-////                handler.addObject(new EnemyBoss(((Game.WIDTH / 2) - 48), -115 , ID.EnemyBoss, handler, hud));
-//                handler.addObject(new EasyZombie(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler, hud));
-//
-//                Game.diff = 0;
-//            }
-//            // Hard button
-//            if (mouseOver(mx, my, 210, 275, 200, 64)) {
-//                Game.gameState = Game.STATE.Game;
-//                handler.addObject(new Player(game, Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, handler, hud));
-//                handler.clearEnemys();
-//                handler.addObject(new HardEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler, hud));
-//
-//                Game.diff = 1;
-//            }
-//        }
-//
-//        // Back Button
-//        if (Game.gameState == Game.STATE.Select) {
-//            if (mouseOver(mx, my, 210, 350, 200, 64)) {
-//                Game.gameState = Game.STATE.Menu;
-//                return;
-//            }
-//        }
-//
-//        // Help Button
-//        if (Game.gameState == Game.STATE.Menu) {
-//            if (mouseOver(mx, my, 210, 250, 200, 64)) {
-//                Game.gameState = Game.STATE.Help;
-//            }
-//        }
-//
-//        //Back button for help
-//        if (Game.gameState == Game.STATE.Help) {
-//            if (mouseOver(mx, my, 210, 350, 200, 64)) {
-//                Game.gameState = Game.STATE.Menu;
-//                return;
-//            }
-//        }
-//
-//        //Back button for end
-//        if (Game.gameState == Game.STATE.End) {
-//            if (mouseOver(mx, my, 210, 350, 200, 64)) {
-//                Game.gameState = Game.STATE.Menu;
-//                hud.setLevel(1);
-//                hud.setScore(0);
-//                eb.setEnemyHealth(100);
-//
-//            }
-//        }
-//    }
-//
-//    public void mouseReleased(MouseEvent e) {
-//    }
-//
-//    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
-//        if (mx > x && mx < x + width) {
-//            if (my > y && my < y + height) {
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    public void tick() {
-//
-//    }
-//
-//    public void render(Graphics g) {
-//        if (Game.gameState == Game.STATE.Menu) {
-//            Font fnt = new Font("arial", Font.BOLD, 50);
-//            Font fnt2 = new Font("arial", Font.BOLD, 35);
-//
-//
-//            g.setFont(fnt);
-//            g.setColor(Color.white);
-//            g.drawString("Wave", 240, 70);
-//
-//            g.setFont(fnt2);
-//            g.drawRect(210, 150, 200, 64);
-//            g.drawString("Play", 275, 195);
-//
-//            g.drawRect(210, 250, 200, 64);
-//            g.drawString("Help", 275, 295);
-//
-//            g.drawRect(210, 350, 200, 64);
-//            g.drawString("Quit", 275, 395);
-//        } else if (Game.gameState == Game.STATE.Help) {
-//            Font fnt = new Font("arial", Font.BOLD, 50);
-//            Font fnt2 = new Font("arial", Font.BOLD, 35);
-//            Font fnt3 = new Font("arial", Font.BOLD, 20);
-//
-//            g.setFont(fnt);
-//            g.setColor(Color.white);
-//            g.drawString("Help", 240, 70);
-//
-//            g.setFont(fnt3);
-//            g.drawString("Use WASD keys to move player and dodge enemies", 60, 200);
-//
-//            g.setFont(fnt2);
-//            g.drawRect(210, 350, 200, 64);
-//            g.drawString("Back", 275, 395);
-//        } else if (Game.gameState == Game.STATE.End) {
-//            Font fnt = new Font("arial", Font.BOLD, 50);
-//            Font fnt2 = new Font("arial", Font.BOLD, 35);
-//            Font fnt3 = new Font("arial", Font.BOLD, 20);
-//
-//            g.setFont(fnt);
-//            g.setColor(Color.white);
-//            g.drawString("Game Over", 180, 70);
-//
-//            g.setFont(fnt3);
-//            g.drawString("You lost with the score of:  " + hud.getScore(), 155, 197);
-//
-//            g.setFont(fnt2);
-//            g.drawRect(210, 350, 200, 64);
-//            g.drawString("Try Again", 230, 395);
-//
-//        } else if (Game.gameState == Game.STATE.Select) {
-//            Font fnt = new Font("arial", Font.BOLD, 50);
-//            Font fnt2 = new Font("arial", Font.BOLD, 35);
-//
-//
-//            g.setFont(fnt);
-//            g.setColor(Color.white);
-//            g.drawString("Select Difficult", 140, 70);
-//
-//            g.setFont(fnt2);
-//            g.drawRect(210, 150, 200, 64);
-//            g.drawString("Normal", 275, 195);
-//
-//            g.drawRect(210, 250, 200, 64);
-//            g.drawString("Hard", 275, 295);
-//
-//            g.drawRect(210, 350, 200, 64);
-//            g.drawString("Back", 275, 395);
-//        }
-//
-//    }
-//
-//
-//}
+package zombieGame;
+
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+public class Menu extends MouseAdapter {
+
+    private Game game;
+    private final Handler handler;
+    private final Random r = new Random();
+    private final HUD hud;
+    private final Spawn spawn;
+    protected SpriteSheet ss;
+    protected SpriteSheet sc;
+
+    public Menu(Game game, Handler handler, HUD hud, SpriteSheet ss, SpriteSheet sc, Spawn spawn) {
+        this.game = game;
+        this.handler = handler;
+        this.hud = hud;
+        this.ss = ss;
+        this.sc = sc;
+        this.spawn = spawn;
+
+
+    }
+
+    public void mousePressed(MouseEvent e) {
+        int mx = e.getX();
+        int my = e.getY();
+//        System.out.println(mx);
+//        System.out.println(my);
+        if (game.gameState == Game.STATE.Menu) {
+
+            // Play button
+            if (mouseOver(mx, my, 611, 154, 200, 64)) {
+                game.gameState = Game.STATE.Game;
+                handler.addObject(new DemonKing(game, 32, 32, ID.Player, handler, hud, ss));
+//        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
+//        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
+                spawn.spawnEnemies();
+                Game.i = 0;
+                Game.started = false;
+                Game.mana = 100;
+                HUD.santaHP = 500;
+                HUD.healthColor = 500;
+                return;
+            }
+
+            // Help Button
+
+            if (mouseOver(mx, my, 611, 253, 200, 64)) {
+                game.gameState = Game.STATE.Help;
+            }
+
+            // Quit button
+            if (mouseOver(mx, my, 611, 353, 200, 64)) {
+                System.exit(1);
+            }
+
+        }
+
+        //Back button for help
+        if (game.gameState == Game.STATE.Help) {
+            if (mouseOver(mx, my, (Game.WIDTH / 2) - 75, 350, 150, 64)) {
+                game.gameState = Game.STATE.Menu;
+                return;
+            }
+        }
+
+        //Back button for end
+        if (game.gameState == Game.STATE.End) {
+            System.out.println("i am here");
+            if (mouseOver(mx, my, (Game.WIDTH / 2) - 90, 350, 200, 64)) {
+                game.gameState = Game.STATE.Menu;
+                HUD.HEALTH = 100;
+                HUD.santaHP = 500;
+                Game.paused = false;
+                handler.clear();
+
+
+
+            }
+        }
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
+        if (mx > x && mx < x + width) {
+            if (my > y && my < y + height) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public void tick() {
+
+    }
+
+    public void render(Graphics g) {
+        if (game.gameState == Game.STATE.Menu) {
+            Font fnt = new Font("arial", Font.BOLD, 50);
+            Font fnt2 = new Font("arial", Font.BOLD, 35);
+
+            g.setColor(Color.gray.brighter());
+            g.fillRect((Game.WIDTH / 2) - 90, 150, 200, 64);
+            g.fillRect((Game.WIDTH / 2) - 90, 250, 200, 64);
+            g.fillRect((Game.WIDTH / 2) - 90, 350, 200, 64);
+
+            g.setFont(fnt);
+            g.setColor(Color.BLACK);
+            g.drawString("Demon King", (Game.WIDTH / 2) - 140, 70);
+
+            g.setFont(fnt2);
+            g.drawRect((Game.WIDTH / 2) - 90, 150, 200, 64);
+            g.drawString("Play", (Game.WIDTH / 2) - 25, 195);
+
+            g.drawRect((Game.WIDTH / 2) - 90, 250, 200, 64);
+            g.drawString("Help", (Game.WIDTH / 2) - 25, 295);
+
+            g.drawRect((Game.WIDTH / 2) - 90, 350, 200, 64);
+            g.drawString("Quit", (Game.WIDTH / 2) - 25, 395);
+
+
+        } else if (game.gameState == Game.STATE.Help) {
+            Font fnt = new Font("arial", Font.BOLD, 50);
+            Font fnt2 = new Font("arial", Font.BOLD, 35);
+            Font fnt3 = new Font("arial", Font.BOLD, 20);
+
+            g.setColor(Color.gray.brighter());
+            g.fillRect((Game.WIDTH / 2) - 170, 180, 399, 77);
+            g.fillRect((Game.WIDTH / 2) - 75, 350, 150, 64);
+
+            g.setFont(fnt);
+            g.setColor(Color.BLACK);
+            g.drawString("Help", (Game.WIDTH / 2) - 50, 70);
+
+            g.drawRect((Game.WIDTH / 2) - 170, 180, 399, 77);
+
+            g.setFont(fnt3);
+            g.drawString("Use WASD keys to move player", (Game.WIDTH / 2) - 165, 200);
+            g.drawString("Use the mouse right button to use spells", (Game.WIDTH / 2) - 165, 225);
+            g.drawString("Use space to use a magic bomb", (Game.WIDTH / 2) - 165, 250);
+
+            g.setFont(fnt2);
+            g.drawRect((Game.WIDTH / 2) - 75, 350, 150, 64);
+            g.drawString("Back", (Game.WIDTH / 2) - 40, 395);
+        } else if (game.gameState == Game.STATE.End) {
+            Font fnt = new Font("arial", Font.BOLD, 50);
+            Font fnt2 = new Font("arial", Font.BOLD, 35);
+
+            g.setFont(fnt);
+            g.setColor(Color.white);
+            g.drawString("You died", (Game.WIDTH / 2) - 100, (Game.HEIGHT / 2) - 100);
+
+            g.setFont(fnt2);
+            g.drawRect((Game.WIDTH / 2) - 90, 350, 200, 64);
+            g.drawString("Try Again", (Game.WIDTH / 2) - 70, 395);
+
+        }
+
+    }
+
+
+}

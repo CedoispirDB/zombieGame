@@ -1,7 +1,7 @@
 package zombieGame;
 
-import java.awt.*;
 import java.util.LinkedList;
+import java.awt.Graphics;
 
 public class Handler {
 
@@ -46,8 +46,8 @@ public class Handler {
             GameObject tempObject = object.get(i);
             if (tempObject.getId() == ID.Player) {
                 object.clear();
-                if (Game.gameState != STATE.End) {
-                    addObject(new Player(game, (int) tempObject.getX(), (int) tempObject.getY(), ID.Player, this, hud, ss));
+                if (game.gameState != Game.STATE.End) {
+                    addObject(new DemonKing(game, (int) tempObject.getX(), (int) tempObject.getY(), ID.Player, this, hud, ss));
                 }
             }
         }
@@ -68,6 +68,16 @@ public class Handler {
 
     public void removeBullet(GameObject object) {
         this.bullets.remove(object);
+    }
+
+    public void clear() {
+        if (object.size() > 0) {
+            this.object.clear();
+        }
+        if (bullets.size() > 0) {
+            this.bullets.clear();
+        }
+
     }
 
 

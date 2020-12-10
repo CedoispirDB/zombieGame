@@ -3,7 +3,7 @@ package zombieGame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Player extends GameObject {
+public class DemonKing extends GameObject {
 
     private final Handler handler;
     private GameObject player;
@@ -15,7 +15,7 @@ public class Player extends GameObject {
     Animation anim;
 
 
-    public Player(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
+    public DemonKing(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
         super(x, y, id, ss);
 
         this.handler = handler;
@@ -159,7 +159,7 @@ public class Player extends GameObject {
             GameObject tempObject = handler.object.get(i);
             if (tempObject.getId() == ID.Crate) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    game.ammo += 10;
+                    game.mana += 10;
                     handler.removeObject(tempObject);
                 }
             }
@@ -167,7 +167,7 @@ public class Player extends GameObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-            if (tempObject.getId() == ID.Enemy) {
+            if (tempObject.getId() == ID.Enemy || tempObject.getId() == ID.Santa) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     HUD.HEALTH--;
                 }

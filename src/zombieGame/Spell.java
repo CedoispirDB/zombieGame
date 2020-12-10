@@ -88,7 +88,7 @@ public class Spell extends GameObject {
             }
         }
 
-        handler.addObject(new Trail(x, y, ID.Trial,Color.cyan, 16, 16, 0.01f, handler, null));
+//        handler.addObject(new Trail(x, y, ID.Trial,Color.cyan, 16, 16, 0.01f, handler, null));
     }
 
     public void render(Graphics g) {

@@ -26,7 +26,6 @@ public class KeyInput extends KeyAdapter {
     }
 
 
-
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         for (int i = 0; i < handler.object.size(); i++) {
@@ -57,22 +56,21 @@ public class KeyInput extends KeyAdapter {
                     dir = 3;
                 }
                 if (key == KeyEvent.VK_SPACE) {
-                    if (game.ammo >= 1) {
-                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, ss));
-                        game.ammo--;
-                    }
+                    handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, ss));
+//                    handler.addBullet(new SantaSpell(game, 500, 500, ID.SantaSpell, handler, null, ss));
+
                 }
 
             }
 
 
             if (key == KeyEvent.VK_P) {
-                if (Game.gameState == STATE.Game) {
+                if (game.gameState == Game.STATE.Game) {
                     Game.paused = !Game.paused;
                 }
             }
 
-            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q ) {
+            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q) {
                 System.exit(1);
             }
 
