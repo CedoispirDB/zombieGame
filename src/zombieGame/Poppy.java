@@ -67,6 +67,16 @@ public class Poppy extends GameObject {
         return new Rectangle((int) x - 4, (int) y - 4, 40, 40);
     }
 
+    @Override
+    public Rectangle getBoundX() {
+        return null;
+    }
+
+    @Override
+    public Rectangle getBoundY() {
+        return null;
+    }
+
     public Rectangle getBoundsBig() {
         return new Rectangle((int) x - 16, (int) y - 16, 32, 32);
 

@@ -15,6 +15,8 @@ public class Game extends Canvas implements Runnable {
 
 
     public static boolean paused = false;
+    // Debugging purpose
+    public static boolean showBounds = false;
 //    public static Color backGroundColor = new Color(11, 191, 47);
 
     // 0 = normal
@@ -25,6 +27,7 @@ public class Game extends Canvas implements Runnable {
     private final Camera camera;
     private final Menu menu;
     private final Spawn spawn;
+
 
     private SpriteSheet ss;
     private SpriteSheet bss;
@@ -54,7 +57,7 @@ public class Game extends Canvas implements Runnable {
 
         hud = new HUD(this);
         handler = new Handler(hud, this, ss);
-        camera = new Camera(0, 0);
+        camera = new Camera(0, 0, handler);
 
         BufferedImageLoader loader = new BufferedImageLoader();
         // Load level
@@ -82,8 +85,8 @@ public class Game extends Canvas implements Runnable {
         new Window(WIDTH, HEIGHT, "Demon King", this);
 
         menu = new Menu(this, handler, hud, ss, sc, spawn);
-        this.addMouseListener(menu);
 
+        this.addMouseListener(menu);
 
         if (gameState == STATE.Game) {
             handler.addObject(new DemonKing(this, 32, 32, ID.Player, handler, hud, ss));
@@ -145,8 +148,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
-
         for (int i = 0; i < handler.object.size(); i++) {
             if (handler.object.get(i).getId() == ID.Player) {
                 camera.tick(handler.object.get(i));
@@ -186,8 +187,9 @@ public class Game extends Canvas implements Runnable {
         if (gameState == STATE.Game) {
             g2d.translate(-camera.getX(), -camera.getY());
 
-            for (int x = 0; x < 30 * 72; x += 32) {
-                for (int y = 0; y < 30 * 72; y += 32) {
+            for (int x = 0; x < 30 * 70; x += 32) {
+                for (int y = 0; y < 30 * 70; y += 32) {
+
                     g.drawImage(floor, x, y, null);
 
                 }
@@ -237,7 +239,7 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (blue == 255 && green == 0) {
-                    handler.addObject(new Santa(this, x * 32, y * 32, ID.Santa, handler, hud, sc, ss));
+//                    handler.addObject(new Santa(this, x * 32, y * 32, ID.Santa, handler, hud, sc, ss));
 //                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
 
                 }

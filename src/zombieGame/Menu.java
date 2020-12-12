@@ -15,6 +15,7 @@ public class Menu extends MouseAdapter {
     private final Spawn spawn;
     protected SpriteSheet ss;
     protected SpriteSheet sc;
+    private Tuples tuples;
 
     public Menu(Game game, Handler handler, HUD hud, SpriteSheet ss, SpriteSheet sc, Spawn spawn) {
         this.game = game;
@@ -24,20 +25,22 @@ public class Menu extends MouseAdapter {
         this.sc = sc;
         this.spawn = spawn;
 
+        tuples = new Tuples();
 
     }
 
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-//        System.out.println(mx);
-//        System.out.println(my);
+        System.out.println(mx);
+        System.out.println(my);
         if (game.gameState == Game.STATE.Menu) {
 
             // Play button
             if (mouseOver(mx, my, 611, 154, 200, 64)) {
                 game.gameState = Game.STATE.Game;
-                handler.addObject(new DemonKing(game, 32, 32, ID.Player, handler, hud, ss));
+                handler.addObject(new DemonKing(game, 712, 549, ID.Player, handler, hud, ss));
+                handler.addObject(new Obstacles(game, 460, 336, ID.Obstacles, handler, hud, null));
 //        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
 //        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
                 spawn.spawnEnemies();
@@ -46,6 +49,7 @@ public class Menu extends MouseAdapter {
                 Game.mana = 100;
                 HUD.santaHP = 500;
                 HUD.healthColor = 500;
+                tuples.clearTuples();
                 return;
             }
 
@@ -72,14 +76,12 @@ public class Menu extends MouseAdapter {
 
         //Back button for end
         if (game.gameState == Game.STATE.End) {
-            System.out.println("i am here");
             if (mouseOver(mx, my, (Game.WIDTH / 2) - 90, 350, 200, 64)) {
                 game.gameState = Game.STATE.Menu;
                 HUD.HEALTH = 100;
                 HUD.santaHP = 500;
                 Game.paused = false;
                 handler.clear();
-
 
 
             }

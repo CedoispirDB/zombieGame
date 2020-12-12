@@ -105,4 +105,14 @@ public class Spell extends GameObject {
     public Rectangle getBounds2() {
         return null;
     }
+
+    @Override
+    public Rectangle getBoundX() {
+        return null;
+    }
+
+    @Override
+    public Rectangle getBoundY() {
+        return null;
+    }
 }

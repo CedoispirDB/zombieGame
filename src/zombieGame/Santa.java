@@ -153,6 +153,16 @@ public class Santa extends GameObject {
         return null;
     }
 
+    @Override
+    public Rectangle getBoundX() {
+        return null;
+    }
+
+    @Override
+    public Rectangle getBoundY() {
+        return null;
+    }
+
     public Rectangle getBoundsBig() {
         return new Rectangle((int) x - 16, (int) y - 16, 64, 64);
 

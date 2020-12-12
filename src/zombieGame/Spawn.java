@@ -1,7 +1,5 @@
 package zombieGame;
 
-import java.util.Random;
-
 public class Spawn {
     private final Handler handler;
     private final HUD hud;
@@ -21,7 +19,7 @@ public class Spawn {
     }
 
     public void spawnEnemies() {
-        handler.object.add(new Enemy(game, 100, 100, ID.Enemy, handler, hud, ss));
+        handler.object.add(new Minion(game, 500, 500, ID.Minion, handler, hud, ss));
 
     }
 

@@ -47,6 +47,14 @@ public class EasyZombie extends GameObject {
         return new Rectangle((int) bx, (int) by, (int) bw, (int) bh);
     }
 
+    public Rectangle getBoundX() {
+        return null;
+    }
+
+    public Rectangle getBoundY() {
+        return null;
+    }
+
     public void tick() {
         x += velX;
         y += velY;

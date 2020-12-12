@@ -8,7 +8,7 @@ public enum ID {
     MagicBomb(),
     Trial(),
     Block(),
-    Enemy(),
+    Minion(),
     Crate(),
     Spell(),
     Poppy(),

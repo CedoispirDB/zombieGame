@@ -64,6 +64,10 @@ public abstract class GameObject {
 
     public abstract Rectangle getBounds2();
 
+    public abstract  Rectangle getBoundX();
+
+    public abstract  Rectangle getBoundY();
+
     public void setX(int x) {
         this.x = x;
     }
