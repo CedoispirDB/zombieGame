@@ -47,9 +47,14 @@ public class HUD {
         g.setColor(Color.gray);
         g.fillRect(15, 50, 200, 16);
         g.setColor(manaColor);
-        g.fillRect(15, 50,  manaSize, 16);
+        g.fillRect(15, 50, manaSize, 16);
         g.setColor(Color.black);
         g.drawRect(15, 50, 200, 16);
+
+        // Bombs
+        g.drawString("Bombs: " + Game.bombs, 15, 80);
+
+
 
 
         // Boss fight

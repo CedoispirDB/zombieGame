@@ -1,26 +1,35 @@
 package zombieGame;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class MagicBomb extends GameObject {
 
     private float x;
     private float y;
     private final int dir;
+    private Map map;
 
-    public MagicBomb(float x, float y, ID id, int dir, SpriteSheet ss) {
+    private BufferedImage bombTexture;
+
+    public MagicBomb(float x, float y, ID id, int dir, SpriteSheet ss, Map map) {
         super(x, y, id, ss);
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.map = map;
+
+        bombTexture = map.spriteSheet.grabImage2(64, 49, 16, 15);
+
+
     }
 
     public void tick() {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.BLUE.brighter());
-        g.fillRect((int) x, (int) y, 16, 16);
+        g.drawImage(bombTexture, (int) x, (int) y, null);
+
 
     }
 
@@ -32,12 +41,10 @@ public class MagicBomb extends GameObject {
         return null;
     }
 
-    @Override
     public Rectangle getBoundX() {
         return null;
     }
 
-    @Override
     public Rectangle getBoundY() {
         return null;
     }

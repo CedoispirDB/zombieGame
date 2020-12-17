@@ -38,7 +38,7 @@ public class Map {
         garden = loader.loadImage("/M.png");
 
         //load spriteSheet
-        BufferedImage spriteSheetLayout = loader.loadImage("/B.png");
+        BufferedImage spriteSheetLayout = loader.loadImage("/SPRITE.png");
         spriteSheet = new SpriteSheet(spriteSheetLayout);
 
         //Load Santa

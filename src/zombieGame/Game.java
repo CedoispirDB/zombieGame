@@ -30,7 +30,6 @@ public class Game extends Canvas implements Runnable {
     private SpriteSheet sc;
 
 
-
     public static int mana = 100;
     public static int bombs = 10;
     public static boolean started = false;
@@ -66,7 +65,7 @@ public class Game extends Canvas implements Runnable {
         MouseInput mouseInput = new MouseInput(this, handler, camera, ss, map);
 
 
-        this.addKeyListener(new KeyInput(handler, this));
+        this.addKeyListener(new KeyInput(handler, this, hud, map));
         this.addMouseListener(mouseInput);
 
 
@@ -75,7 +74,6 @@ public class Game extends Canvas implements Runnable {
         menu = new Menu(this, handler, hud, ss, sc, spawn, map);
 
         this.addMouseListener(menu);
-
 
 
     }
@@ -136,7 +134,9 @@ public class Game extends Canvas implements Runnable {
             }
         }
         if (gameState == STATE.Castle) {
-            handler.tick();
+            if (!paused) {
+                handler.tick();
+            }
         } else if (gameState == STATE.Garden) {
             if (!paused) {
                 hud.tick();

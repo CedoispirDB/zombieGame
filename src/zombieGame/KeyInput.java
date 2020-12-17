@@ -10,10 +10,14 @@ public class KeyInput extends KeyAdapter {
     private int dir;
     private final Game game;
     protected SpriteSheet ss;
+    private HUD hud;
+    private Map map;
 
-    public KeyInput(Handler handler, Game game) {
+    public KeyInput(Handler handler, Game game, HUD hud, Map map) {
         this.handler = handler;
         this.game = game;
+        this.hud = hud;
+        this.map = map;
 
         // 'w' key
         keyDown[0] = false;
@@ -57,11 +61,10 @@ public class KeyInput extends KeyAdapter {
                 }
                 if (key == KeyEvent.VK_SPACE) {
                     if (Game.bombs >= 1) {
-                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, ss));
+                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, null, map));
+                        Game.bombs--;
                     }
-                    Game.bombs--;
 //                    handler.addBullet(new SantaSpell(game, 500, 500, ID.SantaSpell, handler, null, ss));
-
                 }
                 if (key == KeyEvent.VK_Z) {
                     HUD.HEALTH = 0;
@@ -72,12 +75,33 @@ public class KeyInput extends KeyAdapter {
 
             }
 
-            if (key == KeyEvent.VK_P) {
-                if (game.gameState == Game.STATE.Garden) {
-                    Game.paused = !Game.paused;
-                }
-            }
 
+        }
+
+        if (game.gameState == Game.STATE.Menu) {
+            if (key == KeyEvent.VK_P) {
+                game.gameState = Game.STATE.Castle;
+                handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, ss, map));
+                handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, ss, map));
+//                spawn.spawnEnemies();
+                Game.i = 0;
+                Game.started = false;
+                Game.mana = 100;
+                HUD.santaHP = 500;
+                HUD.healthColor = 500;
+                return;
+            }
+            if (key == KeyEvent.VK_H) {
+                game.gameState = Game.STATE.Help;
+            }
+        } else if (game.gameState == Game.STATE.Help) {
+            if (key == KeyEvent.VK_B) {
+                game.gameState = Game.STATE.Menu;
+            }
+        } else {
+            if (key == KeyEvent.VK_P) {
+                Game.paused = !Game.paused;
+            }
         }
         if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q) {
             System.exit(1);
