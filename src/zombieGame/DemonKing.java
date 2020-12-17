@@ -50,19 +50,17 @@ public class DemonKing extends GameObject {
 
     public void tick() {
 
-//        System.out.println("x1 :" + x);
         x += velX;
         y += velY;
-
-//        System.out.println("x2: " + x);
 
 
         x = Game.clamp(x, 0, (64 * 32));
         y = Game.clamp(y, 0, (64 * 32));
 
-//        System.out.println("x3: " + x);
+//        System.out.println("x: " + x);
+//        System.out.println("y: " + y);
 
-//        System.out.println("velX: " + velX);
+
         collision();
 
         anim.runAnimation();
@@ -75,10 +73,10 @@ public class DemonKing extends GameObject {
         }
 
         if (game.gameState == Game.STATE.Castle) {
-            if (this.getX() <= 0) {
+            if (this.getX() <= 277) {
                 x += velX * -1;
             }
-            if (this.getX() >= map.castleWidth) {
+            if (this.getX() >= 1164) {
                 x += velX * -1;
             }
             if (this.getY() >= map.castleHeight) {
@@ -124,6 +122,7 @@ public class DemonKing extends GameObject {
             }
         }
 
+
         checkSurrounds();
 
 
@@ -163,10 +162,10 @@ public class DemonKing extends GameObject {
         //Shows the hit box
         if (Game.showBounds) {
             Graphics2D g2d = (Graphics2D) g;
-            g.setColor(Color.red);
-//            g2d.draw(getBounds());
-//            g.setColor(Color.yellow);
-//            g2d.draw(getBounds2());
+            g.setColor(Color.CYAN);
+            g2d.draw(getBounds());
+            g.setColor(Color.pink);
+            g2d.draw(getBounds2());
         }
         if (velX == 0 && velY == 0) {
             g.drawImage(playerSkin[0], (int) x, (int) y, null);

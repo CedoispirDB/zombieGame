@@ -88,9 +88,9 @@ public class Minion extends GameObject {
         // Do a scalar multiplication with our speed
         dX *= speed;
         dY *= speed;
-//
-//        x += dX;
-//        y += dY;
+
+        x += dX;
+        y += dY;
 
 
         for (int i = 0; i < handler.bullets.size(); i++) {

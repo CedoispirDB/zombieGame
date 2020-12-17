@@ -56,12 +56,18 @@ public class KeyInput extends KeyAdapter {
                     dir = 3;
                 }
                 if (key == KeyEvent.VK_SPACE) {
-                    handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, ss));
+                    if (Game.bombs >= 1) {
+                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, ss));
+                    }
+                    Game.bombs--;
 //                    handler.addBullet(new SantaSpell(game, 500, 500, ID.SantaSpell, handler, null, ss));
 
                 }
-                if (key == KeyEvent.VK_Z){
+                if (key == KeyEvent.VK_Z) {
                     HUD.HEALTH = 0;
+                }
+                if (key == KeyEvent.VK_L) {
+                    Poppy.sit = !Poppy.sit;
                 }
 
             }

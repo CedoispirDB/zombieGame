@@ -40,9 +40,8 @@ public class Menu extends MouseAdapter {
             // Play button
             if (mouseOver(mx, my, 611, 154, 200, 64)) {
                 game.gameState = Game.STATE.Castle;
-                handler.addObject(new DemonKing(game, 712, 549, ID.Player, handler, hud, ss, map));
-//                handler.addObject(new Obstacles(game, 460, 336, ID.Obstacles, handler, hud, null));
-//                handler.addObject(new Poppy(game, 742, 600, ID.Poppy, handler, hud, ss));
+                handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, ss, map));
+                handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, ss, map));
                 spawn.spawnEnemies();
                 Game.i = 0;
                 Game.started = false;

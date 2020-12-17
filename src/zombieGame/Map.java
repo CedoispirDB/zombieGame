@@ -1,38 +1,38 @@
 package zombieGame;
 
-import java.awt.Graphics;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Map {
 
+    private int i = 0;
     private final Handler handler;
     private final HUD hud;
     private final Game game;
+    private final Passages passages;
     private Game.STATE firstState;
 
-    private final BufferedImage castle;
     private final BufferedImage garden;
     private final BufferedImage floor;
-    private BufferedImage c = null;
-
+    private final BufferedImage castle;
 
     public final SpriteSheet spriteSheet;
     private final SpriteSheet santaSkin;
 
     public float castleWidth = 1367;
-    public float castleHeight = (30 * 64);
+    public float castleHeight = 731;
 
     public Map(Game game, Handler handler, HUD hud) {
         this.game = game;
         this.handler = handler;
         this.hud = hud;
 
+        passages = new Passages(game, this, handler, hud);
+
         BufferedImageLoader loader = new BufferedImageLoader();
 
         // Load castle
-        castle = loader.loadImage("/CA.png");
-        c = loader.loadImage("M.png");
+        castle = loader.loadImage("/D.png");
 
         // Load garden level
         garden = loader.loadImage("/M.png");
@@ -55,9 +55,7 @@ public class Map {
     public void chooseLevel() {
         if (firstState != game.gameState) {
             firstState = game.gameState;
-            if (game.gameState == Game.STATE.Garden) {
-                loadLevel(garden);
-            }
+            loadLevel(garden);
         }
     }
 
@@ -70,18 +68,9 @@ public class Map {
                 }
             }
         } else if (game.gameState == Game.STATE.Castle) {
-            for (int x = 0; x <  castleWidth; x += 32) {
-                for (int y = 0; y < castleHeight; y += 32) {
-                    g.drawImage(castle, x, y, null);
 
-                }
-            }
-
-            g.setColor(Color.YELLOW);
-            g.drawRect((Game.WIDTH / 2) - 100, (Game.HEIGHT / 2) - (int)199.99, 200,600);
-
-            g.setColor(Color.RED);
-            g.fillRect((Game.WIDTH / 2) - 100, (Game.HEIGHT / 2) - 200, 200,600);
+            passages.check();
+            g.drawImage(castle, 0, 0, null);
 
         }
 
@@ -98,15 +87,14 @@ public class Map {
                 int red = (pixel >> 16) & 0xff;
                 int green = (pixel >> 8) & 0xff;
                 int blue = (pixel) & 0xff;
-
-                if (red == 255) {
-                    handler.addObject(new Block(game, x * 32, y * 32, ID.Block, handler, hud, spriteSheet));
-                }
-
-                if (blue == 255 && green == 0) {
-                    handler.addObject(new Santa(game, x * 32, y * 32, ID.Santa, handler, hud, santaSkin, spriteSheet));
-//                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
-
+                if (game.gameState == Game.STATE.Garden) {
+                    if (red == 255) {
+                        handler.addObject(new Block(game, x * 32, y * 32, ID.Block, handler, hud, spriteSheet));
+                    }
+                } else if (game.gameState == Game.STATE.Castle) {
+                    if (blue == 255 && green == 0) {
+//                        handler.addObject(new DemonKing(game, x * 20, y * 20, ID.Player, handler, hud, null, this));
+                    }
                 }
 
                 if (green == 255 && blue == 0) {

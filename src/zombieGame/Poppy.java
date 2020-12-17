@@ -8,20 +8,30 @@ public class Poppy extends GameObject {
     private final Handler handler;
     protected SpriteSheet ss;
     private GameObject player;
+    private final Map map;
+    private boolean stop = false;
+    public static boolean sit = false;
+    private double speed = 4;
+
+    protected BufferedImage stoppedPoppy;
 
     Animation anim;
 
-    public Poppy(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
+    public Poppy(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss, Map map) {
         super(game, x, y, id, handler, hud, ss);
         this.handler = handler;
         this.ss = ss;
+        this.map = map;
+
         BufferedImage[] enemySkin = new BufferedImage[3];
 
-        enemySkin[0] = ss.grabImage(4, 1, 32, 32);
-        enemySkin[1] = ss.grabImage(5, 1, 32, 32);
-        enemySkin[2] = ss.grabImage(6, 1, 32, 32);
+        enemySkin[0] = map.spriteSheet.grabImage(4, 1, 32, 32);
+        enemySkin[1] = map.spriteSheet.grabImage(5, 1, 32, 32);
+        enemySkin[2] = map.spriteSheet.grabImage(6, 1, 32, 32);
 
         anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
+
+        stoppedPoppy = map.spriteSheet.grabImage(4, 1, 32, 32);
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
@@ -33,30 +43,54 @@ public class Poppy extends GameObject {
     }
 
     public void tick() {
-        x += velX;
-        y += velY;
+        if (!sit) {
+            double dX = player.getX() - x;
+            double dY = player.getY() - y;
 
-        float diffX = x - player.getX();
-        float diffY = y - player.getY();
-        float difference = (float) Math.sqrt((x - player.getX()) * (x - player.getX()) + (y - player.getY()) * (y - player.getY()));
+            // Calculate its length to normalize it
+            double divider = Math.sqrt(dX * dX + dY * dY);
+
+            // Normalize it
+            dX = dX / divider;
+            dY = dY / divider;
+
+            // Do a scalar multiplication with our speed
+            dX *= speed;
+            dY *= speed;
 
 
-        velX = (float) ((-1.0 / difference) * diffX);
-        velY = (float) ((-1.0 / difference) * diffY);
+            if (!stop) {
+                anim.runAnimation();
+            }
 
+            if (getBounds2().intersects(player.getBounds())) {
+                velX = 0;
+                velY = 0;
+                stop = true;
+            } else {
+                stop = false;
+            }
 
-        anim.runAnimation();
-
-        if (getBounds2().intersects(player.getBounds())) {
+            if (!stop) {
+                x += dX;
+                y += dY;
+            }
+        } else {
             velX = 0;
             velY = 0;
+            stop = true;
         }
+
 
     }
 
     public void render(Graphics g) {
+        if (stop) {
+            g.drawImage(stoppedPoppy, (int) x, (int) y, null);
 
-        anim.drawAnimation(g, x, y, 0);
+        } else {
+            anim.drawAnimation(g, x, y, 0);
+        }
     }
 
     public Rectangle getBounds() {
@@ -67,12 +101,10 @@ public class Poppy extends GameObject {
         return new Rectangle((int) x - 4, (int) y - 4, 40, 40);
     }
 
-    @Override
     public Rectangle getBoundX() {
         return null;
     }
 
-    @Override
     public Rectangle getBoundY() {
         return null;
     }

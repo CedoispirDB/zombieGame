@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 
 
     public static int mana = 100;
+    public static int bombs = 10;
     public static boolean started = false;
     public static int i = 0;
 
@@ -75,7 +76,6 @@ public class Game extends Canvas implements Runnable {
 
         this.addMouseListener(menu);
 
-        //Pass it to a map class
 
 
     }
@@ -192,41 +192,6 @@ public class Game extends Canvas implements Runnable {
 
         g.dispose();
         bs.show();
-
-    }
-
-    // Loading the level
-    private void loadLevel(BufferedImage image) {
-        int w = image.getWidth();
-        int h = image.getHeight();
-
-        for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
-                int pixel = image.getRGB(x, y);
-
-                int red = (pixel >> 16) & 0xff;
-                int green = (pixel >> 8) & 0xff;
-                int blue = (pixel) & 0xff;
-
-                if (red == 255) {
-                    handler.addObject(new Block(this, x * 32, y * 32, ID.Block, handler, hud, ss));
-                }
-
-                if (blue == 255 && green == 0) {
-                    handler.addObject(new Santa(this, x * 32, y * 32, ID.Santa, handler, hud, sc, ss));
-//                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
-
-                }
-
-                if (green == 255 && blue == 0) {
-//                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
-                }
-
-                if (green == 255 && blue == 255) {
-//                    handler.object.add(new Crate(this, x * 32, y * 32, ID.Crate, handler, hud, ss));
-                }
-            }
-        }
 
     }
 
