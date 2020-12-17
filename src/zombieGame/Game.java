@@ -17,24 +17,19 @@ public class Game extends Canvas implements Runnable {
     public static boolean paused = false;
     // Debugging purpose
     public static boolean showBounds = false;
-//    public static Color backGroundColor = new Color(11, 191, 47);
-
-    // 0 = normal
-    // 1 == hard
 
     private final Handler handler;
     private final HUD hud;
     private final Camera camera;
     private final Menu menu;
     private final Spawn spawn;
+    private final Map map;
 
 
     private SpriteSheet ss;
-    private SpriteSheet bss;
     private SpriteSheet sc;
 
-    private final BufferedImage floor;
-    BufferedImage level;
+
 
     public static int mana = 100;
     public static boolean started = false;
@@ -45,8 +40,9 @@ public class Game extends Canvas implements Runnable {
         Menu,
         Select,
         Help,
-        Game,
+        Garden,
         End,
+        Castle,
     }
 
     public STATE gameState = STATE.Menu;
@@ -58,24 +54,15 @@ public class Game extends Canvas implements Runnable {
         hud = new HUD(this);
         handler = new Handler(hud, this, ss);
         camera = new Camera(0, 0, handler);
-
         BufferedImageLoader loader = new BufferedImageLoader();
-        // Load level
-        level = loader.loadImage("/M.png");
-        // Load Sprite Sheet
-        BufferedImage spriteSheet = loader.loadImage("/B.png");
-        ss = new SpriteSheet(spriteSheet);
-        //Load Santa(Boss)
-        BufferedImage santa = loader.loadImage("/C.png");
-        sc = new SpriteSheet(santa);
+
+        //load map
+        map = new Map(this, handler, hud);
 
         spawn = new Spawn(handler, hud, this, ss);
-        // Load Bullet sprite sheet
-        //BufferedImage bulletSS = loader.loadImage("/S.png");
-        //bss = new SpriteSheet(bulletSS);
 
 
-        MouseInput mouseInput = new MouseInput(this, handler, camera, ss);
+        MouseInput mouseInput = new MouseInput(this, handler, camera, ss, map);
 
 
         this.addKeyListener(new KeyInput(handler, this));
@@ -84,17 +71,11 @@ public class Game extends Canvas implements Runnable {
 
         new Window(WIDTH, HEIGHT, "Demon King", this);
 
-        menu = new Menu(this, handler, hud, ss, sc, spawn);
+        menu = new Menu(this, handler, hud, ss, sc, spawn, map);
 
         this.addMouseListener(menu);
 
-        if (gameState == STATE.Game) {
-            handler.addObject(new DemonKing(this, 32, 32, ID.Player, handler, hud, ss));
-//        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
-//        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
-            handler.addObject(new Santa(this, 500, 500, ID.Santa, handler, hud, sc, ss));
-        }
-        floor = ss.grabImage(4, 2, 32, 32);
+        //Pass it to a map class
 
 
     }
@@ -148,12 +129,15 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
+//        System.out.println(gameState);
         for (int i = 0; i < handler.object.size(); i++) {
             if (handler.object.get(i).getId() == ID.Player) {
                 camera.tick(handler.object.get(i));
             }
         }
-        if (gameState == STATE.Game) {
+        if (gameState == STATE.Castle) {
+            handler.tick();
+        } else if (gameState == STATE.Garden) {
             if (!paused) {
                 hud.tick();
                 handler.tick();
@@ -162,11 +146,8 @@ public class Game extends Canvas implements Runnable {
                 }
 
             }
-            if (i == 0) {
-                loadLevel(level);
-                i++;
-            }
 
+            map.chooseLevel();
 
         } else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
             menu.tick();
@@ -184,16 +165,14 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
-        if (gameState == STATE.Game) {
+        if (gameState == STATE.Castle) {
+            map.chooseLevel();
+            map.render(g);
+            handler.render(g);
+        } else if (gameState == STATE.Garden) {
             g2d.translate(-camera.getX(), -camera.getY());
 
-            for (int x = 0; x < 30 * 70; x += 32) {
-                for (int y = 0; y < 30 * 70; y += 32) {
-
-                    g.drawImage(floor, x, y, null);
-
-                }
-            }
+            map.render(g);
 
             handler.render(g);
 
@@ -201,12 +180,7 @@ public class Game extends Canvas implements Runnable {
 
             hud.render(g);
         } else if (gameState == STATE.Menu) {
-            for (int x = 0; x < 30 * 72; x += 32) {
-                for (int y = 0; y < 30 * 72; y += 32) {
-                    g.drawImage(floor, x, y, null);
-
-                }
-            }
+            map.render(g);
             menu.render(g);
         } else if (gameState == STATE.End) {
             menu.render(g);
@@ -239,7 +213,7 @@ public class Game extends Canvas implements Runnable {
                 }
 
                 if (blue == 255 && green == 0) {
-//                    handler.addObject(new Santa(this, x * 32, y * 32, ID.Santa, handler, hud, sc, ss));
+                    handler.addObject(new Santa(this, x * 32, y * 32, ID.Santa, handler, hud, sc, ss));
 //                    handler.addObject(new Enemy(this, x * 32, y * 32, ID.Enemy, handler, hud, ss));
 
                 }

@@ -41,17 +41,17 @@ public class Handler {
 
     }
 
-    public void clearEnemies() {
-        for (int i = 0; i < object.size(); i++) {
-            GameObject tempObject = object.get(i);
-            if (tempObject.getId() == ID.Player) {
-                object.clear();
-                if (game.gameState != Game.STATE.End) {
-                    addObject(new DemonKing(game, (int) tempObject.getX(), (int) tempObject.getY(), ID.Player, this, hud, ss));
-                }
-            }
-        }
-    }
+//    public void clearEnemies() {
+//        for (int i = 0; i < object.size(); i++) {
+//            GameObject tempObject = object.get(i);
+//            if (tempObject.getId() == ID.Player) {
+//                object.clear();
+//                if (game.gameState != Game.STATE.End) {
+//                    addObject(new DemonKing(game, (int) tempObject.getX(), (int) tempObject.getY(), ID.Player, this, hud, ss));
+//                }
+//            }
+//        }
+//    }
 
     public void addObject(GameObject object) {
         this.object.add(object);

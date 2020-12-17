@@ -22,27 +22,24 @@ public class Camera {
     public void tick(GameObject object) {
         x = object.getX() - 700;
         y = object.getY() - 400;
-//        x += ((object.getX() - x));
-//        y += ((object.getY() - y));
 
 //        System.out.println("x: " + x);
 //        System.out.println("w: " + Game.WIDTH);
+//        System.out.println("y: " + y);
+//        System.out.println("h: " + Game.HEIGHT);
 
         if (x <= 0) {
             x = 0;
         }
-        //1277
-//        System.out.println("w: " + Game.WIDTH);
-//        System.out.println("x: " + object.getX());
-        if (object.getX() == 1352) {
-//            System.out.println("S");
+        if (x + Game.WIDTH >= 64 * 32) {
+            x = (64 * 32) - Game.WIDTH;
         }
 
         if (y <= 0) {
             y = 0;
         }
-        if (y >= Game.HEIGHT) {
-            y = 0;
+        if (y + Game.HEIGHT >= 40.5 * 32) {
+            y = (float)(40.5 * 32) - Game.HEIGHT;
         }
     }
 

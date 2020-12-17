@@ -60,21 +60,21 @@ public class KeyInput extends KeyAdapter {
 //                    handler.addBullet(new SantaSpell(game, 500, 500, ID.SantaSpell, handler, null, ss));
 
                 }
+                if (key == KeyEvent.VK_Z){
+                    HUD.HEALTH = 0;
+                }
 
             }
 
-
             if (key == KeyEvent.VK_P) {
-                if (game.gameState == Game.STATE.Game) {
+                if (game.gameState == Game.STATE.Garden) {
                     Game.paused = !Game.paused;
                 }
             }
 
-            if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q) {
-                System.exit(1);
-            }
-
-
+        }
+        if (key == KeyEvent.VK_ESCAPE || key == KeyEvent.VK_Q) {
+            System.exit(1);
         }
     }
 

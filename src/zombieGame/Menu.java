@@ -3,7 +3,6 @@ package zombieGame;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Menu extends MouseAdapter {
@@ -16,14 +15,16 @@ public class Menu extends MouseAdapter {
     protected SpriteSheet ss;
     protected SpriteSheet sc;
     private Tuples tuples;
+    private Map map;
 
-    public Menu(Game game, Handler handler, HUD hud, SpriteSheet ss, SpriteSheet sc, Spawn spawn) {
+    public Menu(Game game, Handler handler, HUD hud, SpriteSheet ss, SpriteSheet sc, Spawn spawn, Map map) {
         this.game = game;
         this.handler = handler;
         this.hud = hud;
         this.ss = ss;
         this.sc = sc;
         this.spawn = spawn;
+        this.map = map;
 
         tuples = new Tuples();
 
@@ -32,17 +33,16 @@ public class Menu extends MouseAdapter {
     public void mousePressed(MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();
-        System.out.println(mx);
-        System.out.println(my);
+//        System.out.println(mx);
+//        System.out.println(my);
         if (game.gameState == Game.STATE.Menu) {
 
             // Play button
             if (mouseOver(mx, my, 611, 154, 200, 64)) {
-                game.gameState = Game.STATE.Game;
-                handler.addObject(new DemonKing(game, 712, 549, ID.Player, handler, hud, ss));
-                handler.addObject(new Obstacles(game, 460, 336, ID.Obstacles, handler, hud, null));
-//        handler.addObject(new Enemy(this, 48, 48, ID.Enemy, handler, hud, ss));
-//        handler.addObject(new Poppy(this, 48, 48, ID.Poppy, handler, hud, ss));
+                game.gameState = Game.STATE.Castle;
+                handler.addObject(new DemonKing(game, 712, 549, ID.Player, handler, hud, ss, map));
+//                handler.addObject(new Obstacles(game, 460, 336, ID.Obstacles, handler, hud, null));
+//                handler.addObject(new Poppy(game, 742, 600, ID.Poppy, handler, hud, ss));
                 spawn.spawnEnemies();
                 Game.i = 0;
                 Game.started = false;

@@ -8,23 +8,25 @@ import java.awt.image.BufferedImage;
 public class Spell extends GameObject {
 
     private final Handler handler;
+    private Map map;
     private GameObject player;
     private float x;
     private float y;
 
     protected BufferedImage bulletSS;
 
-    public Spell(float x, float y, ID id, Handler handler, int mx, int my, SpriteSheet ss) {
+    public Spell(float x, float y, ID id, Handler handler, int mx, int my, SpriteSheet ss, Map map) {
         super(x, y, id, ss);
         this.x = x;
         this.y = y;
 
         this.handler = handler;
+        this.map = map;
 
         velX = (mx - x) / 10;
         velY = (my - y) / 10;
 
-        bulletSS = ss.grabImage2(0, 50, 16, 14);
+        bulletSS = map.spriteSheet.grabImage2(0, 50, 16, 14);
 
 
         for (int i = 0; i < handler.object.size(); i++) {

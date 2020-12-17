@@ -10,12 +10,14 @@ public class MouseInput extends MouseAdapter {
     protected SpriteSheet bss;
     private final Camera camera;
     private final Game game;
+    private Map map;
 
-    public MouseInput(Game game, Handler handler, Camera camera, SpriteSheet bss) {
+    public MouseInput(Game game, Handler handler, Camera camera, SpriteSheet bss, Map map) {
         this.handler = handler;
         this.camera = camera;
         this.game = game;
         this.bss = bss;
+        this.map = map;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -28,7 +30,7 @@ public class MouseInput extends MouseAdapter {
                 player = handler.object.get(i);
 
                 if (Game.mana >= 1) {
-                    handler.addBullet(new Spell(player.getX() + 16, player.getY() + 24, ID.Spell, handler, mx, my, bss));
+                    handler.addBullet(new Spell(player.getX() + 16, player.getY() + 24, ID.Spell, handler, mx, my, bss, map));
 
                     Game.mana--;
                     HUD.manaSize -= 1.3;

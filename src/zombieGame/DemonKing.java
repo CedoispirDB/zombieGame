@@ -20,23 +20,28 @@ public class DemonKing extends GameObject {
     private float preX = this.getX();
     private float preY = this.getY();
 
+    private int demonWidth;
+    private int demonHeight;
+
+    private Map map;
 
 
     Animation anim;
 
 
-    public DemonKing(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
+    public DemonKing(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss, Map map) {
         super(x, y, id, ss);
 
         this.handler = handler;
         this.game = game;
+        this.map = map;
 
         tuples = new Tuples();
 
 
-        playerSkin[0] = ss.grabImage(1, 1, 32, 48);
-        playerSkin[1] = ss.grabImage(2, 1, 32, 48);
-        playerSkin[2] = ss.grabImage(3, 1, 32, 48);
+        playerSkin[0] = map.spriteSheet.grabImage(1, 1, 32, 48);
+        playerSkin[1] = map.spriteSheet.grabImage(2, 1, 32, 48);
+        playerSkin[2] = map.spriteSheet.grabImage(3, 1, 32, 48);
 
         anim = new Animation(3, playerSkin[0], playerSkin[1], playerSkin[2]);
 
@@ -45,39 +50,46 @@ public class DemonKing extends GameObject {
 
     public void tick() {
 
-
-//        if (tuples.compareTuple(x, y)) {
-//            tuples.addTuple(x, y);
-//        }
-
-        // x max = 1165
-        // y max = 744
+//        System.out.println("x1 :" + x);
         x += velX;
         y += velY;
 
+//        System.out.println("x2: " + x);
 
-        x = Game.clamp(x, 0, Game.WIDTH - 35);
-        y = Game.clamp(y, 0, Game.HEIGHT - 56);
 
+        x = Game.clamp(x, 0, (64 * 32));
+        y = Game.clamp(y, 0, (64 * 32));
+
+//        System.out.println("x3: " + x);
+
+//        System.out.println("velX: " + velX);
         collision();
 
         anim.runAnimation();
 
-        for (
-                int i = 0; i < handler.object.size(); i++) {
+        for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
             if (tempObject.getId() == ID.Minion) {
                 enemy = tempObject;
             }
         }
 
-        if (x >= Game.WIDTH - 100) {
-            Game.WIDTH += 10;
+        if (game.gameState == Game.STATE.Castle) {
+            if (this.getX() <= 0) {
+                x += velX * -1;
+            }
+            if (this.getX() >= map.castleWidth) {
+                x += velX * -1;
+            }
+            if (this.getY() >= map.castleHeight) {
+                y += velY * -1;
+            }
+            if (this.getY() <= 0) {
+                y += velY * -1;
+            }
+
         }
 
-        if (y >= Game.HEIGHT - 100) {
-            Game.HEIGHT += 10;
-        }
 
     }
 
@@ -148,15 +160,14 @@ public class DemonKing extends GameObject {
 
     public void render(Graphics g) {
 
-//        Shows the hit box
+        //Shows the hit box
         if (Game.showBounds) {
             Graphics2D g2d = (Graphics2D) g;
             g.setColor(Color.red);
 //            g2d.draw(getBounds());
-//        g.setColor(Color.yellow);
-//        g2d.draw(getBounds2());
+//            g.setColor(Color.yellow);
+//            g2d.draw(getBounds2());
         }
-//        g.drawImage(PS, (int) x, (int) y, null);
         if (velX == 0 && velY == 0) {
             g.drawImage(playerSkin[0], (int) x, (int) y, null);
         } else {

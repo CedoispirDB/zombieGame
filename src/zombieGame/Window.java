@@ -6,6 +6,7 @@ import java.awt.*;
 public class Window extends Canvas {
 
 
+
     public void setSize(int width, int height) {
 
     }
