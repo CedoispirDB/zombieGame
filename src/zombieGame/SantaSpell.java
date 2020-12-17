@@ -10,8 +10,8 @@ public class SantaSpell extends GameObject {
     private GameObject player;
     private BufferedImage sss;
 
-    public SantaSpell(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, ss);
+    public SantaSpell(Game game, float x, float y, ID id, Handler handler, HUD hud) {
+        super(game, x, y, id, handler, hud);
         this.handler = handler;
 
         for (int i = 0; i < handler.object.size(); i++) {

@@ -9,12 +9,11 @@ public class Handler {
     LinkedList<GameObject> bullets = new LinkedList<>();
     private final HUD hud;
     private Game game;
-    protected SpriteSheet ss;
 
-    public Handler(HUD hud, Game game, SpriteSheet ss) {
+    public Handler(HUD hud, Game game) {
         this.hud = hud;
         this.game = game;
-        this.ss = ss;
+
     }
 
 

@@ -3,14 +3,13 @@ package zombieGame;
 public class Spawn {
     private final Handler handler;
     private final HUD hud;
-    private SpriteSheet ss;
     private Game game;
 
-    public Spawn(Handler handler, HUD hud, Game game, SpriteSheet ss) {
+    public Spawn(Handler handler, HUD hud, Game game) {
         this.handler = handler;
         this.hud = hud;
         this.game = game;
-        this.ss = ss;
+
     }
 
 

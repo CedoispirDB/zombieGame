@@ -26,10 +26,6 @@ public class Game extends Canvas implements Runnable {
     private final Map map;
 
 
-    private SpriteSheet ss;
-    private SpriteSheet sc;
-
-
     public static int mana = 100;
     public static int bombs = 10;
     public static boolean started = false;
@@ -52,17 +48,17 @@ public class Game extends Canvas implements Runnable {
     public Game() {
 
         hud = new HUD(this);
-        handler = new Handler(hud, this, ss);
+        handler = new Handler(hud, this);
         camera = new Camera(0, 0, handler);
         BufferedImageLoader loader = new BufferedImageLoader();
 
         //load map
         map = new Map(this, handler, hud);
 
-        spawn = new Spawn(handler, hud, this, ss);
+        spawn = new Spawn(handler, hud, this);
 
 
-        MouseInput mouseInput = new MouseInput(this, handler, camera, ss, map);
+        MouseInput mouseInput = new MouseInput(this, handler, camera,  map);
 
 
         this.addKeyListener(new KeyInput(handler, this, hud, map));
@@ -71,7 +67,7 @@ public class Game extends Canvas implements Runnable {
 
         new Window(WIDTH, HEIGHT, "Demon King", this);
 
-        menu = new Menu(this, handler, hud, ss, sc, spawn, map);
+        menu = new Menu(this, handler, hud, spawn, map);
 
         this.addMouseListener(menu);
 

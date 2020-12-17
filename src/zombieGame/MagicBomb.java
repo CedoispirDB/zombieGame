@@ -12,8 +12,8 @@ public class MagicBomb extends GameObject {
 
     private BufferedImage bombTexture;
 
-    public MagicBomb(float x, float y, ID id, int dir, SpriteSheet ss, Map map) {
-        super(x, y, id, ss);
+    public MagicBomb(float x, float y, ID id, int dir, Map map) {
+        super(x, y, id);
         this.x = x;
         this.y = y;
         this.dir = dir;

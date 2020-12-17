@@ -29,8 +29,8 @@ public class DemonKing extends GameObject {
     Animation anim;
 
 
-    public DemonKing(Game game, int x, int y, ID id, Handler handler, HUD hud, SpriteSheet ss, Map map) {
-        super(x, y, id, ss);
+    public DemonKing(Game game, int x, int y, ID id, Handler handler, HUD hud, Map map) {
+        super(x, y, id);
 
         this.handler = handler;
         this.game = game;

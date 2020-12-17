@@ -13,8 +13,8 @@ public class Trail extends GameObject {
 
     //life = 0.001 - 0.1
 
-    public Trail(float x, float y, ID id, Color color, int width, int height, float life, Handler handler, SpriteSheet ss) {
-        super(x, y, id, ss);
+    public Trail(float x, float y, ID id, Color color, int width, int height, float life, Handler handler) {
+        super(x, y, id);
         this.handler = handler;
         this.color = color;
         this.width = width;
@@ -53,17 +53,14 @@ public class Trail extends GameObject {
         return null;
     }
 
-    @Override
     public Rectangle getBounds2() {
         return null;
     }
 
-    @Override
     public Rectangle getBoundX() {
         return null;
     }
 
-    @Override
     public Rectangle getBoundY() {
         return null;
     }

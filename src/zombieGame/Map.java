@@ -5,11 +5,11 @@ import java.awt.image.BufferedImage;
 
 public class Map {
 
-    private int i = 0;
     private final Handler handler;
     private final HUD hud;
     private final Game game;
     private final Passages passages;
+
     private Game.STATE firstState;
 
     private final BufferedImage garden;
@@ -17,7 +17,8 @@ public class Map {
     private final BufferedImage castle;
 
     public final SpriteSheet spriteSheet;
-    private final SpriteSheet santaSkin;
+    public final SpriteSheet santaSkin;
+    public final SpriteSheet poppySkin;
 
     public float castleWidth = 1367;
     public float castleHeight = 731;
@@ -32,30 +33,38 @@ public class Map {
         BufferedImageLoader loader = new BufferedImageLoader();
 
         // Load castle
-        castle = loader.loadImage("/D.png");
+        castle = loader.loadImage("/CASTLE.png");
 
         // Load garden level
-        garden = loader.loadImage("/M.png");
+        garden = loader.loadImage("/GARDEN.png");
 
         //load spriteSheet
         BufferedImage spriteSheetLayout = loader.loadImage("/SPRITE.png");
         spriteSheet = new SpriteSheet(spriteSheetLayout);
 
         //Load Santa
-        BufferedImage santa = loader.loadImage("/C.png");
+        BufferedImage santa = loader.loadImage("/SANTA.png");
         santaSkin = new SpriteSheet(santa);
+
+        //Load demon cat
+        BufferedImage cat = loader.loadImage("/CAT.png");
+        poppySkin = new SpriteSheet(cat);
 
         firstState = game.gameState;
 
         floor = spriteSheet.grabImage(4, 2, 32, 32);
-
 
     }
 
     public void chooseLevel() {
         if (firstState != game.gameState) {
             firstState = game.gameState;
-            loadLevel(garden);
+            if (game.gameState == Game.STATE.Garden) {
+                loadLevel(garden);
+
+
+//                handler.addObject(new Trees(game, , y, ID.Tree, handler, hud));
+            }
         }
     }
 
@@ -89,7 +98,7 @@ public class Map {
                 int blue = (pixel) & 0xff;
                 if (game.gameState == Game.STATE.Garden) {
                     if (red == 255) {
-                        handler.addObject(new Block(game, x * 32, y * 32, ID.Block, handler, hud, spriteSheet));
+                        handler.addObject(new Block(game, x * 32, y * 32, ID.Block, handler, hud, this));
                     }
                 } else if (game.gameState == Game.STATE.Castle) {
                     if (blue == 255 && green == 0) {

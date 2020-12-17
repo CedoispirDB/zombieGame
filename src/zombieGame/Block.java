@@ -6,11 +6,14 @@ import java.awt.image.BufferedImage;
 public class Block extends GameObject {
 
     private final BufferedImage blockTexture;
+    private final Map map;
 
-    public Block(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, ss);
+    public Block(Game game, float x, float y, ID id, Handler handler, HUD hud, Map map) {
+        super(game, x, y, id, handler, hud);
 
-        blockTexture = ss.grabImage(5, 2, 32, 32);
+        this.map = map;
+
+        blockTexture = map.spriteSheet.grabImage(5, 2, 32, 32);
     }
 
     public void tick() {

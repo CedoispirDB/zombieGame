@@ -23,8 +23,8 @@ public class Minion extends GameObject {
 
     private Animation anim;
 
-    public Minion(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, ss);
+    public Minion(Game game, float x, float y, ID id, Handler handler, HUD hud) {
+        super(game, x, y, id, handler, hud);
         this.handler = handler;
         this.ss = ss;
 

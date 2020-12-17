@@ -14,8 +14,8 @@ public class Obstacles extends GameObject {
     private Game game;
 
 
-    public Obstacles(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, ss);
+    public Obstacles(Game game, float x, float y, ID id, Handler handler, HUD hud) {
+        super(game, x, y, id, handler, hud);
 
         this.handler = handler;
         this.game = game;

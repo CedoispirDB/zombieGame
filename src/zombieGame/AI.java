@@ -12,8 +12,8 @@ public class AI extends GameObject {
 
     private int i;
 
-    public AI(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, ss);
+    public AI(Game game, float x, float y, ID id, Handler handler, HUD hud) {
+        super(game, x, y, id, handler, hud);
         this.x = x;
         this.y = y;
 

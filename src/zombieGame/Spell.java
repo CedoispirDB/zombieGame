@@ -15,8 +15,8 @@ public class Spell extends GameObject {
 
     protected BufferedImage bulletSS;
 
-    public Spell(float x, float y, ID id, Handler handler, int mx, int my, SpriteSheet ss, Map map) {
-        super(x, y, id, ss);
+    public Spell(float x, float y, ID id, Handler handler, int mx, int my, Map map) {
+        super(x, y, id);
         this.x = x;
         this.y = y;
 

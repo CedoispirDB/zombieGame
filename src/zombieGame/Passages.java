@@ -25,8 +25,8 @@ public class Passages {
                     if (tempObject.getBounds().intersects(this.getBounds())) {
                         game.gameState = Game.STATE.Garden;
                         handler.clear();
-                        handler.addObject(new DemonKing(game, 972, 50, ID.Player, handler, hud, null, map));
-                        handler.addObject(new Poppy(game, 1004, 50, ID.Poppy, handler, hud, null, map));
+                        handler.addObject(new DemonKing(game, 972, 50, ID.Player, handler, hud, map));
+                        handler.addObject(new Poppy(game, 1004, 50, ID.Poppy, handler, hud, map));
                     }
                 }
             }

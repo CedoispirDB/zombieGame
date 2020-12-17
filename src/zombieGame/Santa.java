@@ -6,26 +6,24 @@ import java.awt.image.BufferedImage;
 public class Santa extends GameObject {
 
     private final Handler handler;
-    protected SpriteSheet sc;
-    protected SpriteSheet ss;
     private GameObject player;
     private final Game game;
     private final BufferedImage[] enemySkin = new BufferedImage[3];
     private final Animation anim;
     private long end = 0;
     private long start = System.currentTimeMillis() / 1000;
+    private final Map map;
 
-    public Santa(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet sc, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, sc);
+    public Santa(Game game, float x, float y, ID id, Handler handler, HUD hud, Map map) {
+        super(game, x, y, id, handler, hud);
         this.handler = handler;
         this.game = game;
-        this.sc = sc;
-        this.ss = ss;
+        this.map = map;
 
 
-        enemySkin[0] = sc.grabImage2(0, 0, 57, 158);
-        enemySkin[1] = sc.grabImage2(62, 0, 57, 158);
-        enemySkin[2] = sc.grabImage2(120, 0, 57, 158);
+        enemySkin[0] = map.santaSkin.grabImage2(0, 0, 57, 158);
+        enemySkin[1] = map.santaSkin.grabImage2(62, 0, 57, 158);
+        enemySkin[2] = map.santaSkin.grabImage2(120, 0, 57, 158);
 
         anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
 
@@ -119,7 +117,7 @@ public class Santa extends GameObject {
 //        System.out.println(end + " - " + start + " = " + (end - start));
         if (Game.started) {
             if (end - start == 5) {
-                handler.addBullet(new SantaSpell(game, this.getX(), this.getY(), ID.SantaSpell, handler, null, ss));
+                handler.addBullet(new SantaSpell(game, this.getX(), this.getY(), ID.SantaSpell, handler, null));
                 start = System.currentTimeMillis() / 1000;
             }
             end = System.currentTimeMillis() / 1000;

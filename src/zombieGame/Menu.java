@@ -12,17 +12,13 @@ public class Menu extends MouseAdapter {
     private final Random r = new Random();
     private final HUD hud;
     private final Spawn spawn;
-    protected SpriteSheet ss;
-    protected SpriteSheet sc;
     private Tuples tuples;
     private Map map;
 
-    public Menu(Game game, Handler handler, HUD hud, SpriteSheet ss, SpriteSheet sc, Spawn spawn, Map map) {
+    public Menu(Game game, Handler handler, HUD hud, Spawn spawn, Map map) {
         this.game = game;
         this.handler = handler;
         this.hud = hud;
-        this.ss = ss;
-        this.sc = sc;
         this.spawn = spawn;
         this.map = map;
 
@@ -40,8 +36,8 @@ public class Menu extends MouseAdapter {
             // Play button
             if (mouseOver(mx, my, 611, 154, 200, 64)) {
                 game.gameState = Game.STATE.Castle;
-                handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, ss, map));
-                handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, ss, map));
+                handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, map));
+                handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, map));
                 spawn.spawnEnemies();
                 Game.i = 0;
                 Game.started = false;

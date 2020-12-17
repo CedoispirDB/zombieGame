@@ -12,13 +12,17 @@ public class Tuples {
     }
 
     public void print() {
-        xValues.forEach(System.out :: println);
-        yValues.forEach(System.out :: println);
+        xValues.forEach(System.out::println);
+        yValues.forEach(System.out::println);
     }
 
     public void addTuple(float x, float y) {
         xValues.add(x);
         yValues.add(y);
+    }
+
+    public boolean checkPos(float x, float y) {
+        return xValues.contains(x) || yValues.contains(y);
     }
 
     public boolean compareTuple(float x, float y) {
@@ -37,8 +41,8 @@ public class Tuples {
     }
 
     public void clearTuples() {
-//        xValues.clear();
-//        yValues.clear();
+        xValues.clear();
+        yValues.clear();
     }
 
     public void removeX(int i) {

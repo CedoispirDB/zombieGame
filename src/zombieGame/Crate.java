@@ -9,11 +9,14 @@ import java.awt.image.BufferedImage;
 public class Crate extends GameObject {
 
     private final BufferedImage crateTexture;
+    private final Map map;
 
-    public Crate(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss) {
-        super(game, x, y, id, handler, hud, ss);
+    public Crate(Game game, float x, float y, ID id, Handler handler, HUD hud, Map map) {
+        super(game, x, y, id, handler, hud);
 
-        crateTexture = ss.grabImage(6, 2, 32, 32);
+        this.map = map;
+
+        crateTexture = map.spriteSheet.grabImage(6, 2, 32, 32);
     }
 
     public void tick() {

@@ -1,37 +1,47 @@
 package zombieGame;
 
-import java.awt.*;
+import java.awt.Rectangle;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Poppy extends GameObject {
 
     private final Handler handler;
-    protected SpriteSheet ss;
     private GameObject player;
     private final Map map;
     private boolean stop = false;
     public static boolean sit = false;
-    private double speed = 4;
+    private final double speed = 4;
+    private double dX;
+    private double dY;
 
-    protected BufferedImage stoppedPoppy;
+    private final BufferedImage stoppedPoppyLeft;
+    private final BufferedImage stoppedPoppyRight;
 
-    Animation anim;
+    private final Animation animLeft;
+    private final Animation animRight;
 
-    public Poppy(Game game, float x, float y, ID id, Handler handler, HUD hud, SpriteSheet ss, Map map) {
-        super(game, x, y, id, handler, hud, ss);
+    public Poppy(Game game, float x, float y, ID id, Handler handler, HUD hud, Map map) {
+        super(game, x, y, id, handler, hud);
         this.handler = handler;
-        this.ss = ss;
         this.map = map;
 
-        BufferedImage[] enemySkin = new BufferedImage[3];
+        BufferedImage[] poppySkin = new BufferedImage[6];
 
-        enemySkin[0] = map.spriteSheet.grabImage(4, 1, 32, 32);
-        enemySkin[1] = map.spriteSheet.grabImage(5, 1, 32, 32);
-        enemySkin[2] = map.spriteSheet.grabImage(6, 1, 32, 32);
+        poppySkin[0] = map.poppySkin.grabImage2(36, 0, 37, 39);
+        poppySkin[1] = map.poppySkin.grabImage2(73, 0, 37, 39);
+        poppySkin[2] = map.poppySkin.grabImage2(110, 0, 37, 39);
 
-        anim = new Animation(3, enemySkin[0], enemySkin[1], enemySkin[2]);
+        poppySkin[3] = map.poppySkin.grabImage2(36, 39, 37, 39);
+        poppySkin[4] = map.poppySkin.grabImage2(73, 39, 37, 39);
+        poppySkin[5] = map.poppySkin.grabImage2(110, 39, 37, 39);
 
-        stoppedPoppy = map.spriteSheet.grabImage(4, 1, 32, 32);
+        animLeft = new Animation(3, poppySkin[0], poppySkin[1], poppySkin[2]);
+        animRight = new Animation(3, poppySkin[3], poppySkin[4], poppySkin[5]);
+
+
+        stoppedPoppyLeft = map.poppySkin.grabImage2(0, 0, 36, 39);
+        stoppedPoppyRight = map.poppySkin.grabImage2(0, 39, 36, 39);
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
@@ -44,8 +54,8 @@ public class Poppy extends GameObject {
 
     public void tick() {
         if (!sit) {
-            double dX = player.getX() - x;
-            double dY = player.getY() - y;
+            dX = player.getX() - x;
+            dY = player.getY() - y;
 
             // Calculate its length to normalize it
             double divider = Math.sqrt(dX * dX + dY * dY);
@@ -58,9 +68,16 @@ public class Poppy extends GameObject {
             dX *= speed;
             dY *= speed;
 
+            //Going up dy -, going down dy +
+            //Going right dx +, going left dx -
+
 
             if (!stop) {
-                anim.runAnimation();
+                if (dX > 0) {
+                    animRight.runAnimation();
+                } else {
+                    animLeft.runAnimation();
+                }
             }
 
             if (getBounds2().intersects(player.getBounds())) {
@@ -86,10 +103,18 @@ public class Poppy extends GameObject {
 
     public void render(Graphics g) {
         if (stop) {
-            g.drawImage(stoppedPoppy, (int) x, (int) y, null);
+            if (dX > 0) {
+                g.drawImage(stoppedPoppyRight, (int) x, (int) y, null);
+            } else {
+                g.drawImage(stoppedPoppyLeft, (int) x, (int) y, null);
+            }
 
         } else {
-            anim.drawAnimation(g, x, y, 0);
+            if (dX > 0) {
+                animRight.drawAnimation(g, x, y, 0);
+            } else {
+                animLeft.drawAnimation(g, x, y, 0);
+            }
         }
     }
 

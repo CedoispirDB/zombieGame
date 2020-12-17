@@ -61,7 +61,7 @@ public class KeyInput extends KeyAdapter {
                 }
                 if (key == KeyEvent.VK_SPACE) {
                     if (Game.bombs >= 1) {
-                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, null, map));
+                        handler.addBullet(new MagicBomb(tempObject.getX() + 8, tempObject.getY() + 8, ID.MagicBomb, dir, map));
                         Game.bombs--;
                     }
 //                    handler.addBullet(new SantaSpell(game, 500, 500, ID.SantaSpell, handler, null, ss));
@@ -81,8 +81,8 @@ public class KeyInput extends KeyAdapter {
         if (game.gameState == Game.STATE.Menu) {
             if (key == KeyEvent.VK_P) {
                 game.gameState = Game.STATE.Castle;
-                handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, ss, map));
-                handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, ss, map));
+                handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, map));
+                handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, map));
 //                spawn.spawnEnemies();
                 Game.i = 0;
                 Game.started = false;
