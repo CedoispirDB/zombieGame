@@ -16,6 +16,7 @@ public enum ID {
     Santa(),
     SantaSpell(),
     Tree(),
+    Spider(),
 
 
 }

@@ -52,10 +52,11 @@ public class Game extends Canvas implements Runnable {
         camera = new Camera(0, 0, handler);
         BufferedImageLoader loader = new BufferedImageLoader();
 
-        //load map
-        map = new Map(this, handler, hud);
-
         spawn = new Spawn(handler, hud, this);
+
+        //load map
+        map = new Map(this, handler, hud, spawn);
+
 
 
         MouseInput mouseInput = new MouseInput(this, handler, camera,  map);

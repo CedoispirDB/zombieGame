@@ -115,7 +115,7 @@ public class DemonKing extends GameObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-            if (tempObject.getId() == ID.Minion || tempObject.getId() == ID.Santa) {
+            if (tempObject.getId() == ID.Minion || tempObject.getId() == ID.Santa || tempObject.getId() == ID.Spider) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     HUD.HEALTH--;
                 }

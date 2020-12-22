@@ -38,7 +38,6 @@ public class Menu extends MouseAdapter {
                 game.gameState = Game.STATE.Castle;
                 handler.addObject(new DemonKing(game, 722, 174, ID.Player, handler, hud, map));
                 handler.addObject(new Poppy(game, 754, 190, ID.Poppy, handler, hud, map));
-                spawn.spawnEnemies();
                 Game.i = 0;
                 Game.started = false;
                 Game.mana = 100;

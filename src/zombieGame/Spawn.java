@@ -19,9 +19,8 @@ public class Spawn {
 
     public void spawnEnemies() {
 //        handler.object.add(new Minion(game, 500, 500, ID.Minion, handler, hud, ss));
-
+        handler.object.add(new Spider(game, 500, 500, ID.Spider, handler, hud));
     }
-
 
 
 }

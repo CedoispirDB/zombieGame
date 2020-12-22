@@ -9,6 +9,7 @@ public class Map {
     private final HUD hud;
     private final Game game;
     private final Passages passages;
+    private final Spawn spawn;
 
     private Game.STATE firstState;
 
@@ -23,11 +24,12 @@ public class Map {
     public float castleWidth = 1367;
     public float castleHeight = 731;
 
-    public Map(Game game, Handler handler, HUD hud) {
+    public Map(Game game, Handler handler, HUD hud, Spawn spawn) {
         this.game = game;
         this.handler = handler;
         this.hud = hud;
-
+        this.spawn = spawn;
+        
         passages = new Passages(game, this, handler, hud);
 
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -61,7 +63,7 @@ public class Map {
             firstState = game.gameState;
             if (game.gameState == Game.STATE.Garden) {
                 loadLevel(garden);
-
+                spawn.spawnEnemies();
 
 //                handler.addObject(new Trees(game, , y, ID.Tree, handler, hud));
             }

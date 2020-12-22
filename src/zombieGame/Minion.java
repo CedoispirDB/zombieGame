@@ -9,7 +9,7 @@ import java.awt.Color;
 public class Minion extends GameObject {
 
     private final Handler handler;
-    int hp = 100;
+    private int minionHP = 100;
     protected SpriteSheet ss;
     private GameObject player;
     private GameObject obstacle;
@@ -97,19 +97,19 @@ public class Minion extends GameObject {
             GameObject tempObject = handler.bullets.get(i);
             if (tempObject.getId() == ID.MagicBomb) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    hp -= 50;
+                    minionHP -= 50;
                     handler.removeBullet(tempObject);
                 }
             }
             if (tempObject.getId() == ID.Spell) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    hp -= 25;
+                    minionHP -= 25;
                     handler.removeBullet(tempObject);
                 }
             }
         }
 
-        if (hp <= 0) {
+        if (minionHP <= 0) {
             handler.removeObject(this);
         }
         if (i < 3) {
