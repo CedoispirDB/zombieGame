@@ -9,6 +9,7 @@ public abstract class ItemObject {
     protected double posX, posY;
     protected double velX, velY;
     protected double iconX;
+    protected double inventoryPos;
 
     protected double iconY;
     protected ID id;
@@ -63,6 +64,14 @@ public abstract class ItemObject {
 
     public void setId(ID id) {
         this.id = id;
+    }
+
+    public double getInventoryPos() {
+        return inventoryPos;
+    }
+
+    public void setInventoryPos(double inventoryPos) {
+        this.inventoryPos = inventoryPos;
     }
 
     public abstract Rectangle getBounds();

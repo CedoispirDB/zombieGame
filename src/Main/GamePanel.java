@@ -49,7 +49,9 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setFocusable(true);
         this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory));
         this.addMouseListener(shooting);
-        this.addMouseListener(levelBuilder);
+        if (editMode) {
+            this.addMouseListener(levelBuilder);
+        }
         startGame();
     }
 
@@ -58,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener {
         levelManager = new LevelManager(handler, saveData, inventory);
 
         if (!editMode) {
-            levelManager.loadLevel(1);
+            levelManager.loadLevel(0);
         }
 //        handler.addObject(new Player.Player.Bullet(SCREEN_WIDTH / 2.0 + 16, SCREEN_HEIGHT / 2.0 + 16, 5,5, handler, Manager.ID.Player.Player.Bullet));
         running = true;

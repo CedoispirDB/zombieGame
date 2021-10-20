@@ -28,7 +28,7 @@ public class SaveData {
 
     public LinkedList<String> readFromFile(int level) {
 
-        int count = 1;
+        int count = 0;
 
         try {
             File file = new File("LevelsData/level.txt");
