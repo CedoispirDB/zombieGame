@@ -80,6 +80,7 @@ public class KeyInput extends KeyAdapter {
                 options.add('p');
                 options.add('h');
                 options.add('g');
+                options.add('z');
 
                 LevelBuilder.type = options.get(typeIndex);
                 typeIndex++;
@@ -94,6 +95,7 @@ public class KeyInput extends KeyAdapter {
                 options.add('l');
                 options.add('b');
                 options.add('r');
+
 
                 LevelBuilder.position = options.get(turnIndex);
                 turnIndex++;

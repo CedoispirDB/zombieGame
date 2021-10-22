@@ -1,6 +1,7 @@
 package Levels;
 
 import DataManager.SaveData;
+import Enemies.BasicZombie;
 import Items.HealingPotion;
 import Items.Pistol;
 import Main.GamePanel;
@@ -143,6 +144,11 @@ public class LevelBuilder extends MouseAdapter {
                 recentID = ID.Pistol;
                 inventory.addItem(new Pistol(x, y, 0,0, inventory, recentID, handler));
                 currentType = "g";
+            }
+            case 'z' -> {
+                recentID = ID.BasicZombie;
+                handler.addObject(new BasicZombie(x, y, 0, 0 , handler, recentID, levelManager));
+                currentType = "z";
             }
         }
 

@@ -119,8 +119,8 @@ public class Inventory {
         boolean drop = false;
         LinkedList<Integer> available = new LinkedList<>(LevelManager.getAvailable());
 
-        System.out.println("playerX: " + playerX);
-        System.out.println("playerY: " + playerY);
+//        System.out.println("playerX: " + playerX);
+//        System.out.println("playerY: " + playerY);
 
         int possA = 0;
         int possB = 0;
@@ -138,8 +138,8 @@ public class Inventory {
 
         } while (available.size() > 0);
 
-        System.out.println("possA: " + possA);
-        System.out.println("possB: " + possB);
+//        System.out.println("possA: " + possA);
+//        System.out.println("possB: " + possB);
 
         return drop;
     }
@@ -181,7 +181,7 @@ public class Inventory {
             case 4 -> pos = 2;
         }
 
-        System.out.println("pos: " + pos);
+//        System.out.println("pos: " + pos);
 
         int[] invInfo = new int[2];
 

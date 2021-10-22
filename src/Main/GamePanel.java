@@ -5,6 +5,7 @@ import Input.KeyInput;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
 import Manager.Handler;
+import Map.Node;
 import Player.Shooting;
 import Player.Inventory;
 import Manager.ID;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final SaveData saveData;
     private boolean editMode = false;
     private Inventory inventory;
+    private Node[][] grid;
 
     public GamePanel() {
 
@@ -58,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void startGame() {
         levelManager = new LevelManager(handler, saveData, inventory);
-
+        grid = levelManager.getGrid();
         if (!editMode) {
             levelManager.loadLevel(0);
         }
@@ -76,10 +78,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public void render(Graphics g) {
         if (running) {
 
-//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-//               g.drawString(String.valueOf(i * 32), i * 32, 16);
-//            }
-
+            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+               g.drawString(String.valueOf(i * 32), i * 32, 16);
+            }
+            g.setColor(new Color(120, 230, 220));
+            for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
+            }
+            for (int i = 1; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
+            }
             if (editMode) {
 
                 // Draw lines for debug
@@ -101,6 +109,11 @@ public class GamePanel extends JPanel implements ActionListener {
             handler.render(g);
             inventory.render(g);
 
+            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
+                    grid[i][j].render(g);
+                }
+            }
         }
     }
 

@@ -7,5 +7,6 @@ public enum ID {
     Button,
     Passage,
     HEALING,
-    Pistol
+    Pistol,
+    BasicZombie
 }
