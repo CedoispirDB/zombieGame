@@ -29,6 +29,7 @@ public class BasicZombie extends GameObject {
     public BasicZombie(double posX, double posY, double velX, double velY, Handler handler, ID id, LevelManager levelManager) {
         super(posX, posY, velX, velY, handler, id);
 
+
         grid = levelManager.getGrid();
         currentNode = grid[(int) (posX / 32)][(int) (posY/32)];
 
@@ -44,6 +45,9 @@ public class BasicZombie extends GameObject {
 
     public void tick() {
         boolean comp = true;
+        int tempR;
+        int index;
+
         if (move) {
 
             neighbors = currentNode.getNeighbors();
@@ -51,11 +55,16 @@ public class BasicZombie extends GameObject {
             for (int i = 0; i < neighbors.size(); i++) {
                 Node tempNode = neighbors.get(i);
                 currentType = tempNode.getType();
+
                 if (closedSet.size() > 0) {
+                    System.out.println("Getting: " + closedSet.get(closedSet.size() - 1));
                     System.out.println("closedSet: "  + closedSet.get(closedSet.size() - 1) + ", tempNode: " + tempNode);
                     comp = closedSet.get(closedSet.size() - 1) != tempNode;
+
                 }
-                System.out.println(comp);
+
+                System.out.println("comp is: "  + comp);
+
                 if (!currentType.equals("w") && comp) {
 //                    System.out.println("Possible Node:" + tempNode);
                     possiblePath.add(tempNode);
@@ -64,7 +73,16 @@ public class BasicZombie extends GameObject {
 
             System.out.println("Possible paths");
             possiblePath.forEach(System.out :: println);
-            Node next = possiblePath.get(r.nextInt(possiblePath.size() - 1));
+
+            tempR = possiblePath.size() - 1;
+
+            if (tempR <= 0) {
+                index = 0;
+            } else {
+                index = r.nextInt(tempR);
+            }
+
+            Node next = possiblePath.get(index);
 //            Node next = possiblePath.get(1);
 
 
@@ -73,9 +91,10 @@ public class BasicZombie extends GameObject {
             nextX = next.getX();
             nextY = next.getY();
 
+            closedSet.add(currentNode);
+
             currentNode = next;
             possiblePath.clear();
-            closedSet.add(next);
             move = false;
         }
 
@@ -96,7 +115,9 @@ public class BasicZombie extends GameObject {
 
         count ++;
 
+
         if (count == 32) {
+
             move = true;
             count = 0;
         }
