@@ -4,6 +4,7 @@ import Main.Game;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
+import Map.Node;
 
 import java.awt.*;
 
@@ -70,6 +71,10 @@ public class Walls extends GameObject {
 
     public Rectangle getBounds() {
         return new Rectangle((int) posX, (int) posY, w, h);
+    }
+
+    public Node getNode() {
+        return null;
     }
 
     public Rectangle getBoundsX() {

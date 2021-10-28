@@ -9,6 +9,7 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Player.Inventory;
+import Player.Player;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -149,6 +150,11 @@ public class LevelBuilder extends MouseAdapter {
                 recentID = ID.BasicZombie;
                 handler.addObject(new BasicZombie(x, y, 0, 0 , handler, recentID, levelManager));
                 currentType = "z";
+            }
+            case 'm' -> {
+                recentID = ID.Player;
+                handler.addObject(new Player(x, y, 0, 0 , handler, recentID, inventory, levelManager));
+                currentType = "m";
             }
         }
 

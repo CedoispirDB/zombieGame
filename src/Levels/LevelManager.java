@@ -57,7 +57,6 @@ public class LevelManager {
 
 
     public void loadLevel(int level) {
-        handler.addObject(new Player(352, 352, 0, 0, handler, ID.Player, inventory));
 
         LinkedList<String> savedData = saveData.readFromFile(level);
 
@@ -79,8 +78,10 @@ public class LevelManager {
 
                 currentNode = grid[x / 32][y /32];
 
+//                System.out.println("Current Node: " + currentNode + ", actual w: " + w + ", actual h: " + h + ", actual type: " + type);
 
-                if (type.equals("w") && (w != 32 || y != 32)) {
+
+                if (type.equals("w") && (w != 32 || h != 32)) {
                     // Create multiple nodes
 //                    System.out.println("Passing: x: " +  x + ", y: " + y + ", w: " + w + ", h: " + h + ", type: " + type);
                     createNodes(x, y, w, h, type);
@@ -106,7 +107,7 @@ public class LevelManager {
                     case "h" -> inventory.addItem(new HealingPotion(x, y, 0, 0, inventory, ID.HEALING, handler));
                     case "g" -> inventory.addItem(new Pistol(x, y, 0, 0, inventory, ID.Pistol, handler));
                     case "z" -> handler.addObject(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this));
-
+                    case "m" -> handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this));
                 }
 
             } while (savedData.size() > 0);

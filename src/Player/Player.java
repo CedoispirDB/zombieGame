@@ -1,14 +1,17 @@
 package Player;
 
+import Levels.LevelManager;
 import Main.GamePanel;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Manager.ItemObject;
+import Map.Node;
 import Render.BufferedImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 public class Player extends GameObject {
 
@@ -16,8 +19,11 @@ public class Player extends GameObject {
     private final BufferedImage image;
     private final Inventory inventory;
     private ItemObject pistol;
+    private LevelManager levelManager;
+    private LinkedList<Node> closedNode;
+    private int health;
 
-    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory) {
+    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager) {
         super(posX, posY, velX, velY, handler, id);
 
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -25,6 +31,9 @@ public class Player extends GameObject {
 
         this.handler = handler;
         this.inventory = inventory;
+        this.levelManager = levelManager;
+
+        health = 100;
 
         for (int i = 0; i < inventory.items.size(); i++) {
             ItemObject itemObject  = inventory.items.get(i);
@@ -33,35 +42,26 @@ public class Player extends GameObject {
             }
         }
 
-
+        closedNode = new LinkedList<>();
     }
 
 
     public void tick() {
-//        System.out.println("velX: " + velX);
-//        System.out.println("velY: " + velY);
-//        System.out.println(id);
-
-//        System.out.println("posX: " + posX);
-//        System.out.println("posY: " + posY);
 
         if (posX + 32 > GamePanel.SCREEN_WIDTH) {
-            velX = 0;
             posX -= 5;
         }
         if (posX < 0) {
-            velX = 0;
             posX += 5;
         }
 
         if (posY + 32 > GamePanel.SCREEN_HEIGHT) {
-            velY = 0;
             posY -= 5;
         }
         if (posY < 0) {
-            velY = 0;
             posY += 5;
         }
+
 
 //        if (pistol != null) {
 //            if (getBounds().intersects(pistol.getBounds())) {
@@ -74,6 +74,8 @@ public class Player extends GameObject {
 
         posX += velX;
         posY += velY;
+
+        collision();
     }
 
     public void render(Graphics g) {
@@ -99,8 +101,99 @@ public class Player extends GameObject {
 //        g2d.draw(getBoundsY());
     }
 
+
+    public boolean collision() {
+        boolean collision = false;
+
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject temp = handler.object.get(i);
+            if (temp.getId() == ID.BasicZombie) {
+                if (temp.getBounds().intersects(getBounds())) {
+                    collision = true;
+                }
+            }
+        }
+        return collision;
+    }
+
+    public boolean bounds() {
+        boolean collide = false;
+
+        Node[][] grid = levelManager.getGrid();
+
+        Node currentNode = grid[(int) ((posX + 16) / 32)][(int) ((posY + 16)/ 32)];
+        LinkedList<Node> neighbors = currentNode.getNeighbors();
+        int obsPx = 0;
+        int obsPy = 0;
+
+        for (int i = 0; i < neighbors.size(); i++) {
+            Node temp = neighbors.get(i);
+            if (temp.getType().equals("w")) {
+                closedNode.add(temp);
+            }
+        }
+
+        System.out.println("Closed Node");
+        closedNode.forEach(System.out :: println);
+//        System.out.println("\n");
+
+        for (int i = 0; i < closedNode.size(); i++) {
+            Node temp = closedNode.get(i);
+//            System.out.println("Temp: "  + temp);
+
+            int currentX = currentNode.getX();
+            int currentY = currentNode.getY();
+            int tempX = temp.getX();
+            int tempY = temp.getY();
+
+            if (tempX < currentX) {
+                if (temp.getX() + 32 == currentNode.getX()) {
+                    obsPx = tempX;
+                    if (obsPx + 32 < posX && obsPx + 35 >= posX) {
+                        System.out.println("collide");
+                        posX += 5;
+                    }
+                }
+            }
+
+            if (tempX > currentX) {
+                if (temp.getX() == currentNode.getX() + 32) {
+                    obsPx = tempX;
+                    if (obsPx > posX && obsPx - 30 <= posX) {
+                        System.out.println("collide");
+                        posX -= 5;
+                    }
+                }
+            }
+
+            if (tempY > currentY) {
+                if (temp.getY() == currentNode.getY() + 32) {
+                    obsPy = tempY;
+                }
+            }
+
+            if (tempY < currentY) {
+                if (temp.getY() + 32 == currentNode.getY()) {
+                    obsPy = tempY;
+                }
+            }
+        }
+
+
+
+
+
+        closedNode.clear();
+        return collide;
+    }
+
+
     public Rectangle getBounds() {
         return new Rectangle((int) posX, (int) posY, image.getWidth(), image.getHeight());
+    }
+
+    public Node getNode() {
+        return null;
     }
 
     public Rectangle getBoundsX() {

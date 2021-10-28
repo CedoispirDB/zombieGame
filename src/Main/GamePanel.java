@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements ActionListener {
         levelManager = new LevelManager(handler, saveData, inventory);
         grid = levelManager.getGrid();
         if (!editMode) {
-            levelManager.loadLevel(0);
+            levelManager.loadLevel(2);
         }
 //        handler.addObject(new Player.Player.Bullet(SCREEN_WIDTH / 2.0 + 16, SCREEN_HEIGHT / 2.0 + 16, 5,5, handler, Manager.ID.Player.Player.Bullet));
         running = true;
@@ -111,7 +111,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
                 for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
-                    grid[i][j].render(g);
+//                    grid[i][j].render(g);
                 }
             }
         }

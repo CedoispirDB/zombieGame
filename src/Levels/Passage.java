@@ -3,6 +3,7 @@ package Levels;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
+import Map.Node;
 import Player.Player;
 
 import java.awt.*;
@@ -47,6 +48,11 @@ public class Passage extends GameObject {
 
     public Rectangle getBounds() {
         return new Rectangle((int)posX, (int) posY, w, h);
+    }
+
+
+    public Node getNode() {
+        return null;
     }
 
     public Rectangle getBoundsX() {

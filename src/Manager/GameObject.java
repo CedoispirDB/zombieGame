@@ -1,11 +1,14 @@
 package Manager;
 
+import Map.Node;
+
 import java.awt.*;
 
 public abstract class GameObject {
 
     protected double posX, posY;
     protected double velX, velY;
+    protected Node node;
     protected ID id;
     private Handler handler;
 
@@ -65,6 +68,8 @@ public abstract class GameObject {
     }
 
     public abstract Rectangle getBounds();
+
+    public abstract Node getNode();
 
     public abstract Rectangle getBoundsX();
     public abstract Rectangle getBoundsY();

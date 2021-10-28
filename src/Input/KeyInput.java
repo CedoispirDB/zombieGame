@@ -81,6 +81,7 @@ public class KeyInput extends KeyAdapter {
                 options.add('h');
                 options.add('g');
                 options.add('z');
+                options.add('m');
 
                 LevelBuilder.type = options.get(typeIndex);
                 typeIndex++;

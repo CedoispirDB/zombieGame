@@ -3,6 +3,7 @@ package Levels;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
+import Map.Node;
 
 import java.awt.*;
 
@@ -28,6 +29,11 @@ public class Button extends GameObject {
     }
 
     public Rectangle getBounds() {
+        return null;
+    }
+
+    @Override
+    public Node getNode() {
         return null;
     }
 

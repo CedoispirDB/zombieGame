@@ -5,6 +5,7 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Map.Node;
+import Player.Player;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ public class BasicZombie extends GameObject {
     private Random r;
     private boolean move = true;
     private int count = 0;
+    private GameObject player;
 
 
     public BasicZombie(double posX, double posY, double velX, double velY, Handler handler, ID id, LevelManager levelManager) {
@@ -38,9 +40,16 @@ public class BasicZombie extends GameObject {
         possiblePath = new LinkedList<>();
         closedSet = new LinkedList<>();
 
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject temp = handler.object.get(i);
+            if (temp.getId() == ID.Player) {
+                player = temp;
+            }
+        }
 
-        System.out.println("Current Node: " + currentNode);
-        System.out.println("Wall Node: " + grid[(384 + 96) / 32][224 / 32] + "\n");
+
+//        System.out.println("Current Node: " + currentNode);
+//        System.out.println("Wall Node: " + grid[(384 + 96) / 32][224 / 32] + "\n");
     }
 
     public void tick() {
@@ -57,13 +66,13 @@ public class BasicZombie extends GameObject {
                 currentType = tempNode.getType();
 
                 if (closedSet.size() > 0) {
-                    System.out.println("Getting: " + closedSet.get(closedSet.size() - 1));
-                    System.out.println("closedSet: "  + closedSet.get(closedSet.size() - 1) + ", tempNode: " + tempNode);
+//                    System.out.println("Getting: " + closedSet.get(closedSet.size() - 1));
+//                    System.out.println("closedSet: "  + closedSet.get(closedSet.size() - 1) + ", tempNode: " + tempNode);
                     comp = closedSet.get(closedSet.size() - 1) != tempNode;
 
                 }
 
-                System.out.println("comp is: "  + comp);
+//                System.out.println("comp is: "  + comp);
 
                 if (!currentType.equals("w") && comp) {
 //                    System.out.println("Possible Node:" + tempNode);
@@ -71,8 +80,8 @@ public class BasicZombie extends GameObject {
                 }
             }
 
-            System.out.println("Possible paths");
-            possiblePath.forEach(System.out :: println);
+//            System.out.println("Possible paths");
+//            possiblePath.forEach(System.out :: println);
 
             tempR = possiblePath.size() - 1;
 
@@ -86,7 +95,7 @@ public class BasicZombie extends GameObject {
 //            Node next = possiblePath.get(1);
 
 
-            System.out.println("Next node: " + next + "\n");
+//            System.out.println("Next node: " + next + "\n");
 
             nextX = next.getX();
             nextY = next.getY();
@@ -122,6 +131,7 @@ public class BasicZombie extends GameObject {
             count = 0;
         }
 
+
     }
 
     public void render(Graphics g) {
@@ -131,8 +141,12 @@ public class BasicZombie extends GameObject {
 
     }
 
+    public Node getNode() {
+        return currentNode;
+    }
+
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle((int)posX,(int) posY, 32,32 );
     }
 
     public Rectangle getBoundsX() {

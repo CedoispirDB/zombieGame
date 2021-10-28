@@ -4,6 +4,7 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Main.GamePanel;
+import Map.Node;
 
 import java.awt.*;
 
@@ -44,6 +45,10 @@ public class Bullet extends GameObject {
     }
 
     public Rectangle getBounds() {
+        return null;
+    }
+
+    public Node getNode() {
         return null;
     }
 
