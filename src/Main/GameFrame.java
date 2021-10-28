@@ -11,11 +11,14 @@ public class GameFrame extends JFrame {
 
         int x;
 
+        System.out.println(gd.length);
+
         if (screen > -1 && screen < gd.length) {
             x = gd[screen].getDefaultConfiguration().getBounds().x + (gd[screen].getDisplayMode().getWidth() - w) / 2;
             frame.setLocation(x, frame.getY());
         } else if (gd.length > 0) {
-            frame.setLocation(gd[0].getDefaultConfiguration().getBounds().x, frame.getY());
+            x = gd[screen - 1].getDefaultConfiguration().getBounds().x + (gd[screen - 1].getDisplayMode().getWidth() - w) / 2;
+            frame.setLocation(x, frame.getY());
         } else {
             throw new RuntimeException("No Screens Found");
         }

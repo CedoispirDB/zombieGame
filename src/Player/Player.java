@@ -75,6 +75,7 @@ public class Player extends GameObject {
         posX += velX;
         posY += velY;
 
+
         collision();
     }
 
@@ -102,6 +103,7 @@ public class Player extends GameObject {
     }
 
 
+    // Collision detection
     public boolean collision() {
         boolean collision = false;
 
