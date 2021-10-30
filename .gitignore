@@ -1,0 +1,6 @@
+ECHO is on.
+.idea
+out
+.DS_Store
+teste.iml
+zombieGame.iml
