@@ -1,23 +1,29 @@
 package Levels;
 
-import Main.Game;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Map.Node;
+import Render.BufferedImageLoader;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Walls extends GameObject {
 
     private final int w, h;
     private GameObject player;
+    private BufferedImage image;
 
     public Walls(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id) {
         super(posX, posY, velX, velY, handler, id);
 
         this.w = w;
         this.h = h;
+
+        BufferedImageLoader loader = new BufferedImageLoader();
+        image = loader.loadImage("/sprite.png");
+        image = image.getSubimage(0,0,32,32);
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
@@ -63,10 +69,27 @@ public class Walls extends GameObject {
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.gray.darker());
-        g.fillRect((int) posX, (int) posY, w, h);
+//        g.fillRect((int) posX, (int) posY, w, h);
 
-//        g.setColor(Color.red.brighter());
-//        g2d.draw(getBounds());
+        if(w == 32 && h == 32) {
+            g.drawImage(image, (int) posX, (int) posY, null);
+        } else {
+
+            if (w != 32 ) {
+
+                for (int i = (int)posX; i <= posX + w - 32; i += 32) {
+                    g.drawImage(image,  i, (int) posY, null);
+                }
+            }
+
+            if (h != 32) {
+                for (int i = (int)posY; i <= posY + h - 32; i += 32) {
+                    g.drawImage(image, (int) posX,  i, null);
+                }
+            }
+        }
+
+
     }
 
     public Rectangle getBounds() {
