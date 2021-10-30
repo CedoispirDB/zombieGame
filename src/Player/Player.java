@@ -27,7 +27,7 @@ public class Player extends GameObject {
         super(posX, posY, velX, velY, handler, id);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/player_5.png");
+        image = loader.loadImage("/player.png");
 
         this.handler = handler;
         this.inventory = inventory;
@@ -96,8 +96,8 @@ public class Player extends GameObject {
 
         g.drawImage(image, (int) posX, (int) posY, null);
 
-        g.setColor(Color.blue.brighter());
-        g2d.draw(getBounds());
+//        g.setColor(Color.blue.brighter());
+//        g2d.draw(getBounds());
 //        g.setColor(Color.green.brighter());
 //        g2d.draw(getBoundsY());
     }

@@ -11,8 +11,6 @@ public class GameFrame extends JFrame {
 
         int x;
 
-        System.out.println(gd.length);
-
         if (screen > -1 && screen < gd.length) {
             x = gd[screen].getDefaultConfiguration().getBounds().x + (gd[screen].getDisplayMode().getWidth() - w) / 2;
             frame.setLocation(x, frame.getY());
@@ -31,9 +29,10 @@ public class GameFrame extends JFrame {
         this.add(gamePanel);
         this.setTitle("Main.Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        this.setResizable(false);
         // Used if have another monitor
-        showOnScreen(1, this, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        showOnScreen(0, this, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+//        this.setResizable(false);
+
         this.pack();
         this.setVisible(true);
 //        this.setLocationRelativeTo(null);
