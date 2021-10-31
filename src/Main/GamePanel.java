@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public GamePanel() {
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/sprite.png");
+        image = loader.loadImage("/a.png");
         image = image.getSubimage(32,0,32,32);
 
         random = new Random();

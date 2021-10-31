@@ -24,7 +24,7 @@ public class Passage extends GameObject {
         this.levelManager = levelManager;
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/sprite.png");
+        image = loader.loadImage("/a.png");
         image = image.getSubimage(96,0,32,64);
 
         for (int i = 0; i < handler.object.size(); i++) {

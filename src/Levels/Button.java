@@ -18,7 +18,7 @@ public class Button extends GameObject {
     public Button(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id) {
         super(posX, posY, velX, velY, handler, id);
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/sprite.png");
+        image = loader.loadImage("/a.png");
         image = image.getSubimage(64,0,32,32);
         this.w = w;
         this.h = h;

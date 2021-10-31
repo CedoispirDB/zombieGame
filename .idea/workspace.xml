@@ -19,7 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="" />
+    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Button.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Button.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Passage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Passage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/sprite.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/a.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Passage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Passage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Walls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Walls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

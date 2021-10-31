@@ -22,7 +22,7 @@ public class Walls extends GameObject {
         this.h = h;
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/sprite.png");
+        image = loader.loadImage("/a.png");
         image = image.getSubimage(0,0,32,32);
 
         for (int i = 0; i < handler.object.size(); i++) {
