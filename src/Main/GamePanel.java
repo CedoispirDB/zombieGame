@@ -34,14 +34,10 @@ public class GamePanel extends JPanel implements ActionListener {
     private boolean editMode = false;
     private Inventory inventory;
     private Node[][] grid;
-    private final int level = 2;
-    private BufferedImage image;
+    private final int level = 0;
 
 
     public GamePanel() {
-        BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/a.png");
-        image = image.getSubimage(32,0,32,32);
 
         random = new Random();
         handler = new Handler();
@@ -84,21 +80,15 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void render(Graphics g) {
         if (running) {
-            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
-                    if (grid[i][j].getType().equals("n")) {
-                        g.drawImage(image, i * 32, j * 32, null);
-                    }
-                }
-            }
 
-            g.setColor(Color.red);
-            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-               g.drawString(String.valueOf(i * 32), i * 32, 16);
-            }
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
-            }
+//
+//            g.setColor(Color.red);
+//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+//               g.drawString(String.valueOf(i * 32), i * 32, 16);
+//            }
+//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
+//            }
 //            g.setColor(new Color(120, 230, 220));
 //            for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
 //                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
@@ -127,9 +117,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
 
-
+            levelManager.renderLevel(g);
             handler.render(g);
             inventory.render(g);
+
 
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {

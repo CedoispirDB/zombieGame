@@ -16,7 +16,7 @@ public class Inventory {
 
     // items is the item object in the map
     public LinkedList<ItemObject> items;
-    // item is the item object in out inventory
+    // item is the item object in the inventory
     public LinkedList<ItemObject> inventoryItems;
 
     // offSet is where the player is selecting
@@ -63,7 +63,7 @@ public class Inventory {
     public void render(Graphics g) {
 
 //        System.out.println(items);
-        g.setColor(new Color(0f, 0f, 0f, 0.3f));
+        g.setColor(new Color(0f, 0f, 0f, 0.8f));
         g.fillRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 0 , GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
         g.setColor(new Color(1f, 0f ,0f));
         selected = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * offSet;
@@ -196,5 +196,9 @@ public class Inventory {
     }
 
     public void addPos() {pos++;}
+
+    public void cleanInventory() {
+        items.clear();
+    }
 
 }

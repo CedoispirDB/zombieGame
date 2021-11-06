@@ -12,13 +12,17 @@ import Manager.ID;
 import Map.Node;
 import Player.Inventory;
 import Player.Player;
+import Render.BufferedImageLoader;
 
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Random;
+
+import static Main.GamePanel.*;
 
 public class LevelManager {
 
@@ -26,8 +30,10 @@ public class LevelManager {
     private final SaveData saveData;
     private Inventory inventory;
     private static LinkedList<Integer> available;
-    private int cols = GamePanel.SCREEN_WIDTH / GamePanel.UNIT_SIZE;
-    private int rows = GamePanel.SCREEN_HEIGHT / GamePanel.UNIT_SIZE;
+    private int cols = SCREEN_WIDTH / UNIT_SIZE;
+    private int rows = SCREEN_HEIGHT / UNIT_SIZE;
+    public boolean buttonPressed;
+    public int level;
 
     private Node[][] grid;
 
@@ -55,15 +61,15 @@ public class LevelManager {
 
     }
 
-
     public void loadLevel(int level) {
 
         LinkedList<String> savedData = saveData.readFromFile(level);
 
         if (savedData != null) {
 //            System.out.println("Loading: " + savedData);
+            System.out.println("Loading level " + level);
             LinkedList<String> data = new LinkedList<>(savedData);
-
+            resetLevel();
 
             int x, y, w, h;
             String type;
@@ -117,8 +123,11 @@ public class LevelManager {
 //        int count = 1;
 //        for (int i = 0; i < cols; i++) {
 //            for (int j = 0; j < rows; j++) {
-//                System.out.println("Node " + count + ": " + grid[i][j]);
-//                count++;
+//                Node temp = grid[i][j];
+//                if (temp.getType().equals("w")) {
+//                    System.out.println("Node " + count + ": " + grid[i][j]);
+//                    count++;
+//                }
 //            }
 //        }
 
@@ -134,6 +143,24 @@ public class LevelManager {
 //            }
 //        }
 
+
+
+    }
+
+    public void renderLevel(Graphics g) {
+        BufferedImage image;
+
+        BufferedImageLoader loader = new BufferedImageLoader();
+        image = loader.loadImage("/a.png");
+        image = image.getSubimage(32,0,32,32);
+
+        for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+            for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
+                if (grid[i][j].getType().equals("n")) {
+                    g.drawImage(image, i * 32, j * 32, null);
+                }
+            }
+        }
 
     }
 
@@ -158,11 +185,11 @@ public class LevelManager {
 
         boolean filled = false;
 
-        for (int k = 0; k < GamePanel.SCREEN_HEIGHT / GamePanel.UNIT_SIZE; k++) {
-            y = k * GamePanel.UNIT_SIZE;
+        for (int k = 0; k < SCREEN_HEIGHT / UNIT_SIZE; k++) {
+            y = k * UNIT_SIZE;
 
-            for (int j = 0; j < GamePanel.SCREEN_WIDTH / GamePanel.UNIT_SIZE; j++) {
-                x = j * GamePanel.UNIT_SIZE;
+            for (int j = 0; j < SCREEN_WIDTH / UNIT_SIZE; j++) {
+                x = j * UNIT_SIZE;
 
                 for (int i = 0; i < data.size() / 5; i++) {
 
@@ -197,5 +224,44 @@ public class LevelManager {
 
     public static LinkedList<Integer> getAvailable() {
         return available;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setLevel() {
+        level++;
+    }
+
+    public boolean isButtonPressed() {
+        return buttonPressed;
+    }
+
+    public void setButtonPressed(boolean buttonPressed) {
+        this.buttonPressed = buttonPressed;
+    }
+
+    private void resetNodes() {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                grid[i][j].setType("n");
+            }
+        }
+    }
+
+    public void resetLevel() {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                grid[i][j] = new Node(i * 32, j * 32, 32, 32,i, j, rows, cols, "n");
+            }
+        }
+        handler.removeAll();
+        buttonPressed = false;
+        inventory.cleanInventory();
     }
 }

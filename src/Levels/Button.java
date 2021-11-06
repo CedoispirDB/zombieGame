@@ -35,10 +35,9 @@ public class Button extends GameObject {
     }
 
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle((int)posX, (int)posY, image.getWidth(), image.getHeight());
     }
 
-    @Override
     public Node getNode() {
         return null;
     }

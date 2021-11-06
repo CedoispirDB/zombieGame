@@ -1,6 +1,7 @@
 package Player;
 
 import Levels.LevelManager;
+import Main.Game;
 import Main.GamePanel;
 import Manager.GameObject;
 import Manager.Handler;
@@ -22,6 +23,8 @@ public class Player extends GameObject {
     private LevelManager levelManager;
     private LinkedList<Node> closedNode;
     private int health;
+    private GameObject button;
+    private GameObject passage;
 
     public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager) {
         super(posX, posY, velX, velY, handler, id);
@@ -39,6 +42,15 @@ public class Player extends GameObject {
             ItemObject itemObject  = inventory.items.get(i);
             if (itemObject.getId() == ID.Pistol) {
                 pistol = itemObject;
+            }
+        }
+
+        for (int i = 0; i < handler.object.size() ; i++) {
+            GameObject temp = handler.object.get(i);
+            if (temp.getId() == ID.Button) {
+                button = temp;
+            } else if(temp.getId() == ID.Passage) {
+                passage = temp;
             }
         }
 
@@ -75,8 +87,9 @@ public class Player extends GameObject {
         posX += velX;
         posY += velY;
 
-
-        collision();
+        pressButton();
+        passLevel();
+//        collision();
     }
 
     public void render(Graphics g) {
@@ -100,6 +113,23 @@ public class Player extends GameObject {
 //        g2d.draw(getBounds());
 //        g.setColor(Color.green.brighter());
 //        g2d.draw(getBoundsY());
+    }
+
+    public void pressButton() {
+        if (getBounds().intersects(button.getBounds())) {
+            levelManager.setButtonPressed(true);
+        }
+    }
+
+    public void passLevel() {
+        if (getBounds().intersects(passage.getBounds())) {
+            if (levelManager.isButtonPressed()) {
+                levelManager.setButtonPressed(false);
+                levelManager.setLevel();
+                levelManager.loadLevel(levelManager.getLevel());
+
+            }
+        }
     }
 
 

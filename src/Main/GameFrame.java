@@ -30,7 +30,7 @@ public class GameFrame extends JFrame {
         this.setTitle("Main.Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Used if have another monitor
-        showOnScreen(0, this, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
+        showOnScreen(1, this, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
 //        this.setResizable(false);
 
         this.pack();

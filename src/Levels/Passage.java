@@ -26,35 +26,24 @@ public class Passage extends GameObject {
         BufferedImageLoader loader = new BufferedImageLoader();
         image = loader.loadImage("/a.png");
         image = image.getSubimage(96,0,32,64);
-
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
-                this.player = temp;
-            }
-        }
     }
 
     public void tick() {
 
-        if (player != null) {
-            if (player.getBounds().intersects(this.getBounds())) {
-                // Player got to the passage
-//                levelManager.loadLevel(currentLevel + 1);
-                System.out.println("Changing level");
-            }
-        }
 
     }
 
     public void render(Graphics g) {
-//        g.setColor(Color.yellow.darker());
-//        g.fillRect((int) posX, (int) posY, w, h);
+        Graphics2D g2d = (Graphics2D) g;
+
+        g.setColor(Color.red);
+        g2d.draw(getBounds());
         g.drawImage(image, (int) posX, (int) posY, null);
+
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int)posX, (int) posY, w, h);
+        return new Rectangle((int)posX, (int) posY, image.getWidth(), image.getHeight());
     }
 
 
