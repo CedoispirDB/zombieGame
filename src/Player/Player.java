@@ -22,9 +22,9 @@ public class Player extends GameObject {
     private ItemObject pistol;
     private LevelManager levelManager;
     private LinkedList<Node> closedNode;
-    private int health;
     private GameObject button;
     private GameObject passage;
+    private Interface anInterface;
 
     public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager) {
         super(posX, posY, velX, velY, handler, id);
@@ -32,11 +32,11 @@ public class Player extends GameObject {
         BufferedImageLoader loader = new BufferedImageLoader();
         image = loader.loadImage("/player.png");
 
+        anInterface = new Interface();
+
         this.handler = handler;
         this.inventory = inventory;
         this.levelManager = levelManager;
-
-        health = 100;
 
         for (int i = 0; i < inventory.items.size(); i++) {
             ItemObject itemObject  = inventory.items.get(i);
@@ -60,6 +60,10 @@ public class Player extends GameObject {
 
     public void tick() {
 
+        if (anInterface.getHealth() <= 0) {
+            System.out.println("Died");
+        }
+
         if (posX + 32 > GamePanel.SCREEN_WIDTH) {
             posX -= 5;
         }
@@ -75,6 +79,7 @@ public class Player extends GameObject {
         }
 
 
+
 //        if (pistol != null) {
 //            if (getBounds().intersects(pistol.getBounds())) {
 //                System.out.println("got gun");
@@ -87,32 +92,19 @@ public class Player extends GameObject {
         posX += velX;
         posY += velY;
 
+        anInterface.tick();
         pressButton();
         passLevel();
-//        collision();
+        enemyCollision();
+        wallCollision();
     }
 
     public void render(Graphics g) {
-//        g.setColor(Color.red);
-//        g.fillRect((int) posX, (int) posY, 32, 32);
         Graphics2D g2d = (Graphics2D) g;
 
-        int x = (int) posX;
-        int y = (int) posY;
-        g.setColor(Color.red);
-//        g.drawLine(x, y, x + image.getWidth(), y);
-//        g.drawLine(x, y + image.getHeight(), x + image.getWidth(), y + image.getHeight());
-//        g.drawLine(x, y, x, y + image.getHeight());
-//        g.drawLine(x + image.getWidth(), y, x + image.getWidth(), y + image.getHeight());
-//        System.out.println("w: " + image.getWidth());
-//        System.out.println("h: " + image.getHeight());
-
         g.drawImage(image, (int) posX, (int) posY, null);
+        anInterface.render(g);
 
-//        g.setColor(Color.blue.brighter());
-//        g2d.draw(getBounds());
-//        g.setColor(Color.green.brighter());
-//        g2d.draw(getBoundsY());
     }
 
     public void pressButton() {
@@ -132,20 +124,47 @@ public class Player extends GameObject {
         }
     }
 
+    // Wall collision
+    private void wallCollision() {
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject temp = handler.object.get(i);
+            if (temp.getId() == ID.Wall) {
+                if (getBounds().intersects(temp.getBoundsX())) {
+                    int dx = (int)(posX - temp.getPosX());
+
+                    if(dx > 0) {
+                        posX += 5;
+                    } else {
+                        posX -= 5;
+                    }
+
+
+                }
+
+                if (getBounds().intersects(temp.getBoundsY())) {
+                    int dy = (int) (posY - temp.getPosY());
+
+                    if (dy > 0) {
+                        posY += 5;
+                    } else {
+                        posY -= 5;
+                    }
+                }
+            }
+        }
+    }
 
     // Collision detection
-    public boolean collision() {
-        boolean collision = false;
+    private void enemyCollision() {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
             if (temp.getId() == ID.BasicZombie) {
                 if (temp.getBounds().intersects(getBounds())) {
-                    collision = true;
+                    anInterface.hit(5);
                 }
             }
         }
-        return collision;
     }
 
     public boolean bounds() {

@@ -20,25 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Render/Animation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Render/CreateImages.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Player/Interface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LevelsData/level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/LevelsData/level.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Button.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Button.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Passage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Passage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Levels/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Button.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Levels/LevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Levels/Passage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Passage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Walls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Walls.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -346,7 +333,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635654626070</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Animation system created. Not tested, need to draw the spriteSheets&#10;Level changing working">
+      <created>1636238466084</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1636238466084</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -362,7 +356,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="intial commit 2" />
     <MESSAGE value="Hit class created," />
     <MESSAGE value="EasyZombie created&#10;Obstacles created&#10;Player can't pass through objects" />
     <MESSAGE value="Level created" />
@@ -386,6 +379,8 @@
     <MESSAGE value="Basic Zombie simply walking algorithm really done now &#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie&#10; · Work on collision system&#10; · Work on inventory system" />
     <MESSAGE value="Solved bugs on the simple zombie and in the level manager" />
     <MESSAGE value="All working thank GODDDDD" />
-    <option name="LAST_COMMIT_MESSAGE" value="All working thank GODDDDD" />
+    <MESSAGE value="Animation system created. Not tested, need to draw the spriteSheets" />
+    <MESSAGE value="Animation system created. Not tested, need to draw the spriteSheets&#10;Level changing working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Animation system created. Not tested, need to draw the spriteSheets&#10;Level changing working" />
   </component>
 </project>

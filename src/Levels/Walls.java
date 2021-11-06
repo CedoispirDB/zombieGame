@@ -70,7 +70,6 @@ public class Walls extends GameObject {
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.gray.darker());
 //        g.fillRect((int) posX, (int) posY, w, h);
-
         if(w == 32 && h == 32) {
             g.drawImage(image, (int) posX, (int) posY, null);
         } else {
@@ -88,6 +87,10 @@ public class Walls extends GameObject {
                 }
             }
         }
+        g.setColor(Color.red);
+        g2d.draw(getBoundsX());
+        g.setColor(Color.blue);
+        g2d.draw(getBoundsY());
 
 
     }
@@ -101,10 +104,10 @@ public class Walls extends GameObject {
     }
 
     public Rectangle getBoundsX() {
-        return null;
+        return new Rectangle((int) posX, (int) posY + 2, w, h - 4);
     }
 
     public Rectangle getBoundsY() {
-        return null;
+        return new Rectangle((int) posX + 2, (int) posY, w - 4, h);
     }
 }
