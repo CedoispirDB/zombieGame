@@ -8,9 +8,7 @@ import Manager.Handler;
 import Manager.STATE;
 import Map.Node;
 import Player.Interface;
-import Player.Shooting;
 import Player.Inventory;
-import Manager.ID;
 import Render.BufferedImageLoader;
 
 import javax.swing.*;
@@ -19,8 +17,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import UI.Help;
 import UI.Menu;
-import java.util.Set;
+import UI.Leaderboard;
 
 public class GamePanel extends JPanel implements ActionListener {
 
@@ -39,22 +39,22 @@ public class GamePanel extends JPanel implements ActionListener {
     private Inventory inventory;
     private Node[][] grid;
     private final int level = 0;
-    private Interface anInterface;
-    private Menu menu;
-    public static STATE gameState = STATE.GAME;
+    private final Interface anInterface;
+    private final Menu menu;
+    private final Help help;
+    private final Leaderboard leaderboard;
+    public static STATE gameState = STATE.MENU;
 
 
     public GamePanel() {
 
         random = new Random();
         handler = new Handler();
-
         inventory = new Inventory(handler);
         anInterface = new Interface();
         menu = new Menu();
-
-//        System.out.println(levelManager);
-
+        help = new Help();
+        leaderboard = new Leaderboard();
         saveData = new SaveData();
         LevelBuilder levelBuilder = new LevelBuilder(handler, saveData, inventory);
 
@@ -65,18 +65,19 @@ public class GamePanel extends JPanel implements ActionListener {
             this.addMouseListener(levelBuilder);
         }
         this.addMouseListener(menu);
+        this.addMouseListener(help);
+        this.addMouseListener(leaderboard);
         startGame();
     }
 
 
     public void startGame() {
-        if (gameState == STATE.GAME) {
-            levelManager = new LevelManager(handler, saveData, inventory, anInterface);
-            grid = levelManager.getGrid();
-            if (!editMode) {
-                levelManager.loadLevel(level);
-            }
+        levelManager = new LevelManager(handler, saveData, inventory, anInterface);
+        grid = levelManager.getGrid();
+        if (!editMode) {
+            levelManager.loadLevel(level);
         }
+
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
@@ -84,7 +85,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void tick() {
-        if(gameState != STATE.PAUSE) {
+        if (gameState != STATE.PAUSE) {
             handler.tick();
             inventory.tick();
         }
@@ -93,9 +94,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public void render(Graphics g) {
 
         if (running) {
-
-//
-
 //            g.setColor(new Color(120, 230, 220));
 //            for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
 //                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
@@ -122,13 +120,41 @@ public class GamePanel extends JPanel implements ActionListener {
                 g.drawString("k: save level", 30, 125);
             }
 
+            BufferedImage image;
+
+            BufferedImageLoader loader = new BufferedImageLoader();
+            image = loader.loadImage("/a.png");
+            image = image.getSubimage(32, 0, 32, 32);
+
             if (gameState == STATE.GAME) {
                 levelManager.renderLevel(g);
                 handler.render(g);
                 inventory.render(g);
                 anInterface.render(g);
-            } else if(gameState == STATE.MENU) {
+            } else if (gameState == STATE.MENU) {
+                for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                    for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
+                        g.drawImage(image, i * 32, j * 32, null);
+
+                    }
+                }
                 menu.render(g);
+            } else if (gameState == STATE.HELP){
+                for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                    for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
+                        g.drawImage(image, i * 32, j * 32, null);
+
+                    }
+                }
+                help.render(g);
+            } else if (gameState == STATE.LEADERBOARD) {
+                for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                    for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
+                        g.drawImage(image, i * 32, j * 32, null);
+
+                    }
+                }
+                leaderboard.render(g);
             }
 
             // Print coordinates

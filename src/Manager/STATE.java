@@ -4,5 +4,7 @@ public enum STATE {
     GAME,
     PAUSE,
     MENU,
-    DEATH
+    DEATH,
+    LEADERBOARD,
+    HELP
 }
