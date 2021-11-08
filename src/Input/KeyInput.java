@@ -3,10 +3,12 @@ package Input;
 import DataManager.Serializer;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
+import Main.Game;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import  Main.GamePanel;
+import Player.Bullet;
 import Player.Inventory;
 
 import java.awt.event.KeyAdapter;
@@ -22,11 +24,17 @@ public class KeyInput extends KeyAdapter {
     private int turnIndex = 1;
     private final LevelBuilder levelBuilder;
     private final Inventory inventory;
+    private String lastDir;
+    private boolean canShoot;
 
     public KeyInput(GamePanel game, Handler handler, LevelBuilder levelBuilder, Inventory inventory) {
         this.handler = handler;
         this.levelBuilder = levelBuilder;
         this.inventory = inventory;
+
+        canShoot = true;
+
+        lastDir = "d";
 
         // 'w' key
         keyDown[0] = false;
@@ -53,18 +61,22 @@ public class KeyInput extends KeyAdapter {
                     case KeyEvent.VK_W -> {
                         tempObject.setVelY(-5);
                         keyDown[0] = true;
+                        lastDir = "w";
                     }
                     case KeyEvent.VK_S -> {
                         tempObject.setVelY(5);
                         keyDown[1] = true;
+                        lastDir = "s";
                     }
                     case KeyEvent.VK_D -> {
                         tempObject.setVelX(5);
                         keyDown[2] = true;
+                        lastDir = "d";
                     }
                     case KeyEvent.VK_A -> {
                         tempObject.setVelX(-5);
                         keyDown[3] = true;
+                        lastDir = "a";
                     }
                     case KeyEvent.VK_ESCAPE -> System.exit(0);
                 }
@@ -116,6 +128,25 @@ public class KeyInput extends KeyAdapter {
             case KeyEvent.VK_M -> levelBuilder.getData();
             case KeyEvent.VK_E -> inventory.changeItem();
             case KeyEvent.VK_Q -> inventory.removeFromInventory();
+            case KeyEvent.VK_SPACE -> {
+                GameObject player = null;
+                for (int i = 0; i < handler.object.size(); i++) {
+                    GameObject temp = handler.object.get(i);
+                    if (temp.getId() == ID.Player) {
+                        player = temp;
+                    }
+                }
+
+                if (player != null) {
+                    if(canShoot) {
+                        handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 0, 0, handler, ID.Bullet, lastDir));
+                        canShoot = false;
+
+                    }
+                }
+
+            }
+
         }
 
 
@@ -123,6 +154,7 @@ public class KeyInput extends KeyAdapter {
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
+
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
@@ -151,6 +183,9 @@ public class KeyInput extends KeyAdapter {
                     tempObject.setVelX(0);
                 }
 
+                if (key == KeyEvent.VK_SPACE) {
+                    canShoot = true;
+                }
 
             }
         }

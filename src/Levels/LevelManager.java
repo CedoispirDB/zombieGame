@@ -13,6 +13,7 @@ import Map.Node;
 import Player.Inventory;
 import Player.Player;
 import Render.BufferedImageLoader;
+import Player.Interface;
 
 
 import java.awt.*;
@@ -34,15 +35,19 @@ public class LevelManager {
     private int rows = SCREEN_HEIGHT / UNIT_SIZE;
     public boolean buttonPressed;
     public int level;
+    private Interface anInterface;
 
     private Node[][] grid;
 
-    public LevelManager(Handler handler, SaveData saveData, Inventory inventory) {
+    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface) {
         this.handler = handler;
         this.saveData = saveData;
         this.inventory = inventory;
+        this.anInterface = anInterface;
 
         available = new LinkedList<>();
+
+
 
         grid = new Node[cols][rows];
 
@@ -112,8 +117,20 @@ public class LevelManager {
                     case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.Passage, this));
                     case "h" -> inventory.addItem(new HealingPotion(x, y, 0, 0, inventory, ID.HEALING, handler));
                     case "g" -> inventory.addItem(new Pistol(x, y, 0, 0, inventory, ID.Pistol, handler));
-                    case "z" -> handler.addObject(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this));
-                    case "m" -> handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this));
+                    case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this, anInterface));
+                    case "m" -> {
+                        if (level == 0) {
+                            handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface));
+                        } else {
+                            for (int i = 0; i < handler.object.size(); i++) {
+                                GameObject temp = handler.object.get(i);
+                                if (temp.getId() == ID.Player) {
+                                    temp.setPosX(x);
+                                    temp.setPosY(y);
+                                }
+                            }
+                        }
+                    }
                 }
 
             } while (savedData.size() > 0);

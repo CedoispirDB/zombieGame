@@ -87,11 +87,6 @@ public class Walls extends GameObject {
                 }
             }
         }
-        g.setColor(Color.red);
-        g2d.draw(getBoundsX());
-        g.setColor(Color.blue);
-        g2d.draw(getBoundsY());
-
 
     }
 

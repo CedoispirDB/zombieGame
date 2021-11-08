@@ -1,42 +1,81 @@
 package Player;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Interface {
+
     private int health;
+    private int healthBar;
+    private int score;
     private int barG;
     private int barR;
 
     public Interface() {
 
-        health = 100;
+        health = 160;
+        healthBar = 160;
         barG = 100;
         barR = 0;
+        score = 0;
 
     }
 
     public void tick() {
 
-
     }
 
     public void render(Graphics g) {
-        // Health bar
-        g.setColor(new Color(192,192,192));
+        renderHealthBar(g);
+        renderScore(g);
+    }
+
+    private void renderHealthBar(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        float thickness = 2;
+        g.setColor(new Color(0.192f,0.192f,0.192f, 1f));
         g.fillRect(32, 0, 160, 32);
         g.setColor(new Color(barR, barG, 0));
-        g.fillRect(32, 0, health + 60, 32);
+        healthBar = clamp(healthBar,0, 160);
+        g.fillRect(32, 0, healthBar, 32);
+        g.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(thickness));
+        g.drawRect(32, 0, 160, 32);
+        for (int i = 2; i < 6; i++) {
+            g.drawRect(32 * i, 0, 0, 32);
+        }
+    }
+
+    private void renderScore(Graphics g) {
+        String scoreStr = String.valueOf(score);
+        int scoreLength = scoreStr.length();
+        Font font = new Font("Serif", Font.BOLD, 40);
+        g.setFont(font);
+        g.setColor(Color.WHITE);
+        g.drawString(scoreStr, 512 - 10 * scoreLength, 32);
     }
 
     public void hit(int damage) {
         health -= damage;
-        if (barG > 0) {
-            barG -= damage;
-        }
-        if (barR < 255) {
-            barR += damage;
-        }
+        healthBar -= damage;
+        barG -= damage - 2;
+        barR += damage;
 
+//        System.out.println("Health: " + health);
+//        System.out.println("HealthBar: " + healthBar);
+//        System.out.println("barG: " + barG + ", barR: " + barR);
+
+        if (barG < 0) {
+            barG = 0;
+        }
+        if (barR > 255) {
+            barR = 255;
+        }
+    }
+
+    public void increaseScore(int points) {
+        score += points;
     }
 
     public int getHealth() {
@@ -46,5 +85,14 @@ public class Interface {
     public void setHealth(int health) {
         this.health = health;
 
+    }
+
+    private int clamp(int value, int min, int max) {
+        if (value >= max) {
+            return max;
+        } else if(value <= min) {
+            return min;
+        }
+        return value;
     }
 }

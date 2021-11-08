@@ -148,12 +148,12 @@ public class LevelBuilder extends MouseAdapter {
             }
             case 'z' -> {
                 recentID = ID.BasicZombie;
-                handler.addObject(new BasicZombie(x, y, 0, 0 , handler, recentID, levelManager));
+                handler.addEnemy(new BasicZombie(x, y, 0, 0 , handler, recentID, levelManager, null));
                 currentType = "z";
             }
             case 'm' -> {
                 recentID = ID.Player;
-                handler.addObject(new Player(x, y, 0, 0 , handler, recentID, inventory, levelManager));
+                handler.addObject(new Player(x, y, 0, 0 , handler, recentID, inventory, levelManager, null));
                 currentType = "m";
             }
         }

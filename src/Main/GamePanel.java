@@ -5,7 +5,9 @@ import Input.KeyInput;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
 import Manager.Handler;
+import Manager.STATE;
 import Map.Node;
+import Player.Interface;
 import Player.Shooting;
 import Player.Inventory;
 import Manager.ID;
@@ -17,6 +19,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import UI.Menu;
+import java.util.Set;
 
 public class GamePanel extends JPanel implements ActionListener {
 
@@ -35,6 +39,9 @@ public class GamePanel extends JPanel implements ActionListener {
     private Inventory inventory;
     private Node[][] grid;
     private final int level = 0;
+    private Interface anInterface;
+    private Menu menu;
+    public static STATE gameState = STATE.GAME;
 
 
     public GamePanel() {
@@ -43,52 +50,52 @@ public class GamePanel extends JPanel implements ActionListener {
         handler = new Handler();
 
         inventory = new Inventory(handler);
+        anInterface = new Interface();
+        menu = new Menu();
 
 //        System.out.println(levelManager);
 
-        Shooting shooting = new Shooting(handler);
         saveData = new SaveData();
         LevelBuilder levelBuilder = new LevelBuilder(handler, saveData, inventory);
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
         this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory));
-        this.addMouseListener(shooting);
         if (editMode) {
             this.addMouseListener(levelBuilder);
         }
+        this.addMouseListener(menu);
         startGame();
     }
 
 
     public void startGame() {
-        levelManager = new LevelManager(handler, saveData, inventory);
-        grid = levelManager.getGrid();
-        if (!editMode) {
-            levelManager.loadLevel(level);
+        if (gameState == STATE.GAME) {
+            levelManager = new LevelManager(handler, saveData, inventory, anInterface);
+            grid = levelManager.getGrid();
+            if (!editMode) {
+                levelManager.loadLevel(level);
+            }
         }
-//        handler.addObject(new Player.Player.Bullet(SCREEN_WIDTH / 2.0 + 16, SCREEN_HEIGHT / 2.0 + 16, 5,5, handler, Manager.ID.Player.Player.Bullet));
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
+
     }
 
     public void tick() {
-        handler.tick();
-        inventory.tick();
+        if(gameState != STATE.PAUSE) {
+            handler.tick();
+            inventory.tick();
+        }
     }
 
     public void render(Graphics g) {
+
         if (running) {
 
 //
-//            g.setColor(Color.red);
-//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-//               g.drawString(String.valueOf(i * 32), i * 32, 16);
-//            }
-//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
-//            }
+
 //            g.setColor(new Color(120, 230, 220));
 //            for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
 //                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
@@ -115,12 +122,24 @@ public class GamePanel extends JPanel implements ActionListener {
                 g.drawString("k: save level", 30, 125);
             }
 
+            if (gameState == STATE.GAME) {
+                levelManager.renderLevel(g);
+                handler.render(g);
+                inventory.render(g);
+                anInterface.render(g);
+            } else if(gameState == STATE.MENU) {
+                menu.render(g);
+            }
 
-
-            levelManager.renderLevel(g);
-            handler.render(g);
-            inventory.render(g);
-
+            // Print coordinates
+//            g.setFont(new Font(null, 0 , 10));
+//            g.setColor(Color.red);
+//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), i * 32, 16);
+//            }
+//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
+//            }
 
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
@@ -133,8 +152,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-
         render(g);
     }
 

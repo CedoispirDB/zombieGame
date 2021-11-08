@@ -28,7 +28,7 @@ public class Shooting extends MouseAdapter {
         }
 
         if (player != null) {
-            handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 5, 5, handler, ID.Bullet, mx, my));
+//            handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 5, 5, handler, ID.Bullet, mx, my));
         }
     }
 

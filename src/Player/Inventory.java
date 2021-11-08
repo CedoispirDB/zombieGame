@@ -65,9 +65,16 @@ public class Inventory {
 //        System.out.println(items);
         g.setColor(new Color(0f, 0f, 0f, 0.8f));
         g.fillRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 0 , GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
+        g.setColor(Color.white);
+        g.drawRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 1 , GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
+        for (int i = 26; i < 31; i++) {
+            g.drawRect(32 * i, 0, 0, 32);
+        }
         g.setColor(new Color(1f, 0f ,0f));
         selected = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * offSet;
         g.drawRect(selected, 1 , GamePanel.UNIT_SIZE, GamePanel.UNIT_SIZE);
+
+
 
         // Load items on inventory
         for (int i = 0; i < items.size(); i++) {

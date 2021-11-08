@@ -1,12 +1,10 @@
 package Player;
 
+import Enemies.BasicZombie;
 import Levels.LevelManager;
 import Main.Game;
 import Main.GamePanel;
-import Manager.GameObject;
-import Manager.Handler;
-import Manager.ID;
-import Manager.ItemObject;
+import Manager.*;
 import Map.Node;
 import Render.BufferedImageLoader;
 
@@ -25,18 +23,29 @@ public class Player extends GameObject {
     private GameObject button;
     private GameObject passage;
     private Interface anInterface;
+    private int ctn;
+    private Node currentNode;
+    private Node currentNodeY;
+    private Node[][] grid;
+    private Rectangle barRecX;
+    private Rectangle barRecY;
+    private int damage = 5;
 
-    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager) {
+    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface) {
         super(posX, posY, velX, velY, handler, id);
+
+        ctn = 0;
 
         BufferedImageLoader loader = new BufferedImageLoader();
         image = loader.loadImage("/player.png");
 
-        anInterface = new Interface();
-
+        this.anInterface = anInterface;
         this.handler = handler;
         this.inventory = inventory;
         this.levelManager = levelManager;
+
+        barRecX = new Rectangle(32 ,0, 160, 30);
+        barRecY = new Rectangle(40 ,0, 144, 32);
 
         for (int i = 0; i < inventory.items.size(); i++) {
             ItemObject itemObject  = inventory.items.get(i);
@@ -55,30 +64,51 @@ public class Player extends GameObject {
         }
 
         closedNode = new LinkedList<>();
+
+        grid = levelManager.getGrid();
+
+
     }
 
 
     public void tick() {
 
-        if (anInterface.getHealth() <= 0) {
-            System.out.println("Died");
+        currentNode = grid[(int) (posX/ 32)][(int) (posY / 32)];
+
+        if (currentNode.getY() < 64) {
+            currentNodeY = grid[(int) (posX / 32)][(int) ((posY + 32) / 32)];
         }
 
-        if (posX + 32 > GamePanel.SCREEN_WIDTH) {
+        if (anInterface.getHealth() <= 0) {
+//            System.out.println("Died");
+        }
+
+        if (posX + 32 > GamePanel.SCREEN_WIDTH /*|| posX + 32 > 32 && currentNode.getY() == 0 && currentNode.getX() == 0*/) {
             posX -= 5;
         }
-        if (posX < 0) {
+
+        if (posX < 0 /*|| posX < 192 && currentNodeY.getY() == 0 && currentNode.getX() == 160*/) {
             posX += 5;
         }
 
         if (posY + 32 > GamePanel.SCREEN_HEIGHT) {
             posY -= 5;
         }
-        if (posY < 0) {
+        if (posY < 0 /*|| posY < 32 && currentNodeY.getY() == 32 && currentNode.getX() >= 32 && currentNode.getX() < 192*/) {
             posY += 5;
         }
 
 
+        if (barRecY.intersects(getBounds())) {
+            posY += 5;
+        }
+        if (barRecX.intersects(getBounds())) {
+            if (currentNode.getX() < 32) {
+                posX -= 5;
+            } else {
+                posX += 5;
+            }
+        }
 
 //        if (pistol != null) {
 //            if (getBounds().intersects(pistol.getBounds())) {
@@ -91,8 +121,6 @@ public class Player extends GameObject {
 
         posX += velX;
         posY += velY;
-
-        anInterface.tick();
         pressButton();
         passLevel();
         enemyCollision();
@@ -100,29 +128,43 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
+
         Graphics2D g2d = (Graphics2D) g;
 
         g.drawImage(image, (int) posX, (int) posY, null);
-        anInterface.render(g);
-
     }
 
     public void pressButton() {
         if (getBounds().intersects(button.getBounds())) {
             levelManager.setButtonPressed(true);
+            if (ctn == 0) {
+                anInterface.increaseScore(15);
+                ctn++;
+            }
         }
     }
 
     public void passLevel() {
         if (getBounds().intersects(passage.getBounds())) {
             if (levelManager.isButtonPressed()) {
+                anInterface.increaseScore(50);
                 levelManager.setButtonPressed(false);
                 levelManager.setLevel();
                 levelManager.loadLevel(levelManager.getLevel());
-
+                for (int i = 0; i < handler.object.size() ; i++) {
+                    GameObject temp = handler.object.get(i);
+                    if (temp.getId() == ID.Button) {
+                        button = temp;
+                    } else if(temp.getId() == ID.Passage) {
+                        passage = temp;
+                    }
+                }
+                ctn = 0;
             }
         }
     }
+
+
 
     // Wall collision
     private void wallCollision() {
@@ -157,14 +199,18 @@ public class Player extends GameObject {
     // Collision detection
     private void enemyCollision() {
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject temp = handler.object.get(i);
+        for (int i = 0; i < handler.enemies.size(); i++) {
+            EnemyObject temp = handler.enemies.get(i);
             if (temp.getId() == ID.BasicZombie) {
                 if (temp.getBounds().intersects(getBounds())) {
                     anInterface.hit(5);
                 }
             }
         }
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public boolean bounds() {

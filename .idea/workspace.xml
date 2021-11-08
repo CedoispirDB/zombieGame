@@ -20,13 +20,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Player/Interface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Items/Coins.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Manager/EnemyObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Manager/STATE.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/UI/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LevelsData/level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/LevelsData/level.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Shooting.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Shooting.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input/KeyInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/LevelBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/LevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Levels/Walls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Walls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Interface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Inventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Shooting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Shooting.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +58,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -340,7 +363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636238466084</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="health system done">
+      <created>1636240913000</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1636240913000</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -356,7 +386,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Hit class created," />
     <MESSAGE value="EasyZombie created&#10;Obstacles created&#10;Player can't pass through objects" />
     <MESSAGE value="Level created" />
     <MESSAGE value="New enemy created" />
@@ -381,6 +410,7 @@
     <MESSAGE value="All working thank GODDDDD" />
     <MESSAGE value="Animation system created. Not tested, need to draw the spriteSheets" />
     <MESSAGE value="Animation system created. Not tested, need to draw the spriteSheets&#10;Level changing working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Animation system created. Not tested, need to draw the spriteSheets&#10;Level changing working" />
+    <MESSAGE value="health system done" />
+    <option name="LAST_COMMIT_MESSAGE" value="health system done" />
   </component>
 </project>
