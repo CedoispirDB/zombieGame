@@ -74,6 +74,10 @@ public class Interface {
         }
     }
 
+    public int getScore() {
+        return score;
+    }
+
     public void increaseScore(int points) {
         score += points;
     }
@@ -87,6 +91,13 @@ public class Interface {
 
     }
 
+    public void reset() {
+        health = 160;
+        healthBar = 160;
+        score = 0;
+        barG = 100;
+        barR = 0;
+    }
     private int clamp(int value, int min, int max) {
         if (value >= max) {
             return max;

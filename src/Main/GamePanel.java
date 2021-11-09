@@ -1,6 +1,7 @@
 package Main;
 
 import DataManager.SaveData;
+import DataManager.ScoreManager;
 import Input.KeyInput;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
@@ -18,9 +19,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import UI.Help;
+import UI.*;
 import UI.Menu;
-import UI.Leaderboard;
 
 public class GamePanel extends JPanel implements ActionListener {
 
@@ -42,7 +42,10 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Interface anInterface;
     private final Menu menu;
     private final Help help;
+    private final Pause pause;
+    private final DeathScreen deathScreen;
     private final Leaderboard leaderboard;
+    private final ScoreManager scoreManager;
     public static STATE gameState = STATE.MENU;
 
 
@@ -52,40 +55,53 @@ public class GamePanel extends JPanel implements ActionListener {
         handler = new Handler();
         inventory = new Inventory(handler);
         anInterface = new Interface();
-        menu = new Menu();
+        menu = new Menu(this);
         help = new Help();
-        leaderboard = new Leaderboard();
+        scoreManager = new ScoreManager();
+        leaderboard = new Leaderboard(scoreManager);
+        pause = new Pause(this);
+        deathScreen = new DeathScreen(anInterface, scoreManager, this);
         saveData = new SaveData();
         LevelBuilder levelBuilder = new LevelBuilder(handler, saveData, inventory);
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
-        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory));
+        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen));
         if (editMode) {
             this.addMouseListener(levelBuilder);
         }
         this.addMouseListener(menu);
         this.addMouseListener(help);
         this.addMouseListener(leaderboard);
-        startGame();
+        this.addMouseListener(pause);
+        this.addMouseListener(deathScreen);
+        init();
     }
 
 
-    public void startGame() {
-        levelManager = new LevelManager(handler, saveData, inventory, anInterface);
-        grid = levelManager.getGrid();
-        if (!editMode) {
-            levelManager.loadLevel(level);
-        }
+
+    public void init() {
+        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager);
 
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
+    }
 
+
+    public void startGame() {
+        grid = levelManager.getGrid();
+        if (!editMode) {
+            levelManager.loadLevel(level);
+        }
+    }
+
+    public void restartGame() {
+        levelManager.restart();
     }
 
     public void tick() {
-        if (gameState != STATE.PAUSE) {
+        if (gameState == STATE.GAME) {
             handler.tick();
             inventory.tick();
         }
@@ -94,6 +110,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void render(Graphics g) {
 
         if (running) {
+//            System.out.println(gameState);
 //            g.setColor(new Color(120, 230, 220));
 //            for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
 //                g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
@@ -126,11 +143,14 @@ public class GamePanel extends JPanel implements ActionListener {
             image = loader.loadImage("/a.png");
             image = image.getSubimage(32, 0, 32, 32);
 
-            if (gameState == STATE.GAME) {
+            if (gameState == STATE.GAME || gameState == STATE.PAUSE){
                 levelManager.renderLevel(g);
                 handler.render(g);
                 inventory.render(g);
                 anInterface.render(g);
+                if (gameState == STATE.PAUSE) {
+                    pause.render(g);
+                }
             } else if (gameState == STATE.MENU) {
                 for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
                     for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
@@ -139,7 +159,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
                 menu.render(g);
-            } else if (gameState == STATE.HELP){
+            } else if (gameState == STATE.HELP) {
                 for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
                     for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
                         g.drawImage(image, i * 32, j * 32, null);
@@ -155,6 +175,8 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
                 leaderboard.render(g);
+            } else if (gameState == STATE.DEATH) {
+                deathScreen.render(g);
             }
 
             // Print coordinates

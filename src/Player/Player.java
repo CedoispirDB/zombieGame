@@ -1,5 +1,6 @@
 package Player;
 
+import DataManager.ScoreManager;
 import Enemies.BasicZombie;
 import Levels.LevelManager;
 import Main.Game;
@@ -18,11 +19,13 @@ public class Player extends GameObject {
     private final BufferedImage image;
     private final Inventory inventory;
     private ItemObject pistol;
-    private LevelManager levelManager;
-    private LinkedList<Node> closedNode;
+    private final LevelManager levelManager;
+    private final LinkedList<Node> closedNode;
     private GameObject button;
     private GameObject passage;
-    private Interface anInterface;
+    private final  Interface anInterface;
+    private final ScoreManager scoreManager;
+
     private int ctn;
     private Node currentNode;
     private Node currentNodeY;
@@ -31,7 +34,7 @@ public class Player extends GameObject {
     private Rectangle barRecY;
     private int damage = 5;
 
-    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface) {
+    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ScoreManager scoreManager) {
         super(posX, posY, velX, velY, handler, id);
 
         ctn = 0;
@@ -43,6 +46,7 @@ public class Player extends GameObject {
         this.handler = handler;
         this.inventory = inventory;
         this.levelManager = levelManager;
+        this.scoreManager = scoreManager;
 
         barRecX = new Rectangle(32 ,0, 160, 30);
         barRecY = new Rectangle(40 ,0, 144, 32);
@@ -80,7 +84,7 @@ public class Player extends GameObject {
         }
 
         if (anInterface.getHealth() <= 0) {
-//            System.out.println("Died");
+            GamePanel.gameState = STATE.DEATH;
         }
 
         if (posX + 32 > GamePanel.SCREEN_WIDTH /*|| posX + 32 > 32 && currentNode.getY() == 0 && currentNode.getX() == 0*/) {

@@ -71,4 +71,10 @@ public class Handler {
         enemies.clear();
 
     }
+
+
+    public void reset() {
+        object.clear();
+        enemies.clear();
+    }
 }

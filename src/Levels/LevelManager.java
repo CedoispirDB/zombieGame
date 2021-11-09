@@ -1,10 +1,10 @@
 package Levels;
 
 import DataManager.SaveData;
+import DataManager.ScoreManager;
 import Enemies.BasicZombie;
 import Items.HealingPotion;
 import Items.Pistol;
-import Main.Game;
 import Main.GamePanel;
 import Manager.GameObject;
 import Manager.Handler;
@@ -18,10 +18,7 @@ import Player.Interface;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Random;
 
 import static Main.GamePanel.*;
 
@@ -35,25 +32,26 @@ public class LevelManager {
     private int rows = SCREEN_HEIGHT / UNIT_SIZE;
     public boolean buttonPressed;
     public int level;
-    private Interface anInterface;
+    private final Interface anInterface;
+    private final ScoreManager scoreManager;
 
     private Node[][] grid;
 
-    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface) {
+    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager) {
         this.handler = handler;
         this.saveData = saveData;
         this.inventory = inventory;
         this.anInterface = anInterface;
+        this.scoreManager = scoreManager;
 
         available = new LinkedList<>();
-
 
 
         grid = new Node[cols][rows];
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                grid[i][j] = new Node(i * 32, j * 32, 32, 32,i, j, rows, cols, "n");
+                grid[i][j] = new Node(i * 32, j * 32, 32, 32, i, j, rows, cols, "n");
             }
         }
 
@@ -87,7 +85,7 @@ public class LevelManager {
                 h = Integer.parseInt(savedData.get(3));
                 type = savedData.get(4);
 
-                currentNode = grid[x / 32][y /32];
+                currentNode = grid[x / 32][y / 32];
 
 //                System.out.println("Current Node: " + currentNode + ", actual w: " + w + ", actual h: " + h + ", actual type: " + type);
 
@@ -119,8 +117,17 @@ public class LevelManager {
                     case "g" -> inventory.addItem(new Pistol(x, y, 0, 0, inventory, ID.Pistol, handler));
                     case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this, anInterface));
                     case "m" -> {
-                        if (level == 0) {
-                            handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface));
+                        boolean playerExists = false;
+
+                        for (int i = 0; i < handler.object.size(); i++) {
+                            GameObject temp = handler.object.get(i);
+                            if (temp.getId() == ID.Player) {
+                                playerExists = true;
+                                break;
+                            }
+                        }
+                        if (!playerExists) {
+                            handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface, scoreManager));
                         } else {
                             for (int i = 0; i < handler.object.size(); i++) {
                                 GameObject temp = handler.object.get(i);
@@ -161,7 +168,6 @@ public class LevelManager {
 //        }
 
 
-
     }
 
     public void renderLevel(Graphics g) {
@@ -169,7 +175,7 @@ public class LevelManager {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         image = loader.loadImage("/a.png");
-        image = image.getSubimage(32,0,32,32);
+        image = image.getSubimage(32, 0, 32, 32);
 
         for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
             for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
@@ -183,7 +189,7 @@ public class LevelManager {
 
     private void createNodes(int x, int y, int w, int h, String type) {
 
-        if (w != 32 ) {
+        if (w != 32) {
             for (int i = x; i <= x + w - 32; i += 32) {
                 grid[i / 32][y / 32] = new Node(i, y, 32, 32, i / 32, y / 32, rows, cols, type);
             }
@@ -274,11 +280,19 @@ public class LevelManager {
     public void resetLevel() {
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                grid[i][j] = new Node(i * 32, j * 32, 32, 32,i, j, rows, cols, "n");
+                grid[i][j] = new Node(i * 32, j * 32, 32, 32, i, j, rows, cols, "n");
             }
         }
         handler.removeAll();
         buttonPressed = false;
+        inventory.clearItems();
+    }
+
+    public void restart() {
+        handler.reset();
+        buttonPressed = false;
+        inventory.clearItems();
         inventory.cleanInventory();
+        anInterface.reset();
     }
 }

@@ -74,7 +74,6 @@ public class Bullet extends GameObject {
             EnemyObject temp = handler.enemies.get(i);
             if (temp.getId() == ID.BasicZombie) {
                 if (temp.getBounds().intersects(getBounds())) {
-                    System.out.println(((Player)player).getDamage());
                     temp.setEnemyHealth(temp.getEnemyHealth() - ((Player)player).getDamage());
                     handler.removeObject(this);
                 }

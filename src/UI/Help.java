@@ -15,9 +15,10 @@ public class Help extends MouseAdapter {
     private final int buttonHeight = 78;
     private final int ox = (GamePanel.SCREEN_WIDTH - buttonWidth) / 2;
     private final int oy = (GamePanel.SCREEN_HEIGHT - buttonHeight) / 2;
+    private Color backColor;
 
     public Help() {
-
+        backColor = Color.WHITE;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -27,7 +28,20 @@ public class Help extends MouseAdapter {
 
 
             if (mouseOver(mx, my,ox, oy + 2 * gap, buttonWidth, buttonHeight )) {
+                backColor = Color.GRAY;
+            }
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (GamePanel.gameState == STATE.HELP) {
+            int mx = e.getX();
+            int my = e.getY();
+
+
+            if (mouseOver(mx, my,ox, oy + 2 * gap, buttonWidth, buttonHeight )) {
                 GamePanel.gameState = STATE.MENU;
+                backColor = Color.WHITE;
             }
         }
     }
@@ -39,7 +53,7 @@ public class Help extends MouseAdapter {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        float thickness = 2;
+        float thickness = 5;
         g2d.setStroke(new BasicStroke(thickness));
         Font fnt = new Font("Serif", Font.BOLD, 60);
 
@@ -55,14 +69,24 @@ public class Help extends MouseAdapter {
         g.setFont(fnt);
         g.drawString(title, (GamePanel.SCREEN_WIDTH / 2) - (titleWidth / 2), 115 - (115 - (titleHeight)) / 2);
 
-        g.fillRect(ox - 100, 150, buttonWidth + 200,   (oy + 2 * gap) - 170);
+        g.fillRect(ox - 165, 150, buttonWidth + 330,   (oy + 2 * gap) - 170);
+        g.setColor(backColor);
         g.fillRect(ox, oy + 2  * gap, buttonWidth, buttonHeight);
 
         g.setColor(Color.black);
-        g.drawRect(ox - 100, 150, buttonWidth + 200,   (oy + 2 * gap) - 170);
-        g.setFont(fnt2);
+        g.drawRect(ox - 165, 150, buttonWidth + 330,   (oy + 2 * gap) - 170);
 
-        g.drawString("",ox - 100, 150);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
+        g.drawString(" Your objective is to press the button and go through the door to pass the level.",ox - 155, 170);
+        g.drawString(" Gain Points by passing levels and killing monsters.",ox - 155, 200);
+        g.drawString(" Use \"WASD\" to control the player movement.",ox - 155, 230);
+        g.drawString(" Use space bar to shoot with the enemies.",ox - 155, 260);
+        g.drawString(" Use e to change the selected items in the inventory bar.",ox - 155, 290);
+        g.drawString(" Use q to drop a selected item.",ox - 155, 320);
+        g.drawString(" Use p to pause the game.",ox - 155, 350);
+
+
+        g.setFont(fnt2);
 
         int yi = oy + (int) fnt2.getStringBounds("Play", frc).getHeight() - 5 + ((buttonHeight - (int) fnt2.getStringBounds("Play", frc).getHeight()) / 2) - 1;
 

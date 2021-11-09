@@ -8,7 +8,7 @@ public class SaveData {
 
     public void saveToFile(LinkedList<String> data) {
         try {
-            FileWriter writer = new FileWriter("LevelsData/level.txt", true);
+            FileWriter writer = new FileWriter("Data/level.txt", true);
 
             for (int i = 0; i < data.size(); i++) {
                 if (i != data.size() - 1) {
@@ -31,7 +31,7 @@ public class SaveData {
         int count = 0;
 
         try {
-            File file = new File("LevelsData/level.txt");
+            File file = new File("Data/level.txt");
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String data = reader.nextLine();

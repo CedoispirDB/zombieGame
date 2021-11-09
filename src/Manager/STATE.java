@@ -6,5 +6,6 @@ public enum STATE {
     MENU,
     DEATH,
     LEADERBOARD,
-    HELP
+    HELP,
+    BUILD
 }

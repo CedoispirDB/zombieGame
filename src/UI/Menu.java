@@ -5,6 +5,7 @@ import Main.Game;
 import Main.GamePanel;
 import Manager.STATE;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,9 +20,20 @@ public class Menu extends MouseAdapter {
     private int buttonHeight = 78;
     private int ox = (GamePanel.SCREEN_WIDTH - buttonWidth) / 2;
     private int oy = (GamePanel.SCREEN_HEIGHT - buttonHeight) / 2;
+    private Color playColor;
+    private Color boardColor;
+    private Color helpColor;
+    private Color quitColor;
+    private boolean canQuit;
+    private GamePanel gamePanel;
 
-    public Menu() {
-
+    public Menu(GamePanel gamePanel) {
+        playColor = Color.WHITE;
+        boardColor = Color.WHITE;
+        helpColor = Color.WHITE;
+        quitColor = Color.WHITE;
+        canQuit = false;
+        this.gamePanel = gamePanel;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -31,22 +43,58 @@ public class Menu extends MouseAdapter {
 
             // Play button clicked
             if (mouseOver(mx, my, ox, oy - gap, buttonWidth, buttonHeight)) {
+                playColor = Color.GRAY;
+            }
+
+            // Leaderboard button clicked
+            if (mouseOver(mx, my, ox, oy, buttonWidth, buttonHeight)) {
+                boardColor = Color.GRAY;
+            }
+
+            // Help button clicked
+            if (mouseOver(mx, my, ox, oy + gap, buttonWidth, buttonHeight)) {
+                helpColor = Color.GRAY;
+            }
+
+            // Quit button clicked
+            if (mouseOver(mx, my, ox, oy + 2 * gap, buttonWidth, buttonHeight)) {
+                quitColor = Color.GRAY;
+                canQuit = true;
+            }
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (GamePanel.gameState == STATE.MENU) {
+            int mx = e.getX();
+            int my = e.getY();
+
+            // Play button clicked
+            if (mouseOver(mx, my, ox, oy - gap, buttonWidth, buttonHeight)) {
                 GamePanel.gameState = STATE.GAME;
+                gamePanel.startGame();
+                playColor = Color.WHITE;
             }
 
             // Leaderboard button clicked
             if (mouseOver(mx, my, ox, oy, buttonWidth, buttonHeight)) {
                 GamePanel.gameState = STATE.LEADERBOARD;
+                boardColor = Color.WHITE;
             }
 
             // Help button clicked
             if (mouseOver(mx, my, ox, oy + gap, buttonWidth, buttonHeight)) {
                 GamePanel.gameState = STATE.HELP;
+                helpColor = Color.WHITE;
             }
 
             // Quit button clicked
             if (mouseOver(mx, my, ox, oy + 2 * gap, buttonWidth, buttonHeight)) {
-                System.exit(0);
+                if (canQuit) {
+                    System.exit(0);
+                    playColor = Color.WHITE;
+                    quitColor = Color.WHITE;
+                }
             }
         }
     }
@@ -55,7 +103,7 @@ public class Menu extends MouseAdapter {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        float thickness = 2;
+        float thickness = 5;
         g2d.setStroke(new BasicStroke(thickness));
         Font fnt = new Font("Serif", Font.BOLD, 60);
 //        Color bColor = new Color(159, 226, 191);
@@ -77,13 +125,15 @@ public class Menu extends MouseAdapter {
         g.drawString(title, (GamePanel.SCREEN_WIDTH/ 2) - (titleWidth / 2), 115 - (115 - (titleHeight)) / 2);
 
         // Buttons
-
         int yi = oy + (int) fnt2.getStringBounds("Play", frc).getHeight() - 5 + ((buttonHeight - (int) fnt2.getStringBounds("Play", frc).getHeight()) / 2) - 1;
 
-        g.setColor(Color.WHITE);
+        g.setColor(playColor);
         g.fillRect(ox, oy - gap, buttonWidth, buttonHeight);
+        g.setColor(boardColor);
         g.fillRect(ox, oy, buttonWidth, buttonHeight);
+        g.setColor(helpColor);
         g.fillRect(ox, oy + gap, buttonWidth, buttonHeight);
+        g.setColor(quitColor);
         g.fillRect(ox, oy + 2  * gap, buttonWidth, buttonHeight);
 
 

@@ -8,8 +8,10 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import  Main.GamePanel;
+import Manager.STATE;
 import Player.Bullet;
 import Player.Inventory;
+import UI.DeathScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -26,11 +28,17 @@ public class KeyInput extends KeyAdapter {
     private final Inventory inventory;
     private String lastDir;
     private boolean canShoot;
+    private DeathScreen deathScreen;
+    private boolean shiftPressed;
+    private boolean capsPressed;
+    private GamePanel gamePanel;
 
-    public KeyInput(GamePanel game, Handler handler, LevelBuilder levelBuilder, Inventory inventory) {
+    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen) {
         this.handler = handler;
         this.levelBuilder = levelBuilder;
         this.inventory = inventory;
+        this.deathScreen = deathScreen;
+        this.gamePanel = gamePanel;
 
         canShoot = true;
 
@@ -51,6 +59,42 @@ public class KeyInput extends KeyAdapter {
 //        System.out.println(e.getKeyCode());
 //        System.out.println(KeyEvent.VK_W);
         int code = e.getKeyCode();
+        String opt = "a";
+
+        if (code == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
+
+        if (GamePanel.gameState == STATE.DEATH) {
+            String str = String.valueOf((char)code);
+//            System.out.println("str 1: " + str);
+
+            if (code == 16) {
+                // shift pressed
+                shiftPressed = true;
+            }
+            if (code == 20) {
+                // caps pressed
+                capsPressed = true;
+            }
+
+            if (code == 10) {
+                GamePanel.gameState = STATE.MENU;
+                gamePanel.restartGame();
+            }
+
+            if (!shiftPressed && !capsPressed) {
+                str = str.toLowerCase();
+            }
+
+            if (code == 8) {
+                opt = "r";
+            }
+
+            if (code > 49 && code < 91 || code == 8) {
+                deathScreen.reloadString(str, opt);
+            }
+        }
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
@@ -78,75 +122,90 @@ public class KeyInput extends KeyAdapter {
                         keyDown[3] = true;
                         lastDir = "a";
                     }
-                    case KeyEvent.VK_ESCAPE -> System.exit(0);
                 }
             }
 
         }
 
-        switch (code) {
-            case KeyEvent.VK_V -> {
-                LinkedList<Character> options = new LinkedList<>();
-                options.add('w');
-                options.add('b');
-                options.add('p');
-                options.add('h');
-                options.add('g');
-                options.add('z');
-                options.add('m');
+        if (GamePanel.gameState == STATE.BUILD) {
+            switch (code) {
+                case KeyEvent.VK_V -> {
+                    LinkedList<Character> options = new LinkedList<>();
+                    options.add('w');
+                    options.add('b');
+                    options.add('p');
+                    options.add('h');
+                    options.add('g');
+                    options.add('z');
+                    options.add('m');
 
-                LevelBuilder.type = options.get(typeIndex);
-                typeIndex++;
+                    LevelBuilder.type = options.get(typeIndex);
+                    typeIndex++;
 
-                if (typeIndex == options.size()) {
-                    typeIndex = 0;
-                }
-            }
-            case KeyEvent.VK_T -> {
-                LinkedList<Character> options = new LinkedList<>();
-                options.add('t');
-                options.add('l');
-                options.add('b');
-                options.add('r');
-
-
-                LevelBuilder.position = options.get(turnIndex);
-                turnIndex++;
-
-                if (turnIndex == options.size()) {
-                    turnIndex = 0;
-                }
-            }
-            case KeyEvent.VK_W -> LevelBuilder.position = 't';
-            case KeyEvent.VK_A -> LevelBuilder.position = 'l';
-            case KeyEvent.VK_S -> LevelBuilder.position = 'b';
-            case KeyEvent.VK_D -> LevelBuilder.position = 'r';
-            case KeyEvent.VK_B -> LevelBuilder.drag = !LevelBuilder.drag;
-            case KeyEvent.VK_Z -> LevelBuilder.undo();
-            case KeyEvent.VK_K -> levelBuilder.saveLevel();
-            case KeyEvent.VK_J -> LevelBuilder.reset();
-            case KeyEvent.VK_M -> levelBuilder.getData();
-            case KeyEvent.VK_E -> inventory.changeItem();
-            case KeyEvent.VK_Q -> inventory.removeFromInventory();
-            case KeyEvent.VK_SPACE -> {
-                GameObject player = null;
-                for (int i = 0; i < handler.object.size(); i++) {
-                    GameObject temp = handler.object.get(i);
-                    if (temp.getId() == ID.Player) {
-                        player = temp;
+                    if (typeIndex == options.size()) {
+                        typeIndex = 0;
                     }
                 }
+                case KeyEvent.VK_T -> {
+                    LinkedList<Character> options = new LinkedList<>();
+                    options.add('t');
+                    options.add('l');
+                    options.add('b');
+                    options.add('r');
 
-                if (player != null) {
-                    if(canShoot) {
-                        handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 0, 0, handler, ID.Bullet, lastDir));
-                        canShoot = false;
 
+                    LevelBuilder.position = options.get(turnIndex);
+                    turnIndex++;
+
+                    if (turnIndex == options.size()) {
+                        turnIndex = 0;
                     }
+                }
+                case KeyEvent.VK_W -> LevelBuilder.position = 't';
+                case KeyEvent.VK_A -> LevelBuilder.position = 'l';
+                case KeyEvent.VK_S -> LevelBuilder.position = 'b';
+                case KeyEvent.VK_D -> LevelBuilder.position = 'r';
+                case KeyEvent.VK_B -> LevelBuilder.drag = !LevelBuilder.drag;
+                case KeyEvent.VK_Z -> LevelBuilder.undo();
+                case KeyEvent.VK_K -> levelBuilder.saveLevel();
+                case KeyEvent.VK_J -> LevelBuilder.reset();
+                case KeyEvent.VK_M -> levelBuilder.getData();
+
+            }
+        } else {
+            switch (code) {
+                case KeyEvent.VK_E -> inventory.changeItem();
+                case KeyEvent.VK_Q -> inventory.removeFromInventory();
+                case KeyEvent.VK_SPACE -> {
+                    GameObject player = null;
+                    for (int i = 0; i < handler.object.size(); i++) {
+                        GameObject temp = handler.object.get(i);
+                        if (temp.getId() == ID.Player) {
+                            player = temp;
+                        }
+                    }
+
+                    if (player != null) {
+                        if (canShoot) {
+                            handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 0, 0, handler, ID.Bullet, lastDir));
+                            canShoot = false;
+
+                        }
+                    }
+
+                }
+                case KeyEvent.VK_P -> {
+                    if (GamePanel.gameState == STATE.PAUSE) {
+                        System.out.println("changing to game");
+                        GamePanel.gameState = STATE.GAME;
+                    } else if (GamePanel.gameState == STATE.GAME) {
+                        System.out.println("changing to pause");
+                        GamePanel.gameState = STATE.PAUSE;
+                    }
+
                 }
 
             }
-
         }
 
 
@@ -155,6 +214,14 @@ public class KeyInput extends KeyAdapter {
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
+        if (GamePanel.gameState == STATE.DEATH) {
+            if (key == 16) {
+                shiftPressed = false;
+            }
+            if (key == 20) {
+                capsPressed = false;
+            }
+        }
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);

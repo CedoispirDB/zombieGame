@@ -25,7 +25,6 @@ public class GameFrame extends JFrame {
     public GameFrame(){
         GamePanel gamePanel = new GamePanel();
 
-
         this.add(gamePanel);
         this.setTitle("Main.Game");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

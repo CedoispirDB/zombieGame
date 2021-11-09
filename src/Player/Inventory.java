@@ -204,8 +204,12 @@ public class Inventory {
 
     public void addPos() {pos++;}
 
-    public void cleanInventory() {
+    public void clearItems() {
         items.clear();
+    }
+
+    public void cleanInventory() {
+        inventoryItems.clear();
     }
 
 }
