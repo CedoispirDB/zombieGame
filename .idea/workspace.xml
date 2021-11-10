@@ -21,20 +21,14 @@
   <component name="ChangeListManager">
     <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/level.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Items/HealingPotion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Items/HealingPotion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Items/Pistol.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Items/Pistol.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Input/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input/KeyInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Items/HealingPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Items/HealingPotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Items/Pistol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Items/Pistol.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Levels/LevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Interface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Inventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Player.java" afterDir="false" />
     </list>
@@ -396,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636501754025</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Shooting only with gun in hand working&#10;Healing system working">
+      <created>1636504964434</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1636504964434</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -412,7 +413,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="limpa" />
     <MESSAGE value="img" />
     <MESSAGE value="New player texture added" />
     <MESSAGE value="Poppy created, new skins added" />
@@ -437,22 +437,7 @@
     <MESSAGE value="New Shooting system(need improvement)&#10;New enemy object created to make it easier to create enemies&#10;Game States created&#10;New inventory design&#10;New health bar design" />
     <MESSAGE value="New UI components created" />
     <MESSAGE value="System to store player scores added&#10;Death screen, help screen, Leaderboard, and pause screen finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="System to store player scores added&#10;Death screen, help screen, Leaderboard, and pause screen finished" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Input/KeyInput.java</url>
-          <line>103</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Main/GamePanel.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Shooting only with gun in hand working&#10;Healing system working" />
+    <option name="LAST_COMMIT_MESSAGE" value="Shooting only with gun in hand working&#10;Healing system working" />
   </component>
 </project>

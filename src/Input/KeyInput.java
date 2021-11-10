@@ -145,7 +145,7 @@ public class KeyInput extends KeyAdapter {
                 case KeyEvent.VK_M -> levelBuilder.getData();
 
             }
-        } else if (GamePanel.gameState == STATE.GAME){
+        } else if (GamePanel.gameState == STATE.GAME) {
 
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
@@ -179,8 +179,8 @@ public class KeyInput extends KeyAdapter {
             }
 
             switch (code) {
-                case KeyEvent.VK_E -> inventory.changeItem();
-                case KeyEvent.VK_Q -> inventory.removeFromInventory();
+                case KeyEvent.VK_E -> inventory.changeItem(0);
+                case KeyEvent.VK_Q -> inventory.changeItem(1);
                 case KeyEvent.VK_SPACE -> {
                     GameObject player = null;
                     for (int i = 0; i < handler.object.size(); i++) {
@@ -196,25 +196,19 @@ public class KeyInput extends KeyAdapter {
                             handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 0, 0, handler, ID.Bullet, lastDir));
                             canShoot = false;
 
-
+                        } else {
+                            if (anInterface.getHealth() < 160) {
+                                inventory.heal();
+                            }
                         }
                     }
 
                 }
-                case KeyEvent.VK_P -> {
-                    if (GamePanel.gameState == STATE.PAUSE) {
-                        System.out.println("changing to game");
-                        GamePanel.gameState = STATE.GAME;
-                    } else if (GamePanel.gameState == STATE.GAME) {
-                        System.out.println("changing to pause");
-                        GamePanel.gameState = STATE.PAUSE;
-                    }
-
-                }
-                case KeyEvent.VK_F -> {
-                    inventory.heal();
-                }
+                case KeyEvent.VK_P -> GamePanel.gameState = STATE.PAUSE;
+                case KeyEvent.VK_F -> inventory.removeFromInventory();
             }
+        } else if (GamePanel.gameState == STATE.PAUSE) {
+            GamePanel.gameState = STATE.GAME;
         }
 
 

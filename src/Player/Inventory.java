@@ -20,7 +20,7 @@ public class Inventory {
     public LinkedList<ItemObject> inventoryItems;
 
     // offSet is where the player is selecting
-    private int offSet = 6;
+    private int offSet;
     // pos is where to draw the item icon
     private int pos = 6;
     private int selected;
@@ -36,6 +36,7 @@ public class Inventory {
         inventoryItems = new LinkedList<>();
         this.handler = handler;
         this.anInterface = anInterface;
+        offSet = 6;
 
         positions = new int[5];
         positions[0] = 1;
@@ -101,7 +102,11 @@ public class Inventory {
     }
 
     public void addToInventory(ItemObject itemObject) {
-        inventoryItems.add(itemObject);
+        System.out.println(inventoryItems.size());
+        if (inventoryItems.size() < 5) {
+            System.out.println("adding " + itemObject + " to inventory");
+            inventoryItems.add(itemObject);
+        }
     }
 
     public void removeFromInventory() {
@@ -142,6 +147,7 @@ public class Inventory {
         if (canHeal()) {
             anInterface.setHealth(25);
             inventoryItems.remove(selectedItem);
+            positions[(int) selectedItem.getInventoryPos()] = 1;
         }
     }
 
@@ -193,11 +199,19 @@ public class Inventory {
     }
 
 
-    public void changeItem() {
-        if (offSet != 2) {
-            offSet--;
-        } else {
-            offSet = 6;
+    public void changeItem(int opt) {
+        if (opt == 0) {
+            if (offSet != 2) {
+                offSet--;
+            } else {
+                offSet = 6;
+            }
+        } else if (opt == 1) {
+            if (offSet != 6) {
+                offSet++;
+            } else {
+                offSet = 2;
+            }
         }
 
 
@@ -229,7 +243,6 @@ public class Inventory {
             case 4 -> pos = 2;
         }
 
-//        System.out.println("pos: " + pos);
 
         int[] invInfo = new int[2];
 
@@ -252,6 +265,7 @@ public class Inventory {
     }
 
     public void cleanInventory() {
+        offSet = 6;
         inventoryItems.clear();
     }
 

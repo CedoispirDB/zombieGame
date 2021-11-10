@@ -102,6 +102,7 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void tick() {
+        System.out.println(gameState);
         if (gameState == STATE.GAME) {
             handler.tick();
             inventory.tick();
