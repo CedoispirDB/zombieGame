@@ -46,15 +46,15 @@ public class GamePanel extends JPanel implements ActionListener {
     private final DeathScreen deathScreen;
     private final Leaderboard leaderboard;
     private final ScoreManager scoreManager;
-    public static STATE gameState = STATE.MENU;
+    public static STATE gameState = STATE.GAME;
 
 
     public GamePanel() {
 
         random = new Random();
         handler = new Handler();
-        inventory = new Inventory(handler);
         anInterface = new Interface();
+        inventory = new Inventory(handler, anInterface);
         menu = new Menu(this);
         help = new Help();
         scoreManager = new ScoreManager();
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
-        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen));
+        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface));
         if (editMode) {
             this.addMouseListener(levelBuilder);
         }
@@ -76,6 +76,7 @@ public class GamePanel extends JPanel implements ActionListener {
         this.addMouseListener(pause);
         this.addMouseListener(deathScreen);
         init();
+        startGame();
     }
 
 

@@ -7,9 +7,10 @@ import Main.Game;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
-import  Main.GamePanel;
+import Main.GamePanel;
 import Manager.STATE;
 import Player.Bullet;
+import Player.Interface;
 import Player.Inventory;
 import UI.DeathScreen;
 
@@ -32,13 +33,15 @@ public class KeyInput extends KeyAdapter {
     private boolean shiftPressed;
     private boolean capsPressed;
     private GamePanel gamePanel;
+    private Interface anInterface;
 
-    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen) {
+    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen, Interface anInterface) {
         this.handler = handler;
         this.levelBuilder = levelBuilder;
         this.inventory = inventory;
         this.deathScreen = deathScreen;
         this.gamePanel = gamePanel;
+        this.anInterface = anInterface;
 
         canShoot = true;
 
@@ -66,7 +69,7 @@ public class KeyInput extends KeyAdapter {
         }
 
         if (GamePanel.gameState == STATE.DEATH) {
-            String str = String.valueOf((char)code);
+            String str = String.valueOf((char) code);
 //            System.out.println("str 1: " + str);
 
             if (code == 16) {
@@ -96,36 +99,6 @@ public class KeyInput extends KeyAdapter {
             }
         }
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject tempObject = handler.object.get(i);
-            if (tempObject.getId() == ID.Player) {
-                //All keys events for player 1
-
-                switch (code) {
-                    case KeyEvent.VK_W -> {
-                        tempObject.setVelY(-5);
-                        keyDown[0] = true;
-                        lastDir = "w";
-                    }
-                    case KeyEvent.VK_S -> {
-                        tempObject.setVelY(5);
-                        keyDown[1] = true;
-                        lastDir = "s";
-                    }
-                    case KeyEvent.VK_D -> {
-                        tempObject.setVelX(5);
-                        keyDown[2] = true;
-                        lastDir = "d";
-                    }
-                    case KeyEvent.VK_A -> {
-                        tempObject.setVelX(-5);
-                        keyDown[3] = true;
-                        lastDir = "a";
-                    }
-                }
-            }
-
-        }
 
         if (GamePanel.gameState == STATE.BUILD) {
             switch (code) {
@@ -172,7 +145,39 @@ public class KeyInput extends KeyAdapter {
                 case KeyEvent.VK_M -> levelBuilder.getData();
 
             }
-        } else {
+        } else if (GamePanel.gameState == STATE.GAME){
+
+            for (int i = 0; i < handler.object.size(); i++) {
+                GameObject tempObject = handler.object.get(i);
+                if (tempObject.getId() == ID.Player) {
+                    //All keys events for player 1
+
+                    switch (code) {
+                        case KeyEvent.VK_W -> {
+                            tempObject.setVelY(-5);
+                            keyDown[0] = true;
+                            lastDir = "w";
+                        }
+                        case KeyEvent.VK_S -> {
+                            tempObject.setVelY(5);
+                            keyDown[1] = true;
+                            lastDir = "s";
+                        }
+                        case KeyEvent.VK_D -> {
+                            tempObject.setVelX(5);
+                            keyDown[2] = true;
+                            lastDir = "d";
+                        }
+                        case KeyEvent.VK_A -> {
+                            tempObject.setVelX(-5);
+                            keyDown[3] = true;
+                            lastDir = "a";
+                        }
+                    }
+                }
+
+            }
+
             switch (code) {
                 case KeyEvent.VK_E -> inventory.changeItem();
                 case KeyEvent.VK_Q -> inventory.removeFromInventory();
@@ -186,9 +191,11 @@ public class KeyInput extends KeyAdapter {
                     }
 
                     if (player != null) {
-                        if (canShoot) {
+
+                        if (canShoot && inventory.canShoot()) {
                             handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 0, 0, handler, ID.Bullet, lastDir));
                             canShoot = false;
+
 
                         }
                     }
@@ -204,7 +211,9 @@ public class KeyInput extends KeyAdapter {
                     }
 
                 }
-
+                case KeyEvent.VK_F -> {
+                    inventory.heal();
+                }
             }
         }
 

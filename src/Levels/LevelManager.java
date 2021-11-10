@@ -34,6 +34,7 @@ public class LevelManager {
     public int level;
     private final Interface anInterface;
     private final ScoreManager scoreManager;
+    private boolean hasNeighbors;
 
     private Node[][] grid;
 
@@ -43,6 +44,7 @@ public class LevelManager {
         this.inventory = inventory;
         this.anInterface = anInterface;
         this.scoreManager = scoreManager;
+
 
         available = new LinkedList<>();
 
@@ -67,6 +69,8 @@ public class LevelManager {
     public void loadLevel(int level) {
 
         LinkedList<String> savedData = saveData.readFromFile(level);
+
+        hasNeighbors = false;
 
         if (savedData != null) {
 //            System.out.println("Loading: " + savedData);
@@ -161,6 +165,8 @@ public class LevelManager {
             }
         }
 
+        hasNeighbors = true;
+
 //        for (int i = 0; i < cols; i++) {
 //            for (int j = 0; j < rows; j++) {
 //                System.out.println(grid[i][j].getNeighbors());
@@ -168,6 +174,10 @@ public class LevelManager {
 //        }
 
 
+    }
+
+    public boolean hasNeighbors() {
+        return hasNeighbors;
     }
 
     public void renderLevel(Graphics g) {

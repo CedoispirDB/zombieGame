@@ -20,37 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Data/scores.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataManager/ScoreManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/DeathScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UI/Pause.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LevelsData/level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/level.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/DataManager/SaveData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/DataManager/SaveData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/level.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Data/level.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Bullet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataManager/SaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataManager/SaveData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Input/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input/KeyInput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Levels/LevelBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Items/HealingPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Items/HealingPotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Items/Pistol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Items/Pistol.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Levels/LevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/STATE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/STATE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Bullet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Interface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Inventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UI/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UI/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Leaderboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UI/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Menu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -403,7 +389,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636408071804</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="System to store player scores added&#10;Death screen, help screen, Leaderboard, and pause screen finished">
+      <created>1636501754024</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1636501754025</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -419,7 +412,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="New enemy created" />
     <MESSAGE value="limpa" />
     <MESSAGE value="img" />
     <MESSAGE value="New player texture added" />
@@ -444,6 +436,23 @@
     <MESSAGE value="health system done" />
     <MESSAGE value="New Shooting system(need improvement)&#10;New enemy object created to make it easier to create enemies&#10;Game States created&#10;New inventory design&#10;New health bar design" />
     <MESSAGE value="New UI components created" />
-    <option name="LAST_COMMIT_MESSAGE" value="New UI components created" />
+    <MESSAGE value="System to store player scores added&#10;Death screen, help screen, Leaderboard, and pause screen finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="System to store player scores added&#10;Death screen, help screen, Leaderboard, and pause screen finished" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Input/KeyInput.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Main/GamePanel.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

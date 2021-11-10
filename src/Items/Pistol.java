@@ -36,14 +36,14 @@ public class Pistol extends ItemObject {
 
     public void tick() {
         if (player != null) {
-            if (getBounds().intersects(player.getBounds())) {
-                int[] invInfo = inventory.getPos();
-                inventory.addToInventory(this);
-                inventory.removeItem(this);
-                iconX = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * invInfo[0] + 4;
-                setInventoryPos(invInfo[1]);
-                iconY = 8;
-            }
+//            if (getBounds().intersects(player.getBounds())) {
+//                int[] invInfo = inventory.getPos();
+//                inventory.addToInventory(this);
+//                inventory.removeItem(this);
+//                iconX = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * invInfo[0] + 4;
+//                setInventoryPos(invInfo[1]);
+//                iconY = 8;
+//            }
         }
     }
 

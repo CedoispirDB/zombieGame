@@ -35,16 +35,17 @@ public class HealingPotion extends ItemObject {
         }
     }
 
+
     public void tick() {
         if (player != null) {
-            if (getBounds().intersects(player.getBounds())) {
-                int[] invInfo = inventory.getPos();
-                inventory.addToInventory(this);
-                inventory.removeItem(this);
-                iconX = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * invInfo[0] + 9;
-                setInventoryPos(invInfo[1]);
-                iconY = 8;
-            }
+//            if (getBounds().intersects(player.getBounds())) {
+//                int[] invInfo = inventory.getPos();
+//                inventory.addToInventory(this);
+//                inventory.removeItem(this);
+//                iconX = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * invInfo[0] + 9;
+//                setInventoryPos(invInfo[1]);
+//                iconY = 8;
+//            }
         }
 
     }

@@ -27,7 +27,6 @@ public class BasicZombie extends EnemyObject {
     private Random r;
     private boolean move = true;
     private int count = 0;
-    private GameObject player;
     private Handler handler;
     private Interface anInterface;
 
@@ -37,6 +36,8 @@ public class BasicZombie extends EnemyObject {
 
         this.anInterface = anInterface;
         this.handler = handler;
+        this.levelManager = levelManager;
+
         enemyHealth = 100;
         grid = levelManager.getGrid();
         currentNode = grid[(int) (posX / 32)][(int) (posY / 32)];
@@ -46,21 +47,15 @@ public class BasicZombie extends EnemyObject {
         possiblePath = new LinkedList<>();
         closedSet = new LinkedList<>();
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
-                player = temp;
-            }
-        }
-
-
 
 //        System.out.println("Current Node: " + currentNode);
 //        System.out.println("Wall Node: " + grid[(384 + 96) / 32][224 / 32] + "\n");
     }
 
     public void tick() {
-        movement();
+        if (levelManager.hasNeighbors()) {
+            movement();
+        }
 
 //        System.out.println(enemyHealth);
 
@@ -76,6 +71,7 @@ public class BasicZombie extends EnemyObject {
         boolean comp = true;
         int tempR;
         int index;
+
 
         if (move) {
 

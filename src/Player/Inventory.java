@@ -28,11 +28,14 @@ public class Inventory {
     private GameObject player;
     private Handler handler;
     private int[] positions;
+    private ItemObject selectedItem;
+    private Interface anInterface;
 
-    public Inventory(Handler handler) {
-        items =  new LinkedList<>();
+    public Inventory(Handler handler, Interface anInterface) {
+        items = new LinkedList<>();
         inventoryItems = new LinkedList<>();
         this.handler = handler;
+        this.anInterface = anInterface;
 
         positions = new int[5];
         positions[0] = 1;
@@ -45,6 +48,7 @@ public class Inventory {
 
     public void tick() {
 
+        getSelectedItem();
 
         for (int i = 0; i < items.size(); i++) {
             items.get(i).tick();
@@ -64,16 +68,15 @@ public class Inventory {
 
 //        System.out.println(items);
         g.setColor(new Color(0f, 0f, 0f, 0.8f));
-        g.fillRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 0 , GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
+        g.fillRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 0, GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
         g.setColor(Color.white);
-        g.drawRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 1 , GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
+        g.drawRect(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * 6, 1, GamePanel.UNIT_SIZE * 5, GamePanel.UNIT_SIZE);
         for (int i = 26; i < 31; i++) {
             g.drawRect(32 * i, 0, 0, 32);
         }
-        g.setColor(new Color(1f, 0f ,0f));
+        g.setColor(new Color(1f, 0f, 0f));
         selected = GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * offSet;
-        g.drawRect(selected, 1 , GamePanel.UNIT_SIZE, GamePanel.UNIT_SIZE);
-
+        g.drawRect(selected, 1, GamePanel.UNIT_SIZE, GamePanel.UNIT_SIZE);
 
 
         // Load items on inventory
@@ -83,7 +86,7 @@ public class Inventory {
 
         // Draw icons
         for (int i = 0; i < inventoryItems.size(); i++) {
-//            System.out.println(inventoryItems.get(i));
+//           System.out.println(inventoryItems.get(i));
             ItemObject itemObject = inventoryItems.get(i);
             itemObject.drawIcon(g);
         }
@@ -112,7 +115,7 @@ public class Inventory {
             if (localX > selected && localX < selected + 32) {
                 items.add(tempItem);
                 inventoryItems.remove(tempItem);
-                positions[(int)tempItem.getInventoryPos()] = 1;
+                positions[(int) tempItem.getInventoryPos()] = 1;
                 tempItem.setPosX(player.getPosX() + 35);
                 tempItem.setPosY(player.getPosY());
                 break;
@@ -120,6 +123,44 @@ public class Inventory {
         }
 
         pos++;
+        selectedItem = null;
+    }
+
+    public ItemObject getSelectedItem() {
+        for (int i = 0; i < inventoryItems.size(); i++) {
+            ItemObject tempItem = inventoryItems.get(i);
+            double localX = tempItem.getIconX();
+//            System.out.println(inventoryItems.get(i));
+            if (localX > selected && localX < selected + 32) {
+                selectedItem = tempItem;
+            }
+        }
+        return selectedItem;
+    }
+
+    public void heal() {
+        if (canHeal()) {
+            anInterface.setHealth(25);
+            inventoryItems.remove(selectedItem);
+        }
+    }
+
+    public boolean canHeal() {
+        if (selectedItem == null) {
+            return false;
+        }
+        return selectedItem.getId() == ID.HEALING;
+    }
+
+    public boolean canShoot() {
+        if (selectedItem == null) {
+            return false;
+        }
+        return selectedItem.getId() == ID.Pistol;
+    }
+
+    public void setSelectedItem(ItemObject selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
     public boolean canDrop(int playerX, int playerY) {
@@ -202,7 +243,9 @@ public class Inventory {
         pos -= 2;
     }
 
-    public void addPos() {pos++;}
+    public void addPos() {
+        pos++;
+    }
 
     public void clearItems() {
         items.clear();

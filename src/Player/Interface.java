@@ -62,15 +62,12 @@ public class Interface {
         barG -= damage - 2;
         barR += damage;
 
-//        System.out.println("Health: " + health);
-//        System.out.println("HealthBar: " + healthBar);
-//        System.out.println("barG: " + barG + ", barR: " + barR);
 
         if (barG < 0) {
             barG = 0;
         }
-        if (barR > 255) {
-            barR = 255;
+        if (barR > 100) {
+            barR = 100;
         }
     }
 
@@ -86,9 +83,18 @@ public class Interface {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setHealth(int life) {
+        health += life;
+        healthBar += life;
+        barG += life;
+        barR -= life;
 
+        if (barG > 100) {
+            barG = 100;
+        }
+        if (barR < 0) {
+            barR = 0;
+        }
     }
 
     public void reset() {
