@@ -11,3 +11,4 @@ Following the guidelines:
 - The game should contain a leaderboard and celebratory messages.
 - The game should have a minimum of three levels.
 - The game should have an instructional display.
+![Screen Shot 2021-11-07 at 10 35 41 PM](https://user-images.githubusercontent.com/68495745/141385003-74acfe8a-fd0e-4701-b9c0-5f567703ead8.png)
