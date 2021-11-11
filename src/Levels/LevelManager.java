@@ -184,7 +184,7 @@ public class LevelManager {
         BufferedImage image;
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/a.png");
+        image = loader.loadImage("/texture.png");
         image = image.getSubimage(32, 0, 32, 32);
 
         for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
