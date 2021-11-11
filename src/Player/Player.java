@@ -1,9 +1,7 @@
 package Player;
 
 import DataManager.ScoreManager;
-import Enemies.BasicZombie;
 import Levels.LevelManager;
-import Main.Game;
 import Main.GamePanel;
 import Manager.*;
 import Map.Node;
@@ -40,7 +38,7 @@ public class Player extends GameObject {
         ctn = 0;
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/player.png");
+        image = loader.loadImage("/p4.png");
 
         this.anInterface = anInterface;
         this.handler = handler;
@@ -84,7 +82,7 @@ public class Player extends GameObject {
         }
 
         if (anInterface.getHealth() <= 0) {
-            GamePanel.gameState = STATE.DEATH;
+//            GamePanel.gameState = STATE.DEATH;
         }
 
         if (posX + 32 > GamePanel.SCREEN_WIDTH /*|| posX + 32 > 32 && currentNode.getY() == 0 && currentNode.getX() == 0*/) {
