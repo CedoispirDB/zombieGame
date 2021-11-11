@@ -142,7 +142,7 @@ public class GamePanel extends JPanel implements ActionListener {
             BufferedImage image;
 
             BufferedImageLoader loader = new BufferedImageLoader();
-            image = loader.loadImage("/a.png");
+            image = loader.loadImage("/texture.png");
             image = image.getSubimage(32, 0, 32, 32);
 
             if (gameState == STATE.GAME || gameState == STATE.PAUSE){

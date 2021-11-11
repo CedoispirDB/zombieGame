@@ -24,7 +24,7 @@ public class Passage extends GameObject {
         this.levelManager = levelManager;
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/a.png");
+        image = loader.loadImage("/texture.png");
         image = image.getSubimage(96,0,32,64);
     }
 

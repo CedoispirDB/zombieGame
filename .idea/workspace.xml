@@ -19,7 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="" />
+    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="New animation sprite sheets created">
+      <change afterPath="$PROJECT_DIR$/res/basicZombie.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/a.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/ps.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/ps.png" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,9 +49,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar:///Library/Java/JavaVirtualMachines/jdk-15.jdk/Contents/Home/lib/src.zip!/java.desktop/java/awt/AWTEventMulticaster.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="ProjectId" id="1k7GnzuGWD6d2fBbOn5ditGHIzQ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -57,7 +59,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -67,6 +69,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\marco\Desktop\zombieGame\res" />
       <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
@@ -392,12 +395,21 @@
       <option name="project" value="LOCAL" />
       <updated>1636518031725</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00035" summary="Shooting only with gun in hand working&#10;Healing system working&#10;Bug on the pause button">
       <created>1636589935265</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
       <updated>1636589935265</updated>
+=======
+    <task id="LOCAL-00035" summary="New animation sprite sheets created">
+      <created>1636655522695</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1636655522696</updated>
+>>>>>>> 59b33cbf9b0c1c1f16cfc0caf004e49fdca9047b
     </task>
     <option name="localTasksCounter" value="36" />
     <servers />
@@ -415,7 +427,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="New player texture added" />
     <MESSAGE value="Poppy created, new skins added" />
     <MESSAGE value="Enemies can go faster" />
     <MESSAGE value="New map, boss(Santa) display" />
@@ -440,6 +451,7 @@
     <MESSAGE value="System to store player scores added&#10;Death screen, help screen, Leaderboard, and pause screen finished" />
     <MESSAGE value="Shooting only with gun in hand working&#10;Healing system working" />
     <MESSAGE value="Shooting only with gun in hand working&#10;Healing system working&#10;Bug on the pause button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Shooting only with gun in hand working&#10;Healing system working&#10;Bug on the pause button" />
+    <MESSAGE value="New animation sprite sheets created" />
+    <option name="LAST_COMMIT_MESSAGE" value="New animation sprite sheets created" />
   </component>
 </project>
