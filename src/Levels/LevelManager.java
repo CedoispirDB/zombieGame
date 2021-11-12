@@ -14,6 +14,7 @@ import Player.Inventory;
 import Player.Player;
 import Render.BufferedImageLoader;
 import Player.Interface;
+import Render.ImageManager;
 
 
 import java.awt.*;
@@ -35,15 +36,17 @@ public class LevelManager {
     private final Interface anInterface;
     private final ScoreManager scoreManager;
     private boolean hasNeighbors;
+    private final ImageManager imageManager;
 
     private Node[][] grid;
 
-    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager) {
+    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager , ImageManager imageManager) {
         this.handler = handler;
         this.saveData = saveData;
         this.inventory = inventory;
         this.anInterface = anInterface;
         this.scoreManager = scoreManager;
+        this.imageManager = imageManager;
 
 
         available = new LinkedList<>();
@@ -71,7 +74,7 @@ public class LevelManager {
         LinkedList<String> savedData = saveData.readFromFile(level);
 
         hasNeighbors = false;
-
+        System.out.println("trying");
         if (savedData != null) {
 //            System.out.println("Loading: " + savedData);
             System.out.println("Loading level " + level);
@@ -91,7 +94,7 @@ public class LevelManager {
 
                 currentNode = grid[x / 32][y / 32];
 
-//                System.out.println("Current Node: " + currentNode + ", actual w: " + w + ", actual h: " + h + ", actual type: " + type);
+                System.out.println("Current Node: " + currentNode + ", actual w: " + w + ", actual h: " + h + ", actual type: " + type);
 
 
                 if (type.equals("w") && (w != 32 || h != 32)) {
@@ -114,33 +117,33 @@ public class LevelManager {
                 savedData.remove(0);
 
                 switch (type) {
-                    case "w" -> handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.Wall));
-                    case "b" -> handler.addObject(new Button(x, y, 0, 0, w, h, handler, ID.Button));
-                    case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.Passage, this));
+                    case "w" -> handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.Wall, imageManager));
+                    case "b" -> handler.addObject(new Button(x, y, 0, 0, w, h, handler, ID.Button, imageManager));
+                    case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.Passage, this, imageManager));
                     case "h" -> inventory.addItem(new HealingPotion(x, y, 0, 0, inventory, ID.HEALING, handler));
                     case "g" -> inventory.addItem(new Pistol(x, y, 0, 0, inventory, ID.Pistol, handler));
-                    case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this, anInterface));
+                    case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this, anInterface, imageManager));
                     case "m" -> {
-                        boolean playerExists = false;
-
-                        for (int i = 0; i < handler.object.size(); i++) {
-                            GameObject temp = handler.object.get(i);
-                            if (temp.getId() == ID.Player) {
-                                playerExists = true;
-                                break;
-                            }
-                        }
-                        if (!playerExists) {
-                            handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface, scoreManager));
-                        } else {
-                            for (int i = 0; i < handler.object.size(); i++) {
-                                GameObject temp = handler.object.get(i);
-                                if (temp.getId() == ID.Player) {
-                                    temp.setPosX(x);
-                                    temp.setPosY(y);
-                                }
-                            }
-                        }
+//                        boolean playerExists = false;
+//
+//                        for (int i = 0; i < handler.object.size(); i++) {
+//                            GameObject temp = handler.object.get(i);
+//                            if (temp.getId() == ID.Player) {
+//                                playerExists = true;
+//                                break;
+//                            }
+//                        }
+//                        if (!playerExists) {
+                            handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface, scoreManager, imageManager));
+//                        } else {
+//                            for (int i = 0; i < handler.object.size(); i++) {
+//                                GameObject temp = handler.object.get(i);
+//                                if (temp.getId() == ID.Player) {
+//                                    temp.setPosX(x);
+//                                    temp.setPosY(y);
+//                                }
+//                            }
+//                        }
                     }
                 }
 
@@ -148,16 +151,16 @@ public class LevelManager {
             getEmptySpaces(data);
         }
 
-//        int count = 1;
-//        for (int i = 0; i < cols; i++) {
-//            for (int j = 0; j < rows; j++) {
-//                Node temp = grid[i][j];
-//                if (temp.getType().equals("w")) {
-//                    System.out.println("Node " + count + ": " + grid[i][j]);
-//                    count++;
+        int count = 1;
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                Node temp = grid[i][j];
+//                if (temp.getType().equals("p")) {
+                    System.out.println("Node " + count + ": " + grid[i][j]);
+                    count++;
 //                }
-//            }
-//        }
+            }
+        }
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
@@ -293,7 +296,7 @@ public class LevelManager {
                 grid[i][j] = new Node(i * 32, j * 32, 32, 32, i, j, rows, cols, "n");
             }
         }
-        handler.removeAll();
+        handler.reset();
         buttonPressed = false;
         inventory.clearItems();
     }
@@ -304,5 +307,6 @@ public class LevelManager {
         inventory.clearItems();
         inventory.cleanInventory();
         anInterface.reset();
+        setLevel(0);
     }
 }

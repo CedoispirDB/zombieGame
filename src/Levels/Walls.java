@@ -5,6 +5,7 @@ import Manager.Handler;
 import Manager.ID;
 import Map.Node;
 import Render.BufferedImageLoader;
+import Render.ImageManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,15 +16,15 @@ public class Walls extends GameObject {
     private GameObject player;
     private BufferedImage image;
 
-    public Walls(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id) {
+    public Walls(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
 
         this.w = w;
         this.h = h;
 
-        BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/texture.png");
-        image = image.getSubimage(0,0,32,32);
+
+        image = imageManager.getTexture("w");
+
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
@@ -68,8 +69,12 @@ public class Walls extends GameObject {
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g.setColor(Color.gray.darker());
+
 //        g.fillRect((int) posX, (int) posY, w, h);
+
+       g2d.setColor(Color.BLUE);
+//        g2d.draw(getBoundsY());
+
         if(w == 32 && h == 32) {
             g.drawImage(image, (int) posX, (int) posY, null);
         } else {
@@ -88,6 +93,9 @@ public class Walls extends GameObject {
             }
         }
 
+//        g2d.setColor(Color.red);
+//        g2d.draw(getBoundsX());
+
     }
 
     public Rectangle getBounds() {
@@ -99,7 +107,7 @@ public class Walls extends GameObject {
     }
 
     public Rectangle getBoundsX() {
-        return new Rectangle((int) posX, (int) posY + 2, w, h - 4);
+        return new Rectangle((int) posX, (int) posY + 4, w, h - 10);
     }
 
     public Rectangle getBoundsY() {

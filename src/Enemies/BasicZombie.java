@@ -8,8 +8,10 @@ import Manager.ID;
 import Map.Node;
 import Player.Player;
 import Player.Interface;
+import Render.ImageManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -29,14 +31,17 @@ public class BasicZombie extends EnemyObject {
     private int count = 0;
     private Handler handler;
     private Interface anInterface;
+    private final ImageManager imageManager;
+    private BufferedImage image;
 
 
-    public BasicZombie(double posX, double posY, double velX, double velY, Handler handler, ID id, LevelManager levelManager, Interface anInterface) {
+    public BasicZombie(double posX, double posY, double velX, double velY, Handler handler, ID id, LevelManager levelManager, Interface anInterface, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
 
         this.anInterface = anInterface;
         this.handler = handler;
         this.levelManager = levelManager;
+        this.imageManager = imageManager;
 
         enemyHealth = 100;
         grid = levelManager.getGrid();
@@ -46,6 +51,8 @@ public class BasicZombie extends EnemyObject {
 
         possiblePath = new LinkedList<>();
         closedSet = new LinkedList<>();
+
+        image = imageManager.getSprite("bz");
 
 
 //        System.out.println("Current Node: " + currentNode);
@@ -88,7 +95,7 @@ public class BasicZombie extends EnemyObject {
                 }
 
 
-                if (!currentType.equals("w") && comp) {
+                if (!currentType.equals("w") && !currentType.equals("p") && comp) {
                     possiblePath.add(tempNode);
                 }
             }
@@ -141,10 +148,8 @@ public class BasicZombie extends EnemyObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(new Color(29, 105, 4));
 
-        g.fillRect((int) posX, (int) posY, 32, 32);
-
+        g.drawImage(image,(int) posX, (int) posY,null );
     }
 
     public int getEnemyHealth() {

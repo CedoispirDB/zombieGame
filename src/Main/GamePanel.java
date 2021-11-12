@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import Render.ImageManager;
 import UI.*;
 import UI.Menu;
 
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Handler handler;
     private LevelManager levelManager;
     private final SaveData saveData;
-    private boolean editMode = false;
+    private boolean editMode = true;
     private Inventory inventory;
     private Node[][] grid;
     private final int level = 0;
@@ -46,6 +47,8 @@ public class GamePanel extends JPanel implements ActionListener {
     private final DeathScreen deathScreen;
     private final Leaderboard leaderboard;
     private final ScoreManager scoreManager;
+    private final ImageManager imageManager;
+    private LevelBuilder levelBuilder;
     public static STATE gameState = STATE.GAME;
 
 
@@ -62,14 +65,12 @@ public class GamePanel extends JPanel implements ActionListener {
         pause = new Pause(this);
         deathScreen = new DeathScreen(anInterface, scoreManager, this);
         saveData = new SaveData();
-        LevelBuilder levelBuilder = new LevelBuilder(handler, saveData, inventory);
+        imageManager = new ImageManager();
+
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
-        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface));
-        if (editMode) {
-            this.addMouseListener(levelBuilder);
-        }
+
         this.addMouseListener(menu);
         this.addMouseListener(help);
         this.addMouseListener(leaderboard);
@@ -82,7 +83,14 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     public void init() {
-        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager);
+        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager);
+        levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
+
+        if (gameState == STATE.BUILD) {
+            this.addMouseListener(levelBuilder);
+        }
+
+        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface, imageManager));
 
         running = true;
         timer = new Timer(DELAY, this);
@@ -92,7 +100,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void startGame() {
         grid = levelManager.getGrid();
-        if (!editMode) {
+        if (gameState != STATE.BUILD) {
             levelManager.loadLevel(level);
         }
     }
@@ -102,8 +110,8 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void tick() {
-        System.out.println(gameState);
-        if (gameState == STATE.GAME) {
+//        System.out.println(gameState);
+        if (gameState == STATE.GAME || gameState == STATE.BUILD) {
             handler.tick();
             inventory.tick();
         }
@@ -120,32 +128,11 @@ public class GamePanel extends JPanel implements ActionListener {
 //            for (int i = 1; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
 //            }
-            if (editMode) {
 
-                // Draw lines for debug
-                g.setColor(new Color(120, 230, 220));
-                for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                    g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
-                }
-                for (int i = 1; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-                    g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
-                }
-                g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-                g.setColor(Color.black);
 
-                g.drawString("Block type (v): " + LevelBuilder.type, 30, 50);
-                g.drawString("Can drag (b): " + LevelBuilder.drag, 30, 75);
-                g.drawString("j: reset", 30, 100);
-                g.drawString("k: save level", 30, 125);
-            }
+            BufferedImage image = imageManager.getTexture("f");
 
-            BufferedImage image;
-
-            BufferedImageLoader loader = new BufferedImageLoader();
-            image = loader.loadImage("/texture.png");
-            image = image.getSubimage(32, 0, 32, 32);
-
-            if (gameState == STATE.GAME || gameState == STATE.PAUSE){
+            if (gameState == STATE.GAME || gameState == STATE.PAUSE ){
                 levelManager.renderLevel(g);
                 handler.render(g);
                 inventory.render(g);
@@ -179,6 +166,35 @@ public class GamePanel extends JPanel implements ActionListener {
                 leaderboard.render(g);
             } else if (gameState == STATE.DEATH) {
                 deathScreen.render(g);
+            }else if (gameState == STATE.BUILD) {
+                for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                    for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
+                        g.drawImage(image, i * 32, j * 32, null);
+
+                    }
+                }
+                // Draw lines for debug
+                g.setColor(Color.red.darker());
+                for (int i = 1; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+                    g.drawLine(0, i * UNIT_SIZE, SCREEN_WIDTH, i * UNIT_SIZE);
+                }
+                for (int i = 1; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                    g.drawLine(i * UNIT_SIZE, 0, i * UNIT_SIZE, SCREEN_HEIGHT);
+                }
+
+                handler.render(g);
+                inventory.render(g);
+
+
+                g.setFont(new Font("TimesRoman", Font.BOLD, 20));
+                g.setColor(Color.white);
+
+                g.drawString("Block type (v): " + LevelBuilder.type, 30, 50);
+                g.drawString("Can drag (b): " + LevelBuilder.drag, 30, 75);
+                g.drawString("j: reset", 30, 100);
+                g.drawString("k: save level", 30, 125);
+
+
             }
 
             // Print coordinates

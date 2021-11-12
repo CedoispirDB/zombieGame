@@ -12,6 +12,7 @@ import Manager.STATE;
 import Player.Bullet;
 import Player.Interface;
 import Player.Inventory;
+import Render.ImageManager;
 import UI.DeathScreen;
 
 import java.awt.event.KeyAdapter;
@@ -34,14 +35,16 @@ public class KeyInput extends KeyAdapter {
     private boolean capsPressed;
     private GamePanel gamePanel;
     private Interface anInterface;
+    private ImageManager imageManager;
 
-    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen, Interface anInterface) {
+    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen, Interface anInterface, ImageManager imageManager) {
         this.handler = handler;
         this.levelBuilder = levelBuilder;
         this.inventory = inventory;
         this.deathScreen = deathScreen;
         this.gamePanel = gamePanel;
         this.anInterface = anInterface;
+        this.imageManager = imageManager;
 
         canShoot = true;
 
@@ -193,7 +196,30 @@ public class KeyInput extends KeyAdapter {
                     if (player != null) {
 
                         if (canShoot && inventory.canShoot()) {
-                            handler.addObject(new Bullet(player.getPosX() + 16, player.getPosY() + 16, 0, 0, handler, ID.Bullet, lastDir));
+                            double posX = player.getPosX();
+                            double posY = player.getPosY();
+
+                            switch (lastDir) {
+                                case "w" -> {
+                                  posX += 8;
+                                  posY -= 8;
+                                }
+                                case "s" -> {
+                                    posX += 8;
+                                    posY += 25;
+                                }
+                                case "d" -> {
+                                    posX += 23;
+                                    posY += 8;
+                                }
+                                case "a" -> {
+                                    posY += 8;
+                                    posX -= 5;
+                                }
+                            }
+
+
+                            handler.addObject(new Bullet( posX, posY, 0, 0, handler, ID.Bullet, lastDir, imageManager));
                             canShoot = false;
 
                         } else {
@@ -208,7 +234,9 @@ public class KeyInput extends KeyAdapter {
                 case KeyEvent.VK_F -> inventory.removeFromInventory();
             }
         } else if (GamePanel.gameState == STATE.PAUSE) {
-            GamePanel.gameState = STATE.GAME;
+            if (code == KeyEvent.VK_P) {
+                GamePanel.gameState = STATE.GAME;
+            }
         }
 
 
@@ -226,37 +254,38 @@ public class KeyInput extends KeyAdapter {
             }
         }
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject tempObject = handler.object.get(i);
-            if (tempObject.getId() == ID.Player) {
-                //All keys events for player 1
-                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-                    keyDown[0] = false;
-                }
-                if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-                    keyDown[1] = false;
-                }
-                if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-                    keyDown[2] = false;
-                }
-                if (key == KeyEvent.VK_A | key == KeyEvent.VK_LEFT) {
-                    keyDown[3] = false;
-                }
+        if (GamePanel.gameState == STATE.GAME) {
+            for (int i = 0; i < handler.object.size(); i++) {
+                GameObject tempObject = handler.object.get(i);
+                if (tempObject.getId() == ID.Player) {
+                    //All keys events for player 1
+                    if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+                        keyDown[0] = false;
+                    }
+                    if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+                        keyDown[1] = false;
+                    }
+                    if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+                        keyDown[2] = false;
+                    }
+                    if (key == KeyEvent.VK_A | key == KeyEvent.VK_LEFT) {
+                        keyDown[3] = false;
+                    }
 
-                // Vertical movement
-                if (!keyDown[0] && !keyDown[1]) {
-                    tempObject.setVelY(0);
-                }
-                // Horizontal movement
+                    // Vertical movement
+                    if (!keyDown[0] && !keyDown[1]) {
+                        tempObject.setVelY(0);
+                    }
+                    // Horizontal movement
 
-                if (!keyDown[2] && !keyDown[3]) {
-                    tempObject.setVelX(0);
-                }
+                    if (!keyDown[2] && !keyDown[3]) {
+                        tempObject.setVelX(0);
+                    }
 
-                if (key == KeyEvent.VK_SPACE) {
-                    canShoot = true;
+                    if (key == KeyEvent.VK_SPACE) {
+                        canShoot = true;
+                    }
                 }
-
             }
         }
     }

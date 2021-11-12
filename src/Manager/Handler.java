@@ -28,13 +28,15 @@ public class Handler {
     }
 
     public void render(Graphics g) {
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).render(g);
+        }
+
         for (int i = 0; i< object.size(); i++) {
             object.get(i).render(g);
          //   System.out.println("Rendering: " + object.get(i));
         }
-        for (int i = 0; i < enemies.size(); i++) {
-            enemies.get(i).render(g);
-        }
+
 
     }
 

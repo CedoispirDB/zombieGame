@@ -10,6 +10,7 @@ import Manager.Handler;
 import Manager.ID;
 import Player.Inventory;
 import Player.Player;
+import Render.ImageManager;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,7 +20,7 @@ import java.util.LinkedList;
 public class LevelBuilder extends MouseAdapter {
 
     private static Handler handler;
-    private static LevelManager levelManager;
+    private LevelManager levelManager;
     public static char type = 'w';
     public static char position = 't';
     public static boolean drag = false;
@@ -32,13 +33,16 @@ public class LevelBuilder extends MouseAdapter {
     private int xi, yi;
     private boolean dragged = false;
     private Inventory inventory;
+    private final ImageManager imageManager;
 
 
-    public LevelBuilder(Handler handler, SaveData saveData, Inventory inventory) {
+    public LevelBuilder(Handler handler, SaveData saveData, Inventory inventory, ImageManager imageManager, LevelManager levelManager) {
         LevelBuilder.handler = handler;
         unitSize = GamePanel.UNIT_SIZE;
         this.saveData = saveData;
         this.inventory = inventory;
+        this.imageManager = imageManager;
+        this.levelManager = levelManager;
 
     }
 
@@ -123,17 +127,17 @@ public class LevelBuilder extends MouseAdapter {
         switch (type) {
             case 'w' -> {
                 recentID = ID.Wall;
-                handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.Wall));
+                handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.Wall, imageManager));
                 currentType = "w";
             }
             case 'b' -> {
                 recentID = ID.Button;
-                handler.addObject(new Button(x, y, 0, 0, w, h, handler, recentID));
+                handler.addObject(new Button(x, y, 0, 0, w, h, handler, recentID, imageManager));
                 currentType = "b";
             }
             case 'p' -> {
                 recentID = ID.Passage;
-                handler.addObject(new Passage(x, y, 0, 0, w, h, handler, recentID, null));
+                handler.addObject(new Passage(x, y, 0, 0, w, h, handler, recentID, null, imageManager));
                 currentType = "p";
             }
             case 'h' -> {
@@ -148,12 +152,12 @@ public class LevelBuilder extends MouseAdapter {
             }
             case 'z' -> {
                 recentID = ID.BasicZombie;
-                handler.addEnemy(new BasicZombie(x, y, 0, 0 , handler, recentID, levelManager, null));
+                handler.addEnemy(new BasicZombie(x, y, 0, 0 , handler, recentID, levelManager, null, imageManager));
                 currentType = "z";
             }
             case 'm' -> {
                 recentID = ID.Player;
-                handler.addObject(new Player(x, y, 0, 0 , handler, recentID, inventory, levelManager, null, null));
+                handler.addObject(new Player(x, y, 0, 0 , handler, recentID, inventory, levelManager, null, null, imageManager));
                 currentType = "m";
             }
         }

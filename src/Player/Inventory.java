@@ -102,7 +102,6 @@ public class Inventory {
     }
 
     public void addToInventory(ItemObject itemObject) {
-        System.out.println(inventoryItems.size());
         if (inventoryItems.size() < 5) {
             System.out.println("adding " + itemObject + " to inventory");
             inventoryItems.add(itemObject);
@@ -138,6 +137,9 @@ public class Inventory {
 //            System.out.println(inventoryItems.get(i));
             if (localX > selected && localX < selected + 32) {
                 selectedItem = tempItem;
+                break;
+            } else {
+                selectedItem = null;
             }
         }
         return selectedItem;
@@ -267,6 +269,11 @@ public class Inventory {
     public void cleanInventory() {
         offSet = 6;
         inventoryItems.clear();
+        positions[0] = 1;
+        positions[1] = 1;
+        positions[2] = 1;
+        positions[3] = 1;
+        positions[4] = 1;
     }
 
 }

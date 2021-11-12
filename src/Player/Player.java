@@ -5,7 +5,10 @@ import Levels.LevelManager;
 import Main.GamePanel;
 import Manager.*;
 import Map.Node;
+import Render.Animation;
 import Render.BufferedImageLoader;
+import Render.CreateImages;
+import Render.ImageManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,14 +17,13 @@ import java.util.LinkedList;
 public class Player extends GameObject {
 
     private final Handler handler;
-    private final BufferedImage image;
     private final Inventory inventory;
     private ItemObject pistol;
     private final LevelManager levelManager;
     private final LinkedList<Node> closedNode;
     private GameObject button;
     private GameObject passage;
-    private final  Interface anInterface;
+    private final Interface anInterface;
     private final ScoreManager scoreManager;
 
     private int ctn;
@@ -31,36 +33,41 @@ public class Player extends GameObject {
     private Rectangle barRecX;
     private Rectangle barRecY;
     private int damage = 5;
+    private ImageManager imageManager;
+    private Animation animation;
+    private LinkedList<BufferedImage> idle;
+    private LinkedList<BufferedImage> left;
+    private LinkedList<BufferedImage> right;
+    private int count = 0;
 
-    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ScoreManager scoreManager) {
+    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
 
         ctn = 0;
 
-        BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/p4.png");
 
         this.anInterface = anInterface;
         this.handler = handler;
         this.inventory = inventory;
         this.levelManager = levelManager;
         this.scoreManager = scoreManager;
+        this.imageManager = imageManager;
 
-        barRecX = new Rectangle(32 ,0, 160, 30);
-        barRecY = new Rectangle(40 ,0, 144, 32);
+        barRecX = new Rectangle(32, 0, 160, 30);
+        barRecY = new Rectangle(40, 0, 144, 32);
 
         for (int i = 0; i < inventory.items.size(); i++) {
-            ItemObject itemObject  = inventory.items.get(i);
+            ItemObject itemObject = inventory.items.get(i);
             if (itemObject.getId() == ID.Pistol) {
                 pistol = itemObject;
             }
         }
 
-        for (int i = 0; i < handler.object.size() ; i++) {
+        for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
             if (temp.getId() == ID.Button) {
                 button = temp;
-            } else if(temp.getId() == ID.Passage) {
+            } else if (temp.getId() == ID.Passage) {
                 passage = temp;
             }
         }
@@ -69,20 +76,39 @@ public class Player extends GameObject {
 
         grid = levelManager.getGrid();
 
+        animation = new Animation();
+        CreateImages createImages = new CreateImages();
+
+        idle = createImages.createFrames(imageManager.getSprite("p"), 0, 3, 1);
+        left = createImages.createFrames(imageManager.getSprite("p"), 1, 3, 2);
+        right = createImages.createFrames(imageManager.getSprite("p"), 2, 3, 3);
+
+        animation.init(3);
+
 
     }
 
 
     public void tick() {
 
-        currentNode = grid[(int) (posX/ 32)][(int) (posY / 32)];
+        if (velX == 0) {
+            animation.setFrames(idle, (int) velX);
+        } else if (velX > 0) {
+            animation.setFrames(right, (int) velX);
+        } else if (velX < 0) {
+            animation.setFrames(left, (int) velX);
+        }
+
+        currentNode = grid[(int) (posX / 32)][(int) (posY / 32)];
 
         if (currentNode.getY() < 64) {
             currentNodeY = grid[(int) (posX / 32)][(int) ((posY + 32) / 32)];
         }
 
-        if (anInterface.getHealth() <= 0) {
+        if (GamePanel.gameState != STATE.BUILD) {
+            if (anInterface.getHealth() <= 0) {
 //            GamePanel.gameState = STATE.DEATH;
+            }
         }
 
         if (posX + 32 > GamePanel.SCREEN_WIDTH /*|| posX + 32 > 32 && currentNode.getY() == 0 && currentNode.getX() == 0*/) {
@@ -135,42 +161,52 @@ public class Player extends GameObject {
 
         Graphics2D g2d = (Graphics2D) g;
 
-        g.drawImage(image, (int) posX, (int) posY, null);
+//        g.drawImage(image, (int) posX, (int) posY, null);
+
+        animation.runAnimation();
+        animation.renderAnimation(g, (int) posX, (int) posY);
+
+//        g.setColor(Color.BLUE);
+//        g2d.draw(getBounds());
     }
 
     public void pressButton() {
-        if (getBounds().intersects(button.getBounds())) {
-            levelManager.setButtonPressed(true);
-            if (ctn == 0) {
-                anInterface.increaseScore(15);
-                ctn++;
+        if (button != null) {
+            if (getBounds().intersects(button.getBounds())) {
+                levelManager.setButtonPressed(true);
+                if (ctn == 0) {
+                    anInterface.increaseScore(15);
+                    ctn++;
+                }
             }
         }
     }
 
     public void passLevel() {
-        if (getBounds().intersects(passage.getBounds())) {
-            if (levelManager.isButtonPressed()) {
-                anInterface.increaseScore(50);
-                levelManager.setButtonPressed(false);
-                levelManager.setLevel();
-                levelManager.loadLevel(levelManager.getLevel());
-                for (int i = 0; i < handler.object.size() ; i++) {
-                    GameObject temp = handler.object.get(i);
-                    if (temp.getId() == ID.Button) {
-                        button = temp;
-                    } else if(temp.getId() == ID.Passage) {
-                        passage = temp;
+        if (passage != null) {
+            if (getBounds().intersects(passage.getBounds())) {
+                if (levelManager.isButtonPressed()) {
+                    anInterface.increaseScore(50);
+                    levelManager.setButtonPressed(false);
+                    levelManager.setLevel();
+                    levelManager.loadLevel(levelManager.getLevel());
+                    for (int i = 0; i < handler.object.size(); i++) {
+                        GameObject temp = handler.object.get(i);
+                        if (temp.getId() == ID.Button) {
+                            button = temp;
+                        } else if (temp.getId() == ID.Passage) {
+                            passage = temp;
+                        }
                     }
+                    ctn = 0;
                 }
-                ctn = 0;
             }
         }
     }
 
     private void getItem() {
         int offSet = 0;
-        for (int i = 0; i < inventory.items.size() ; i++) {
+        for (int i = 0; i < inventory.items.size(); i++) {
             ItemObject temp = inventory.items.get(i);
             if (temp.getBounds().intersects(getBounds())) {
                 if (inventory.inventoryItems.size() < 5) {
@@ -197,10 +233,13 @@ public class Player extends GameObject {
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
             if (temp.getId() == ID.Wall) {
-                if (getBounds().intersects(temp.getBoundsX())) {
-                    int dx = (int)(posX - temp.getPosX());
 
-                    if(dx > 0) {
+                if (getBounds().intersects(temp.getBoundsX())) {
+//                    System.out.println("My bounds: " + getBounds());
+//                    System.out.println("Rec: " + temp.getBoundsX());
+                    int dx = (int) (posX - temp.getPosX());
+
+                    if (dx > 0) {
                         posX += 5;
                     } else {
                         posX -= 5;
@@ -244,7 +283,7 @@ public class Player extends GameObject {
 
         Node[][] grid = levelManager.getGrid();
 
-        Node currentNode = grid[(int) ((posX + 16) / 32)][(int) ((posY + 16)/ 32)];
+        Node currentNode = grid[(int) ((posX + 16) / 32)][(int) ((posY + 16) / 32)];
         LinkedList<Node> neighbors = currentNode.getNeighbors();
         int obsPx = 0;
         int obsPy = 0;
@@ -257,7 +296,7 @@ public class Player extends GameObject {
         }
 
         System.out.println("Closed Node");
-        closedNode.forEach(System.out :: println);
+        closedNode.forEach(System.out::println);
 //        System.out.println("\n");
 
         for (int i = 0; i < closedNode.size(); i++) {
@@ -303,16 +342,13 @@ public class Player extends GameObject {
         }
 
 
-
-
-
         closedNode.clear();
         return collide;
     }
 
 
     public Rectangle getBounds() {
-        return new Rectangle((int) posX, (int) posY, image.getWidth(), image.getHeight());
+        return new Rectangle((int) posX, (int) posY, 32, 32);
     }
 
     public Node getNode() {
@@ -320,11 +356,11 @@ public class Player extends GameObject {
     }
 
     public Rectangle getBoundsX() {
-        return new Rectangle((int) posX + 2, (int) posY + 1, 29,28);
+        return new Rectangle((int) posX + 2, (int) posY + 1, 29, 28);
     }
 
     public Rectangle getBoundsY() {
-        return new Rectangle((int) posX + 5, (int) posY - 2, 25,34);
+        return new Rectangle((int) posX + 5, (int) posY - 2, 25, 34);
     }
 
     @Override

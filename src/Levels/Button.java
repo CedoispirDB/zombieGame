@@ -5,6 +5,7 @@ import Manager.Handler;
 import Manager.ID;
 import Map.Node;
 import Render.BufferedImageLoader;
+import Render.ImageManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,11 +16,10 @@ public class Button extends GameObject {
     private BufferedImage image;
 
 
-    public Button(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id) {
+    public Button(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
-        BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/texture.png");
-        image = image.getSubimage(64,0,32,32);
+
+        image = imageManager.getTexture("b");
         this.w = w;
         this.h = h;
     }
