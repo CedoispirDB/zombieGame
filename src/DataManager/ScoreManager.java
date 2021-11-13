@@ -111,6 +111,9 @@ public class ScoreManager {
         LinkedHashMap<String, Integer> scores = readFromFile();
         LinkedList<String> keys = new LinkedList<>(scores.keySet());
 
+        if (scores.size() < limit) {
+            limit = scores.size();
+        }
 
         String board = "";
 

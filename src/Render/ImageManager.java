@@ -25,8 +25,6 @@ public class ImageManager {
         zombieSprite = loader.loadImage("/basicZombie.png");
         bulletSprite = loader.loadImage("/bullet.png");
 
-
-
     }
 
     public BufferedImage getTexture(String opt) {

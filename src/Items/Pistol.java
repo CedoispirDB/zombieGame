@@ -17,25 +17,38 @@ public class Pistol extends ItemObject {
     private final BufferedImage image;
     private GameObject player;
     private Inventory inventory;
+    private Handler handler;
 
     public Pistol(double posX, double posY, double iconX, double iconY, Inventory inventory, ID id, Handler handler) {
         super(posX, posY, iconX, iconY, inventory, id);
 
         this.inventory = inventory;
+        this.handler = handler;
+
         BufferedImageLoader loader = new BufferedImageLoader();
         image = loader.loadImage("/pistol_5.png");
 
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
-                player = temp;
-            }
-        }
+
     }
 
     public void tick() {
+
+        if (player == null) {
+            for (int i = 0; i < handler.object.size(); i++) {
+                GameObject temp = handler.object.get(i);
+                if (temp.getId() == ID.Player) {
+                    player = temp;
+                }
+            }
+        }
+//        System.out.println("posX: " + posX);
+//        System.out.println("posY: " + posY);
+
         if (player != null) {
+//            System.out.println("player posX: " + player.getPosX());
+//            posX = player.getPosX();
+//            posY = player.getPosY();
 //            if (getBounds().intersects(player.getBounds())) {
 //                int[] invInfo = inventory.getPos();
 //                inventory.addToInventory(this);

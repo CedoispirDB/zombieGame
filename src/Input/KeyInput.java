@@ -4,15 +4,13 @@ import DataManager.Serializer;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
 import Main.Game;
-import Manager.GameObject;
-import Manager.Handler;
-import Manager.ID;
+import Manager.*;
 import Main.GamePanel;
-import Manager.STATE;
 import Player.Bullet;
 import Player.Interface;
 import Player.Inventory;
 import Render.ImageManager;
+import Sound.SoundManager;
 import UI.DeathScreen;
 
 import java.awt.event.KeyAdapter;
@@ -36,8 +34,10 @@ public class KeyInput extends KeyAdapter {
     private GamePanel gamePanel;
     private Interface anInterface;
     private ImageManager imageManager;
+    private LevelManager levelManager;
 
-    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen, Interface anInterface, ImageManager imageManager) {
+
+    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen, Interface anInterface, ImageManager imageManager, LevelManager levelManager) {
         this.handler = handler;
         this.levelBuilder = levelBuilder;
         this.inventory = inventory;
@@ -45,6 +45,7 @@ public class KeyInput extends KeyAdapter {
         this.gamePanel = gamePanel;
         this.anInterface = anInterface;
         this.imageManager = imageManager;
+        this.levelManager = levelManager;
 
         canShoot = true;
 
@@ -58,6 +59,8 @@ public class KeyInput extends KeyAdapter {
         keyDown[2] = false;
         // 'a' key
         keyDown[3] = false;
+
+
     }
 
 
@@ -192,7 +195,6 @@ public class KeyInput extends KeyAdapter {
                             player = temp;
                         }
                     }
-
                     if (player != null) {
 
                         if (canShoot && inventory.canShoot()) {
@@ -201,8 +203,8 @@ public class KeyInput extends KeyAdapter {
 
                             switch (lastDir) {
                                 case "w" -> {
-                                  posX += 8;
-                                  posY -= 8;
+                                    posX += 8;
+                                    posY -= 8;
                                 }
                                 case "s" -> {
                                     posX += 8;
@@ -219,7 +221,7 @@ public class KeyInput extends KeyAdapter {
                             }
 
 
-                            handler.addObject(new Bullet( posX, posY, 0, 0, handler, ID.Bullet, lastDir, imageManager));
+                            handler.addObject(new Bullet(posX, posY, 0, 0, handler, ID.Bullet, lastDir, imageManager));
                             canShoot = false;
 
                         } else {
@@ -231,7 +233,18 @@ public class KeyInput extends KeyAdapter {
 
                 }
                 case KeyEvent.VK_P -> GamePanel.gameState = STATE.PAUSE;
-                case KeyEvent.VK_F -> inventory.removeFromInventory();
+                case KeyEvent.VK_F -> {
+                    GameObject player = null;
+                    for (int i = 0; i < handler.object.size(); i++) {
+                        GameObject temp = handler.object.get(i);
+                        if (temp.getId() == ID.Player) {
+                            player = temp;
+                        }
+                    }
+                    inventory.removeFromInventory(levelManager);
+
+                }
+
             }
         } else if (GamePanel.gameState == STATE.PAUSE) {
             if (code == KeyEvent.VK_P) {

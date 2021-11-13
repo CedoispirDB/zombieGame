@@ -7,10 +7,12 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Manager.ItemObject;
+import Map.Node;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Inventory {
 
@@ -36,6 +38,7 @@ public class Inventory {
         inventoryItems = new LinkedList<>();
         this.handler = handler;
         this.anInterface = anInterface;
+
         offSet = 6;
 
         positions = new int[5];
@@ -51,8 +54,12 @@ public class Inventory {
 
         getSelectedItem();
 
+//        inventoryItems.forEach(System.out :: println);
+//        System.out.println(" ");
+
         for (int i = 0; i < items.size(); i++) {
-            items.get(i).tick();
+            ItemObject temp = items.get(i);
+            temp.tick();
         }
 
         for (int i = 0; i < handler.object.size(); i++) {
@@ -61,6 +68,7 @@ public class Inventory {
                 player = temp;
             }
         }
+
 
 
     }
@@ -82,12 +90,16 @@ public class Inventory {
 
         // Load items on inventory
         for (int i = 0; i < items.size(); i++) {
-            items.get(i).render(g);
+            ItemObject temp = items.get(i);
+            temp.render(g);
+
         }
 
+
+//        inventoryItems.forEach(System.out :: println);
+//
         // Draw icons
         for (int i = 0; i < inventoryItems.size(); i++) {
-//           System.out.println(inventoryItems.get(i));
             ItemObject itemObject = inventoryItems.get(i);
             itemObject.drawIcon(g);
         }
@@ -103,25 +115,92 @@ public class Inventory {
 
     public void addToInventory(ItemObject itemObject) {
         if (inventoryItems.size() < 5) {
-            System.out.println("adding " + itemObject + " to inventory");
             inventoryItems.add(itemObject);
         }
     }
 
-    public void removeFromInventory() {
-
+    public void removeFromInventory(LevelManager levelManager) {
+        System.out.println("playerX: " + player.getPosX());
+        Node[][] grid = levelManager.getGrid();
+        Node currentNode = grid[(int) (player.getPosX() + 16) / 32][(int) (player.getPosY() + 16) / 32];
+        LinkedList<Node> neighbors;
+        Node available = null;
 
         for (int i = 0; i < inventoryItems.size(); i++) {
             ItemObject tempItem = inventoryItems.get(i);
             double localX = tempItem.getIconX();
-//            System.out.println(inventoryItems.get(i));
 
             if (localX > selected && localX < selected + 32) {
-                items.add(tempItem);
+                // Remove from inventory list and add to map items
                 inventoryItems.remove(tempItem);
+                items.add(tempItem);
+                System.out.println("currentNode: " + currentNode);
+
+                neighbors = currentNode.getNeighbors();
+
+//                neighbors.forEach(System.out :: println);
+
+                for (int j = 0; j < neighbors.size(); j++) {
+                    Node temp = neighbors.get(j);
+                    if (!temp.getType().equals("w")) {
+                        available = temp;
+                        break;
+                    }
+                }
+
+                System.out.println("available Node: " + available);
+
                 positions[(int) tempItem.getInventoryPos()] = 1;
-                tempItem.setPosX(player.getPosX() + 35);
-                tempItem.setPosY(player.getPosY());
+
+                if (available != null) {
+                    int aX = available.getX();
+                    int aY = available.getY();
+                    int pX = (int) player.getPosX();
+                    int pY = (int) player.getPosY();
+                    int cX = currentNode.getX();
+                    int cY = currentNode.getY();
+
+                    int dx = 0;
+                    int dy = 0;
+
+                    System.out.println("aY: " + aY + " cY: " + cY);
+                    if (aY == cY) {
+                        // Only available left and right
+                        if (aX > cX) {
+                            dx = pX + 32 + 4;
+                            dy = pY + 8;
+                        }
+
+                        if (aX < pX) {
+                            System.out.println("Here 3");
+                            dx = pX - 34;
+                            dy = pY + 8;
+                        }
+
+                    } else if (aX == cX) {
+                        // Only available up or down
+                        if (aY > pY) {
+                            dx = pX + 9;
+                            dy = pY + 32 + 4;
+                        }
+
+                        if (aY < pY) {
+                            dx = pX + 9;
+                            dy = pY - 4;
+                        }
+
+                    }
+
+//                    tempItem.setPosX(player.getPosX() + 32 + 4);
+//                    tempItem.setPosY(available.getY() + 8);
+
+                    System.out.println("Setting to x: "  + dx);
+                    System.out.println("Setting to y: "  + dy);
+                    tempItem.setPosX(dx);
+                    tempItem.setPosY(dy);
+                }
+
+
                 break;
             }
         }
@@ -170,36 +249,6 @@ public class Inventory {
     public void setSelectedItem(ItemObject selectedItem) {
         this.selectedItem = selectedItem;
     }
-
-    public boolean canDrop(int playerX, int playerY) {
-        boolean drop = false;
-        LinkedList<Integer> available = new LinkedList<>(LevelManager.getAvailable());
-
-//        System.out.println("playerX: " + playerX);
-//        System.out.println("playerY: " + playerY);
-
-        int possA = 0;
-        int possB = 0;
-
-        do {
-            possA = available.get(0);
-            possB = available.get(1);
-            available.remove(0);
-            available.remove(0);
-
-            if (playerX + 32 == possA && playerY == possB) {
-                break;
-            }
-
-
-        } while (available.size() > 0);
-
-//        System.out.println("possA: " + possA);
-//        System.out.println("possB: " + possB);
-
-        return drop;
-    }
-
 
     public void changeItem(int opt) {
         if (opt == 0) {

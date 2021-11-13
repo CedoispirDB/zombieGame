@@ -36,6 +36,7 @@ public class DeathScreen extends MouseAdapter {
         inputColor = Color.WHITE;
         submitColor = Color.WHITE;
         canWrite = false;
+
     }
 
     public void reloadString(String c, String opt) {
@@ -73,9 +74,7 @@ public class DeathScreen extends MouseAdapter {
             if (mouseOver(mx, my, 363, 170, 300, 45)) {
                 inputColor = Color.red.darker();
                 canWrite = true;
-            }
-
-            if (mouseOver(mx, my, 673, 170, 50, 45)) {
+            } else if (mouseOver(mx, my, 673, 170, 50, 45)) {
                 submitColor = Color.WHITE;
                 if (nameAvailable) {
                     inputColor = Color.WHITE;
@@ -83,24 +82,34 @@ public class DeathScreen extends MouseAdapter {
                     leaderboard = scoreManager.getLeaderboard(10);
                     input = "";
                 }
+            } else {
+                inputColor = Color.WHITE;
             }
         }
 
     }
 
     public void render(Graphics g) {
-        Font fnt = new Font("Serif", Font.BOLD, 60);
-        Font fnt2 = new Font("Arial", Font.BOLD, 30);
-        Font fnt3 = new Font("Arial", Font.BOLD, 25);
-        Graphics2D g2d = (Graphics2D) g;
-        float thickness = 2;
-        g2d.setStroke(new BasicStroke(thickness));
-        FontRenderContext frc = g2d.getFontRenderContext();
 
         // Painting background
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
 
+        death(g);
+
+
+    }
+
+    private void death(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        float thickness = 2;
+        g2d.setStroke(new BasicStroke(thickness));
+        FontRenderContext frc = g2d.getFontRenderContext();
+
+        Font fnt = new Font("Serif", Font.BOLD, 60);
+        Font fnt2 = new Font("Arial", Font.BOLD, 30);
+        Font fnt3 = new Font("Arial", Font.BOLD, 25);
+        Font fnt4 = new Font("Arial", Font.BOLD, 35);
         // Death message
         g.setColor(Color.red);
         g.setFont(fnt);
@@ -115,6 +124,12 @@ public class DeathScreen extends MouseAdapter {
         g.setColor(Color.BLACK);
         g.setFont(fnt3);
         g.drawString(input, pos + 10 , 203);
+
+        // set name
+        g.setColor(Color.red);
+        g.setFont(fnt4);
+        String str = "Save your name";
+        g.drawString(str, pos + 10, 163 + (int) fnt4.getStringBounds(str, frc).getHeight());
 
         // Submit button
         g.setColor(submitColor);
@@ -140,6 +155,10 @@ public class DeathScreen extends MouseAdapter {
 
 
 //        System.out.println(input);
+    }
+    
+    private void congratulations(Graphics g) {
+
     }
 
     private boolean mouseOver(int mx, int my, int x, int y, int width, int height) {

@@ -95,7 +95,7 @@ public class BasicZombie extends EnemyObject {
                 }
 
 
-                if (!currentType.equals("w") && !currentType.equals("p") && comp) {
+                if (!currentType.equals("w") && comp) {
                     possiblePath.add(tempNode);
                 }
             }

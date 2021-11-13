@@ -12,14 +12,18 @@ import Player.Interface;
 import Player.Inventory;
 import Render.BufferedImageLoader;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 import Render.ImageManager;
+import Sound.SoundManager;
 import UI.*;
 import UI.Menu;
 
@@ -49,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final ScoreManager scoreManager;
     private final ImageManager imageManager;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.GAME;
+    public static STATE gameState = STATE.DEATH;
 
 
     public GamePanel() {
@@ -57,7 +61,6 @@ public class GamePanel extends JPanel implements ActionListener {
         random = new Random();
         handler = new Handler();
         anInterface = new Interface();
-        inventory = new Inventory(handler, anInterface);
         menu = new Menu(this);
         help = new Help();
         scoreManager = new ScoreManager();
@@ -66,11 +69,17 @@ public class GamePanel extends JPanel implements ActionListener {
         deathScreen = new DeathScreen(anInterface, scoreManager, this);
         saveData = new SaveData();
         imageManager = new ImageManager();
-
+        inventory = new Inventory(handler, anInterface);
+        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager);
+        levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
+        if (gameState == STATE.BUILD) {
+            this.addMouseListener(levelBuilder);
+        }
 
+        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface, imageManager, levelManager));
         this.addMouseListener(menu);
         this.addMouseListener(help);
         this.addMouseListener(leaderboard);
@@ -83,15 +92,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     public void init() {
-        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager);
-        levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
-
-        if (gameState == STATE.BUILD) {
-            this.addMouseListener(levelBuilder);
-        }
-
-        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface, imageManager));
-
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
@@ -99,6 +99,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     public void startGame() {
+
         grid = levelManager.getGrid();
         if (gameState != STATE.BUILD) {
             levelManager.loadLevel(level);
@@ -198,14 +199,14 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // Print coordinates
-//            g.setFont(new Font(null, 0 , 10));
-//            g.setColor(Color.red);
-//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), i * 32, 16);
-//            }
-//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
-//            }
+            g.setFont(new Font(null, 0 , 10));
+            g.setColor(Color.red);
+            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                g.drawString(String.valueOf(i * 32), i * 32, 16);
+            }
+            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
+            }
 
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {

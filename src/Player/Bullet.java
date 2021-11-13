@@ -10,6 +10,7 @@ import Map.Node;
 import Render.Animation;
 import Render.CreateImages;
 import Render.ImageManager;
+import Sound.SoundManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -31,8 +32,10 @@ public class Bullet extends GameObject {
         this.handler = handler;
         this.imageManager = imageManager;
 
+
         hit = false;
         destroy = false;
+
 
         BufferedImage sprite = imageManager.getSprite("b");
 
@@ -94,8 +97,8 @@ public class Bullet extends GameObject {
         }
 
         if (posX < 0 || posX >= GamePanel.SCREEN_WIDTH - 30|| posY < 0 || posY >= GamePanel.SCREEN_HEIGHT - 32) {
-            System.out.println("out");
             hit = true;
+
         }
 
         for (int i = 0; i < handler.object.size(); i++) {
@@ -103,6 +106,7 @@ public class Bullet extends GameObject {
             if (temp.getId() == ID.Wall) {
                 if (temp.getBounds().intersects(getBounds())) {
                     hit = true;
+
                 }
             }
         }
@@ -115,6 +119,7 @@ public class Bullet extends GameObject {
                         temp.setEnemyHealth(temp.getEnemyHealth() - ((Player) player).getDamage());
                     }
                     hit = true;
+
                 }
             }
         }

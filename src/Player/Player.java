@@ -210,9 +210,11 @@ public class Player extends GameObject {
             ItemObject temp = inventory.items.get(i);
             if (temp.getBounds().intersects(getBounds())) {
                 if (inventory.inventoryItems.size() < 5) {
+                    System.out.println("getting: " + temp);
                     int[] invInfo = inventory.getPos();
                     inventory.addToInventory(temp);
                     inventory.removeItem(temp);
+                    temp.setInInventory(true);
                     if (temp.getId() == ID.Pistol) {
                         offSet = 4;
                     } else if (temp.getId() == ID.HEALING) {
@@ -221,12 +223,12 @@ public class Player extends GameObject {
                     temp.setIconX(GamePanel.SCREEN_WIDTH - GamePanel.UNIT_SIZE * invInfo[0] + offSet);
                     temp.setInventoryPos(invInfo[1]);
                     temp.setIconY(8);
+
                 }
             }
 
         }
     }
-
 
     // Wall collision
     private void wallCollision() {

@@ -74,7 +74,7 @@ public class LevelManager {
         LinkedList<String> savedData = saveData.readFromFile(level);
 
         hasNeighbors = false;
-        System.out.println("trying");
+
         if (savedData != null) {
 //            System.out.println("Loading: " + savedData);
             System.out.println("Loading level " + level);
@@ -94,7 +94,7 @@ public class LevelManager {
 
                 currentNode = grid[x / 32][y / 32];
 
-                System.out.println("Current Node: " + currentNode + ", actual w: " + w + ", actual h: " + h + ", actual type: " + type);
+//                System.out.println("Current Node: " + currentNode + ", actual w: " + w + ", actual h: " + h + ", actual type: " + type);
 
 
                 if (type.equals("w") && (w != 32 || h != 32)) {
@@ -120,8 +120,8 @@ public class LevelManager {
                     case "w" -> handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.Wall, imageManager));
                     case "b" -> handler.addObject(new Button(x, y, 0, 0, w, h, handler, ID.Button, imageManager));
                     case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.Passage, this, imageManager));
-                    case "h" -> inventory.addItem(new HealingPotion(x, y, 0, 0, inventory, ID.HEALING, handler));
-                    case "g" -> inventory.addItem(new Pistol(x, y, 0, 0, inventory, ID.Pistol, handler));
+                    case "h" -> inventory.addItem(new HealingPotion(x + 9, y + 7, 0, 0, inventory, ID.HEALING, handler));
+                    case "g" -> inventory.addItem(new Pistol(x + 4, y + 8, 0, 0, inventory, ID.Pistol, handler));
                     case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this, anInterface, imageManager));
                     case "m" -> {
 //                        boolean playerExists = false;
@@ -134,6 +134,7 @@ public class LevelManager {
 //                            }
 //                        }
 //                        if (!playerExists) {
+                        System.out.println("Creating player at: " + x + " and  "  + y);
                             handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface, scoreManager, imageManager));
 //                        } else {
 //                            for (int i = 0; i < handler.object.size(); i++) {
@@ -151,16 +152,16 @@ public class LevelManager {
             getEmptySpaces(data);
         }
 
-        int count = 1;
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
-                Node temp = grid[i][j];
-//                if (temp.getType().equals("p")) {
-                    System.out.println("Node " + count + ": " + grid[i][j]);
-                    count++;
-//                }
-            }
-        }
+//        int count = 1;
+//        for (int i = 0; i < cols; i++) {
+//            for (int j = 0; j < rows; j++) {
+//                Node temp = grid[i][j];
+////                if (temp.getType().equals("p")) {
+//                    System.out.println("Node " + count + ": " + grid[i][j]);
+//                    count++;
+////                }
+//            }
+//        }
 
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {

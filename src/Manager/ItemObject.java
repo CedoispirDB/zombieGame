@@ -14,6 +14,7 @@ public abstract class ItemObject {
     protected double iconY;
     protected ID id;
     protected Inventory inventory;
+    protected boolean inInventory;
 
     public ItemObject(double posX, double posY, double iconX, double iconY, Inventory inventory, ID id) {
         this.posX = posX;
@@ -24,6 +25,14 @@ public abstract class ItemObject {
     public abstract void tick();
 
     public abstract void render(Graphics g);
+
+    public boolean inInventory() {
+        return inInventory;
+    }
+
+    public void setInInventory(boolean inInventory) {
+        this.inInventory = inInventory;
+    }
 
     public double getPosX() {
         return posX;
