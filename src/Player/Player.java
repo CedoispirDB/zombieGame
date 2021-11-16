@@ -35,9 +35,7 @@ public class Player extends GameObject {
     private int damage = 5;
     private ImageManager imageManager;
     private Animation animation;
-    private LinkedList<BufferedImage> idle;
-    private LinkedList<BufferedImage> left;
-    private LinkedList<BufferedImage> right;
+    private LinkedList<BufferedImage> idle, left, right, yDir;
     private int count = 0;
 
     public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager) {
@@ -78,10 +76,12 @@ public class Player extends GameObject {
 
         animation = new Animation();
         CreateImages createImages = new CreateImages();
+        BufferedImage image = imageManager.getSprite("p");
 
-        idle = createImages.createFrames(imageManager.getSprite("p"), 0, 3, 1);
-        left = createImages.createFrames(imageManager.getSprite("p"), 1, 3, 2);
-        right = createImages.createFrames(imageManager.getSprite("p"), 2, 3, 3);
+        idle = createImages.createFrames(image, 3, 3, 4);
+        left = createImages.createFrames(image, 1, 3, 2);
+        right = createImages.createFrames(image, 0, 3, 1);
+        yDir = createImages.createFrames(image, 2, 3, 3);
 
         animation.init(3);
 
@@ -91,14 +91,18 @@ public class Player extends GameObject {
 
     public void tick() {
 
-        if (velX == 0) {
+        if (velX == 0 && velY == 0) {
             animation.setFrames(idle, (int) velX);
         } else if (velX > 0) {
             animation.setFrames(right, (int) velX);
         } else if (velX < 0) {
+            System.out.println("changing to left");
             animation.setFrames(left, (int) velX);
+        } else if (velY != 0){
+            System.out.println("changing to ydir");
+            // + 1 is only to trick the system *You are tricking the system that you created*
+            animation.setFrames(yDir, (int) velY + 1);
         }
-
         currentNode = grid[(int) (posX / 32)][(int) (posY / 32)];
 
         if (currentNode.getY() < 64) {

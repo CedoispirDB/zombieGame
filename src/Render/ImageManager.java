@@ -20,9 +20,9 @@ public class ImageManager {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         texture = loader.loadImage("/texture.png");
-        playerSprite = loader.loadImage("/playerSprite.png");
+        playerSprite = loader.loadImage("/playerSprite2.png");
         explosionSprite = loader.loadImage("/explosion.png");
-        zombieSprite = loader.loadImage("/basicZombie.png");
+        zombieSprite = loader.loadImage("/basicZombi.png");
         bulletSprite = loader.loadImage("/bullet.png");
 
     }

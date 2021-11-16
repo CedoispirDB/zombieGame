@@ -28,8 +28,8 @@ public class Animation {
     public void setFrames(LinkedList<BufferedImage> frames, int vel) {
         if (vel != currentVel) {
             this.frames = frames;
-            currentImg = frames.get(i);
             i = 0;
+            currentImg = frames.get(i);
             currentVel = vel;
         }
     }
@@ -37,12 +37,13 @@ public class Animation {
     public void setFrames(LinkedList<BufferedImage> frames) {
         this.frames = frames;
         currentImg = frames.get(i);
-        i = 0;
+        i = -1;
 
     }
 
 
     public void runAnimation() {
+
         index++;
         if (index > speed) {
             index = 0;
@@ -50,7 +51,7 @@ public class Animation {
                 currentImg = frames.get(i + 1);
                 i++;
             } else {
-                i = 0;
+                i = -1;
             }
         }
 

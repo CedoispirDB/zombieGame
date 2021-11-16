@@ -8,6 +8,8 @@ import Manager.ID;
 import Map.Node;
 import Player.Player;
 import Player.Interface;
+import Render.Animation;
+import Render.CreateImages;
 import Render.ImageManager;
 
 import java.awt.*;
@@ -33,6 +35,8 @@ public class BasicZombie extends EnemyObject {
     private Interface anInterface;
     private final ImageManager imageManager;
     private BufferedImage image;
+    private LinkedList<BufferedImage> right, left, yDir;
+    private Animation animation;
 
 
     public BasicZombie(double posX, double posY, double velX, double velY, Handler handler, ID id, LevelManager levelManager, Interface anInterface, ImageManager imageManager) {
@@ -52,7 +56,15 @@ public class BasicZombie extends EnemyObject {
         possiblePath = new LinkedList<>();
         closedSet = new LinkedList<>();
 
+        animation = new Animation();
         image = imageManager.getSprite("bz");
+        CreateImages createImages = new CreateImages();
+
+        right = createImages.createFrames(image, 0, 3, 1);
+        left = createImages.createFrames(image, 1, 3, 2);
+        yDir = createImages.createFrames(image, 2, 3, 3);
+        animation.init(3);
+        animation.setFrames(right);
 
 
 //        System.out.println("Current Node: " + currentNode);
@@ -125,16 +137,23 @@ public class BasicZombie extends EnemyObject {
 
         if (posX > nextX) {
             posX -= 1;
+            animation.setFrames(left, nextX);
+
         }
         if (posX < nextX) {
             posX += 1;
+            animation.setFrames(right, nextX);
+
         }
 
         if (posY > nextY) {
             posY -= 1;
+            animation.setFrames(yDir, nextY);
+
         }
         if (posY < nextY) {
             posY += 1;
+            animation.setFrames(yDir, nextY);
         }
 
         count++;
@@ -149,7 +168,9 @@ public class BasicZombie extends EnemyObject {
 
     public void render(Graphics g) {
 
-        g.drawImage(image,(int) posX, (int) posY,null );
+//        g.drawImage(image,(int) posX, (int) posY,null );
+        animation.runAnimation();
+        animation.renderAnimation(g, (int) posX, (int) posY);
     }
 
     public int getEnemyHealth() {

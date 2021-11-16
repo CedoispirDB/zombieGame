@@ -129,4 +129,22 @@ public class ScoreManager {
         return null;
     }
 
+    public boolean newHighest(int score) {
+        String data = "0";
+
+        try {
+            File file = new File("Data/scores.txt");
+            Scanner reader = new Scanner(file);
+            data = reader.nextLine();
+
+            reader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+        return score > Integer.parseInt(data.substring(data.indexOf(" ") + 1));
+    }
+
 }
