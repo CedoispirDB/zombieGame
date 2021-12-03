@@ -6,13 +6,9 @@ import java.util.LinkedList;
 
 public class ImageManager {
 
-    private BufferedImage texture;
-    private BufferedImage playerSprite;
-    private BufferedImage explosionSprite;
-    private BufferedImage zombieSprite;
-    private BufferedImage bulletSprite;
-    private CreateImages createImages;
-    private Animation animation;
+    private final BufferedImage texture, playerSprite, explosionSprite, zombieSprite, bulletSprite;
+    private final CreateImages createImages;
+    private final Animation animation;
 
     public ImageManager() {
         createImages = new CreateImages();
@@ -20,10 +16,11 @@ public class ImageManager {
 
         BufferedImageLoader loader = new BufferedImageLoader();
         texture = loader.loadImage("/texture.png");
-        playerSprite = loader.loadImage("/playerSprite2.png");
+        playerSprite = loader.loadImage("/playerSprite.png");
         explosionSprite = loader.loadImage("/explosion.png");
-        zombieSprite = loader.loadImage("/basicZombi.png");
+        zombieSprite = loader.loadImage("/basicZombieSprite.png");
         bulletSprite = loader.loadImage("/bullet.png");
+//        coinTexture = loader.loadImage("/coin.png");
 
     }
 

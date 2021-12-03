@@ -22,7 +22,7 @@ public class Shooting extends MouseAdapter {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
+            if (temp.getId() == ID.PLAYER) {
                 player = temp;
             }
         }

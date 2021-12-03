@@ -1,6 +1,5 @@
 package Items;
 
-import Main.GamePanel;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
@@ -29,7 +28,7 @@ public class HealingPotion extends ItemObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
+            if (temp.getId() == ID.PLAYER) {
                 player = temp;
             }
         }

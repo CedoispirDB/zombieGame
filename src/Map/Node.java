@@ -12,8 +12,9 @@ public class Node {
         The type represents what object is located in the same position
     */
     private String type;
-    private int x, y, w, h, i, j, rows, cols;
+    private int x, y, w, h, i, j, rows, cols, f, g;
     private LinkedList<Node> neighbors = new LinkedList<>();
+    private Node previous;
 
 
     public Node(int x, int y, int w, int h, int i, int j, int rows, int cols, String type) {
@@ -85,11 +86,33 @@ public class Node {
         this.h = h;
     }
 
-    public void render(Graphics g) {
-        g.setColor(Color.red);
-        if (!type.equals("n")) {
-            g.fillRect(x, y, w, h);
-        }
+    public int getF() {
+        return f;
+    }
+
+    public void setF(int f) {
+        this.f = f;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public void setG(int g) {
+        this.g = g;
+    }
+
+    public Node getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node previous) {
+        this.previous = previous;
+    }
+
+    public void render(Graphics g, Color color) {
+        g.setColor(color);
+        g.fillRect(x, y, 32 ,32);
     }
 
     public LinkedList<Node> getNeighbors() {

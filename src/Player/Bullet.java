@@ -1,6 +1,5 @@
 package Player;
 
-import Enemies.BasicZombie;
 import Manager.EnemyObject;
 import Manager.GameObject;
 import Manager.Handler;
@@ -10,7 +9,6 @@ import Map.Node;
 import Render.Animation;
 import Render.CreateImages;
 import Render.ImageManager;
-import Sound.SoundManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -66,7 +64,7 @@ public class Bullet extends GameObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
+            if (temp.getId() == ID.PLAYER) {
                player = temp;
             }
         }
@@ -103,7 +101,7 @@ public class Bullet extends GameObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Wall) {
+            if (temp.getId() == ID.WALL) {
                 if (temp.getBounds().intersects(getBounds())) {
                     hit = true;
 
@@ -113,7 +111,7 @@ public class Bullet extends GameObject {
 
         for (int i = 0; i < handler.enemies.size(); i++) {
             EnemyObject temp = handler.enemies.get(i);
-            if (temp.getId() == ID.BasicZombie) {
+            if (temp.getId() == ID.BASIC_ZOMBIE) {
                 if (temp.getBounds().intersects(getBounds())) {
                     if (!hit) {
                         temp.setEnemyHealth(temp.getEnemyHealth() - ((Player) player).getDamage());

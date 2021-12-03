@@ -1,7 +1,5 @@
 package Items;
 
-import Main.Game;
-import Main.GamePanel;
 import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
@@ -37,7 +35,7 @@ public class Pistol extends ItemObject {
         if (player == null) {
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject temp = handler.object.get(i);
-                if (temp.getId() == ID.Player) {
+                if (temp.getId() == ID.PLAYER) {
                     player = temp;
                 }
             }

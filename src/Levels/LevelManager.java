@@ -3,10 +3,11 @@ package Levels;
 import DataManager.SaveData;
 import DataManager.ScoreManager;
 import Enemies.BasicZombie;
+import Enemies.SmartEnemy;
+import Items.Coin;
 import Items.HealingPotion;
 import Items.Pistol;
-import Main.GamePanel;
-import Manager.GameObject;
+import Items.Shotgun;
 import Manager.Handler;
 import Manager.ID;
 import Map.Node;
@@ -40,7 +41,7 @@ public class LevelManager {
 
     private Node[][] grid;
 
-    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager , ImageManager imageManager) {
+    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager) {
         this.handler = handler;
         this.saveData = saveData;
         this.inventory = inventory;
@@ -117,12 +118,15 @@ public class LevelManager {
                 savedData.remove(0);
 
                 switch (type) {
-                    case "w" -> handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.Wall, imageManager));
-                    case "b" -> handler.addObject(new Button(x, y, 0, 0, w, h, handler, ID.Button, imageManager));
-                    case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.Passage, this, imageManager));
+                    case "w" -> handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.WALL, imageManager));
+                    case "b" -> handler.addObject(new Button(x, y, 0, 0, w, h, handler, ID.BUTTON, imageManager));
+                    case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.PASSAGE, this, imageManager));
+                    case "c" -> handler.addObject(new Coin(x, y, 0, 0, handler, ID.COIN));
                     case "h" -> inventory.addItem(new HealingPotion(x + 9, y + 7, 0, 0, inventory, ID.HEALING, handler));
-                    case "g" -> inventory.addItem(new Pistol(x + 4, y + 8, 0, 0, inventory, ID.Pistol, handler));
-                    case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BasicZombie, this, anInterface, imageManager));
+                    case "g" -> inventory.addItem(new Pistol(x + 4, y + 8, 0, 0, inventory, ID.PISTOL, handler));
+                    case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BASIC_ZOMBIE, this, anInterface, imageManager));
+                    case "sz" -> handler.addEnemy(new SmartEnemy(x, y, 0, 0, handler, ID.SMART_ZOMBIE, this));
+                    case "s" -> inventory.addItem(new Shotgun(x, y, 0, 0, inventory, ID.SHOTGUN));
                     case "m" -> {
 //                        boolean playerExists = false;
 //
@@ -134,8 +138,8 @@ public class LevelManager {
 //                            }
 //                        }
 //                        if (!playerExists) {
-                        System.out.println("Creating player at: " + x + " and  "  + y);
-                            handler.addObject(new Player(x, y, 0, 0, handler, ID.Player, inventory, this, anInterface, scoreManager, imageManager));
+//                        System.out.println("Creating player at: " + x + " and  " + y);
+                        handler.addObject(new Player(x, y, 0, 0, handler, ID.PLAYER, inventory, this, anInterface, scoreManager, imageManager));
 //                        } else {
 //                            for (int i = 0; i < handler.object.size(); i++) {
 //                                GameObject temp = handler.object.get(i);
@@ -292,6 +296,7 @@ public class LevelManager {
     }
 
     public void resetLevel() {
+        System.out.println("reseting level");
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
                 grid[i][j] = new Node(i * 32, j * 32, 32, 32, i, j, rows, cols, "n");

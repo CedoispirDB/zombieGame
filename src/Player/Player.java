@@ -2,11 +2,11 @@ package Player;
 
 import DataManager.ScoreManager;
 import Levels.LevelManager;
+import Main.Game;
 import Main.GamePanel;
 import Manager.*;
 import Map.Node;
 import Render.Animation;
-import Render.BufferedImageLoader;
 import Render.CreateImages;
 import Render.ImageManager;
 
@@ -56,16 +56,16 @@ public class Player extends GameObject {
 
         for (int i = 0; i < inventory.items.size(); i++) {
             ItemObject itemObject = inventory.items.get(i);
-            if (itemObject.getId() == ID.Pistol) {
+            if (itemObject.getId() == ID.PISTOL) {
                 pistol = itemObject;
             }
         }
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Button) {
+            if (temp.getId() == ID.BUTTON) {
                 button = temp;
-            } else if (temp.getId() == ID.Passage) {
+            } else if (temp.getId() == ID.PASSAGE) {
                 passage = temp;
             }
         }
@@ -91,15 +91,23 @@ public class Player extends GameObject {
 
     public void tick() {
 
+//        System.out.println(inventory.getSelectedItem());
+        ItemObject temp = inventory.getSelectedItem();
+        if (temp != null) {
+            if (temp.getId() == ID.PISTOL) {
+                damage = 5;
+            } else if (temp.getId() == ID.SHOTGUN) {
+                damage = 10;
+            }
+        }
+
         if (velX == 0 && velY == 0) {
             animation.setFrames(idle, (int) velX);
         } else if (velX > 0) {
             animation.setFrames(right, (int) velX);
         } else if (velX < 0) {
-            System.out.println("changing to left");
             animation.setFrames(left, (int) velX);
         } else if (velY != 0){
-            System.out.println("changing to ydir");
             // + 1 is only to trick the system *You are tricking the system that you created*
             animation.setFrames(yDir, (int) velY + 1);
         }
@@ -157,8 +165,9 @@ public class Player extends GameObject {
         pressButton();
         passLevel();
         enemyCollision();
-        wallCollision();
+//        wallCollision();
         getItem();
+        collectCoin();
     }
 
     public void render(Graphics g) {
@@ -196,9 +205,9 @@ public class Player extends GameObject {
                     levelManager.loadLevel(levelManager.getLevel());
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject temp = handler.object.get(i);
-                        if (temp.getId() == ID.Button) {
+                        if (temp.getId() == ID.BUTTON) {
                             button = temp;
-                        } else if (temp.getId() == ID.Passage) {
+                        } else if (temp.getId() == ID.PASSAGE) {
                             passage = temp;
                         }
                     }
@@ -214,12 +223,12 @@ public class Player extends GameObject {
             ItemObject temp = inventory.items.get(i);
             if (temp.getBounds().intersects(getBounds())) {
                 if (inventory.inventoryItems.size() < 5) {
-                    System.out.println("getting: " + temp);
+//                    System.out.println("getting: " + temp);
                     int[] invInfo = inventory.getPos();
                     inventory.addToInventory(temp);
                     inventory.removeItem(temp);
                     temp.setInInventory(true);
-                    if (temp.getId() == ID.Pistol) {
+                    if (temp.getId() == ID.PISTOL) {
                         offSet = 4;
                     } else if (temp.getId() == ID.HEALING) {
                         offSet = 9;
@@ -234,11 +243,23 @@ public class Player extends GameObject {
         }
     }
 
+    private void collectCoin() {
+        for (int i = 0; i < handler.object.size(); i++) {
+            GameObject temp = handler.object.get(i);
+            if (temp.getId() == ID.COIN) {
+                if (temp.getBounds().intersects(getBounds())) {
+                    anInterface.increaseScore(10);
+                    handler.removeObject(temp);
+                }
+            }
+        }
+    }
+
     // Wall collision
     private void wallCollision() {
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Wall) {
+            if (temp.getId() == ID.WALL) {
 
                 if (getBounds().intersects(temp.getBoundsX())) {
 //                    System.out.println("My bounds: " + getBounds());
@@ -272,7 +293,7 @@ public class Player extends GameObject {
 
         for (int i = 0; i < handler.enemies.size(); i++) {
             EnemyObject temp = handler.enemies.get(i);
-            if (temp.getId() == ID.BasicZombie) {
+            if (temp.getId() == ID.BASIC_ZOMBIE) {
                 if (temp.getBounds().intersects(getBounds())) {
                     anInterface.hit(5);
                 }

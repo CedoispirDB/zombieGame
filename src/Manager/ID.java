@@ -1,12 +1,15 @@
 package Manager;
 
 public enum ID {
-    Player,
-    Bullet,
-    Wall,
-    Button,
-    Passage,
+    PLAYER,
+    BULLET,
+    WALL,
+    BUTTON,
+    PASSAGE,
     HEALING,
-    Pistol,
-    BasicZombie
+    PISTOL,
+    SHOTGUN,
+    BASIC_ZOMBIE,
+    SMART_ZOMBIE,
+    COIN
 }

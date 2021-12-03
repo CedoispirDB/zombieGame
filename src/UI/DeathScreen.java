@@ -53,7 +53,9 @@ public class DeathScreen extends MouseAdapter {
     public void reloadString(String c, String opt) {
         if (canWrite) {
             if (opt.equals("a")) {
+
                 input = input + c;
+
             } else if (opt.equals("r")) {
                 if (!input.equals("")) {
                     input = input.substring(0, input.length() - 1);
@@ -116,6 +118,7 @@ public class DeathScreen extends MouseAdapter {
     }
 
     private int x = 0;
+
     public void render(Graphics g) {
         if (x == 0) {
             r = scoreManager.newHighest(anInterface.getScore());
@@ -151,7 +154,6 @@ public class DeathScreen extends MouseAdapter {
 
             death(g);
         }
-
 
 
     }

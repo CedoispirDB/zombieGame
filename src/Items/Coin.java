@@ -4,13 +4,20 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Map.Node;
+import Render.BufferedImageLoader;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class Coins extends GameObject {
+public class Coin extends GameObject {
 
-    public Coins(double posX, double posY, double velX, double velY, Handler handler, ID id) {
+    private final BufferedImage image;
+
+    public Coin(double posX, double posY, double velX, double velY, Handler handler, ID id) {
         super(posX, posY, velX, velY, handler, id);
+
+        BufferedImageLoader loader = new BufferedImageLoader();
+        image = loader.loadImage("/coin.png");
     }
 
     public void tick() {
@@ -18,11 +25,11 @@ public class Coins extends GameObject {
     }
 
     public void render(Graphics g) {
-
+        g.drawImage(image, (int) posX, (int) posY, null);
     }
 
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle((int) posX, (int) posY, 32,32);
     }
 
     public Node getNode() {

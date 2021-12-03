@@ -1,22 +1,18 @@
 package Input;
 
-import DataManager.Serializer;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
-import Main.Game;
 import Manager.*;
 import Main.GamePanel;
 import Player.Bullet;
 import Player.Interface;
 import Player.Inventory;
 import Render.ImageManager;
-import Sound.SoundManager;
 import UI.DeathScreen;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
-import java.util.logging.Level;
 
 public class KeyInput extends KeyAdapter {
 
@@ -115,6 +111,7 @@ public class KeyInput extends KeyAdapter {
                     options.add('p');
                     options.add('h');
                     options.add('g');
+                    options.add('s');
                     options.add('z');
                     options.add('m');
 
@@ -155,7 +152,7 @@ public class KeyInput extends KeyAdapter {
 
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
-                if (tempObject.getId() == ID.Player) {
+                if (tempObject.getId() == ID.PLAYER) {
                     //All keys events for player 1
 
                     switch (code) {
@@ -191,7 +188,7 @@ public class KeyInput extends KeyAdapter {
                     GameObject player = null;
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject temp = handler.object.get(i);
-                        if (temp.getId() == ID.Player) {
+                        if (temp.getId() == ID.PLAYER) {
                             player = temp;
                         }
                     }
@@ -221,7 +218,7 @@ public class KeyInput extends KeyAdapter {
                             }
 
 
-                            handler.addObject(new Bullet(posX, posY, 0, 0, handler, ID.Bullet, lastDir, imageManager));
+                            handler.addObject(new Bullet(posX, posY, 0, 0, handler, ID.BULLET, lastDir, imageManager));
                             canShoot = false;
 
                         } else {
@@ -237,7 +234,7 @@ public class KeyInput extends KeyAdapter {
                     GameObject player = null;
                     for (int i = 0; i < handler.object.size(); i++) {
                         GameObject temp = handler.object.get(i);
-                        if (temp.getId() == ID.Player) {
+                        if (temp.getId() == ID.PLAYER) {
                             player = temp;
                         }
                     }
@@ -270,7 +267,7 @@ public class KeyInput extends KeyAdapter {
         if (GamePanel.gameState == STATE.GAME) {
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
-                if (tempObject.getId() == ID.Player) {
+                if (tempObject.getId() == ID.PLAYER) {
                     //All keys events for player 1
                     if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
                         keyDown[0] = false;

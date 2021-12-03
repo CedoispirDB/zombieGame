@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final ScoreManager scoreManager;
     private final ImageManager imageManager;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.DEATH;
+    public static STATE gameState = STATE.GAME;
 
 
     public GamePanel() {
@@ -100,14 +100,14 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
     public void startGame() {
-
         grid = levelManager.getGrid();
-        if (gameState != STATE.BUILD) {
+        if (gameState == STATE.GAME) {
             levelManager.loadLevel(level);
         }
     }
 
     public void restartGame() {
+
         levelManager.restart();
     }
 
@@ -200,15 +200,15 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // Print coordinates
-//            g.setFont(new Font(null, 0 , 10));
-//            g.setColor(Color.red);
-//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), i * 32, 16);
-//            }
-//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
-//            }
-
+            g.setFont(new Font(null, 0 , 10));
+            g.setColor(Color.red);
+            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                g.drawString(String.valueOf(i * 32), i * 32, 16);
+            }
+            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
+            }
+//
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
 //                    grid[i][j].render(g);

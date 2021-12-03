@@ -4,7 +4,6 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Map.Node;
-import Render.BufferedImageLoader;
 import Render.ImageManager;
 
 import java.awt.*;
@@ -28,7 +27,7 @@ public class Walls extends GameObject {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
+            if (temp.getId() == ID.PLAYER) {
                 this.player = temp;
             }
         }

@@ -1,6 +1,5 @@
 package Player;
 
-import Items.Pistol;
 import Levels.LevelManager;
 import Main.GamePanel;
 import Manager.GameObject;
@@ -10,9 +9,7 @@ import Manager.ItemObject;
 import Map.Node;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Random;
 
 public class Inventory {
 
@@ -64,7 +61,7 @@ public class Inventory {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject temp = handler.object.get(i);
-            if (temp.getId() == ID.Player) {
+            if (temp.getId() == ID.PLAYER) {
                 player = temp;
             }
         }
@@ -120,7 +117,7 @@ public class Inventory {
     }
 
     public void removeFromInventory(LevelManager levelManager) {
-        System.out.println("playerX: " + player.getPosX());
+//        System.out.println("playerX: " + player.getPosX());
         Node[][] grid = levelManager.getGrid();
         Node currentNode = grid[(int) (player.getPosX() + 16) / 32][(int) (player.getPosY() + 16) / 32];
         LinkedList<Node> neighbors;
@@ -130,11 +127,12 @@ public class Inventory {
             ItemObject tempItem = inventoryItems.get(i);
             double localX = tempItem.getIconX();
 
-            if (localX > selected && localX < selected + 32) {
+            if (localX >= selected && localX < selected + 32) {
                 // Remove from inventory list and add to map items
+
                 inventoryItems.remove(tempItem);
                 items.add(tempItem);
-                System.out.println("currentNode: " + currentNode);
+//                System.out.println("currentNode: " + currentNode);
 
                 neighbors = currentNode.getNeighbors();
 
@@ -148,7 +146,7 @@ public class Inventory {
                     }
                 }
 
-                System.out.println("available Node: " + available);
+//                System.out.println("available Node: " + available);
 
                 positions[(int) tempItem.getInventoryPos()] = 1;
 
@@ -163,7 +161,7 @@ public class Inventory {
                     int dx = 0;
                     int dy = 0;
 
-                    System.out.println("aY: " + aY + " cY: " + cY);
+//                    System.out.println("aY: " + aY + " cY: " + cY);
                     if (aY == cY) {
                         // Only available left and right
                         if (aX > cX) {
@@ -172,7 +170,6 @@ public class Inventory {
                         }
 
                         if (aX < pX) {
-                            System.out.println("Here 3");
                             dx = pX - 34;
                             dy = pY + 8;
                         }
@@ -193,9 +190,9 @@ public class Inventory {
 
 //                    tempItem.setPosX(player.getPosX() + 32 + 4);
 //                    tempItem.setPosY(available.getY() + 8);
-
-                    System.out.println("Setting to x: "  + dx);
-                    System.out.println("Setting to y: "  + dy);
+//
+//                    System.out.println("Setting to x: "  + dx);
+//                    System.out.println("Setting to y: "  + dy);
                     tempItem.setPosX(dx);
                     tempItem.setPosY(dy);
                 }
@@ -212,9 +209,11 @@ public class Inventory {
     public ItemObject getSelectedItem() {
         for (int i = 0; i < inventoryItems.size(); i++) {
             ItemObject tempItem = inventoryItems.get(i);
+//            System.out.println(tempItem);
             double localX = tempItem.getIconX();
-//            System.out.println(inventoryItems.get(i));
-            if (localX > selected && localX < selected + 32) {
+//            System.out.println("x: " + tempItem.getIconX());
+//            System.out.println("selected: " + selected);
+            if (localX >= selected && localX < selected + 32) {
                 selectedItem = tempItem;
                 break;
             } else {
@@ -229,6 +228,7 @@ public class Inventory {
             anInterface.setHealth(25);
             inventoryItems.remove(selectedItem);
             positions[(int) selectedItem.getInventoryPos()] = 1;
+            selectedItem = null;
         }
     }
 
@@ -243,7 +243,7 @@ public class Inventory {
         if (selectedItem == null) {
             return false;
         }
-        return selectedItem.getId() == ID.Pistol;
+        return selectedItem.getId() == ID.PISTOL || selectedItem.getId() == ID.SHOTGUN;
     }
 
     public void setSelectedItem(ItemObject selectedItem) {

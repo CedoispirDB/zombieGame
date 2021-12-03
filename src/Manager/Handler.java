@@ -1,9 +1,6 @@
 package Manager;
 
-import Manager.GameObject;
-
 import java.awt.*;
-import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Handler {
@@ -61,7 +58,7 @@ public class Handler {
         GameObject temp = null;
         for (int i = 0; i < size; i++) {
             temp = object.get(i);
-            if (temp.getId() == ID.Player) {
+            if (temp.getId() == ID.PLAYER) {
                 break;
             }
         }
