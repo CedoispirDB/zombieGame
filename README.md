@@ -18,3 +18,8 @@ Following the guidelines:
 - The game should contain a leaderboard and celebratory messages.
 - The game should have a minimum of three levels.
 - The game should have an instructional display.
+
+TODO:
+-New level building system 
+-New enemies 
+-Instructional display
