@@ -24,17 +24,89 @@ public class Handler {
         }
     }
 
+    public void tickPlayer() {
+        for (int i = 0; i < object.size(); i ++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() == ID.PLAYER) {
+                temp.tick();
+            }
+        }
+    }
+
+    public void tickBullets() {
+        for (int i = 0; i < object.size(); i ++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() == ID.BULLET) {
+                temp.tick();
+            }
+        }
+    }
+
+    public void tickEnemies() {
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).tick();
+        }
+    }
+
+    public void tickObjects() {
+        for (int i = 0; i< object.size(); i++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() != ID.PLAYER && temp.getId() != ID.BULLET) {
+                temp.tick();
+            }
+        }
+    }
+
+
     public void render(Graphics g) {
+        for (int i = 0; i< object.size(); i++) {
+            object.get(i).render(g);
+        }
+        renderEnemies(g);
+    }
+
+    public void removePlayer() {
+        for (int i = 0; i< object.size(); i++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() == ID.PLAYER) {
+                removeObject(temp);
+            }
+        }
+    }
+
+    public void renderPlayer(Graphics g) {
+        for (int i = 0; i< object.size(); i++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() == ID.PLAYER) {
+                temp.render(g);
+            }
+        }
+
+    }
+
+    public void renderBullets(Graphics g) {
+        for (int i = 0; i< object.size(); i++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() == ID.BULLET) {
+                temp.render(g);
+            }
+        }
+    }
+
+    public void renderObjects(Graphics g) {
+        for (int i = 0; i< object.size(); i++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() != ID.PASSAGE && temp.getId() != ID.BUTTON) {
+                temp.render(g);
+            }
+        }
+        renderEnemies(g);
+    }
+
+    public void renderEnemies(Graphics g) {
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).render(g);
         }
-
-        for (int i = 0; i< object.size(); i++) {
-            object.get(i).render(g);
-         //   System.out.println("Rendering: " + object.get(i));
-        }
-
-
     }
 
     public void addObject(GameObject object) {

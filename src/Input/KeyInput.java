@@ -148,7 +148,7 @@ public class KeyInput extends KeyAdapter {
                 case KeyEvent.VK_M -> levelBuilder.getData();
 
             }
-        } else if (GamePanel.gameState == STATE.GAME) {
+        } else if (GamePanel.gameState == STATE.GAME || GamePanel.gameState == STATE.TUTORIAL) {
 
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
@@ -264,7 +264,7 @@ public class KeyInput extends KeyAdapter {
             }
         }
 
-        if (GamePanel.gameState == STATE.GAME) {
+        if (GamePanel.gameState == STATE.GAME || GamePanel.gameState == STATE.TUTORIAL) {
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);
                 if (tempObject.getId() == ID.PLAYER) {

@@ -5,6 +5,7 @@ import DataManager.ScoreManager;
 import Input.KeyInput;
 import Levels.LevelBuilder;
 import Levels.LevelManager;
+import Levels.Tutorial;
 import Manager.Handler;
 import Manager.STATE;
 import Map.Node;
@@ -52,8 +53,9 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Leaderboard leaderboard;
     private final ScoreManager scoreManager;
     private final ImageManager imageManager;
+    private final Tutorial tutorial;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.GAME;
+    public static STATE gameState = STATE.TUTORIAL;
 
 
     public GamePanel() {
@@ -72,6 +74,7 @@ public class GamePanel extends JPanel implements ActionListener {
         inventory = new Inventory(handler, anInterface);
         levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager);
         levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
+        tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
@@ -80,6 +83,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface, imageManager, levelManager));
+        this.addKeyListener(tutorial);
         this.addMouseListener(menu);
         this.addMouseListener(help);
         this.addMouseListener(leaderboard);
@@ -89,7 +93,6 @@ public class GamePanel extends JPanel implements ActionListener {
         init();
         startGame();
     }
-
 
 
     public void init() {
@@ -112,10 +115,11 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void tick() {
-//        System.out.println(gameState);
         if (gameState == STATE.GAME || gameState == STATE.BUILD) {
             handler.tick();
             inventory.tick();
+        } else if (gameState == STATE.TUTORIAL) {
+            tutorial.tick();
         }
     }
 
@@ -134,7 +138,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             BufferedImage image = imageManager.getTexture("f");
 
-            if (gameState == STATE.GAME || gameState == STATE.PAUSE ){
+            if (gameState == STATE.GAME || gameState == STATE.PAUSE) {
                 levelManager.renderLevel(g);
                 handler.render(g);
                 inventory.render(g);
@@ -168,7 +172,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 leaderboard.render(g);
             } else if (gameState == STATE.DEATH) {
                 deathScreen.render(g);
-            }else if (gameState == STATE.BUILD) {
+            } else if (gameState == STATE.TUTORIAL) {
+                tutorial.render(g);
+            } else if (gameState == STATE.BUILD) {
+
+
                 for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
                     for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {
                         g.drawImage(image, i * 32, j * 32, null);
@@ -200,13 +208,13 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // Print coordinates
-            g.setFont(new Font(null, 0 , 10));
+            g.setFont(new Font(null, 0, 10));
             g.setColor(Color.red);
             for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
                 g.drawString(String.valueOf(i * 32), i * 32, 16);
             }
             for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                g.drawString(String.valueOf(i * 32), 0, i*32 + 16);
+                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
             }
 //
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {

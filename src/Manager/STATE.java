@@ -7,5 +7,6 @@ public enum STATE {
     DEATH,
     LEADERBOARD,
     HELP,
-    BUILD
+    BUILD,
+    TUTORIAL
 }

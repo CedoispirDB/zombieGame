@@ -48,7 +48,6 @@ public class Inventory {
     }
 
     public void tick() {
-
         getSelectedItem();
 
 //        inventoryItems.forEach(System.out :: println);

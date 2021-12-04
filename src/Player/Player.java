@@ -37,6 +37,7 @@ public class Player extends GameObject {
     private Animation animation;
     private LinkedList<BufferedImage> idle, left, right, yDir;
     private int count = 0;
+    public boolean canPress;
 
     public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
@@ -85,6 +86,8 @@ public class Player extends GameObject {
 
         animation.init(3);
 
+        canPress = true;
+
 
     }
 
@@ -107,7 +110,7 @@ public class Player extends GameObject {
             animation.setFrames(right, (int) velX);
         } else if (velX < 0) {
             animation.setFrames(left, (int) velX);
-        } else if (velY != 0){
+        } else if (velY != 0) {
             // + 1 is only to trick the system *You are tricking the system that you created*
             animation.setFrames(yDir, (int) velY + 1);
         }
@@ -161,11 +164,14 @@ public class Player extends GameObject {
 
         posX += velX;
         posY += velY;
-
         pressButton();
-        passLevel();
+        if (GamePanel.gameState == STATE.GAME) {
+            passLevel();
+        } else if (GamePanel.gameState == STATE.TUTORIAL) {
+            passTutorial();
+        }
         enemyCollision();
-//        wallCollision();
+        wallCollision();
         getItem();
         collectCoin();
     }
@@ -183,9 +189,18 @@ public class Player extends GameObject {
 //        g2d.draw(getBounds());
     }
 
+    public void toggleCanPress() {
+        canPress = !canPress;
+    }
+
+    public boolean canPress() {
+        return canPress;
+    }
+
     public void pressButton() {
-        if (button != null) {
+        if (button != null && canPress) {
             if (getBounds().intersects(button.getBounds())) {
+
                 levelManager.setButtonPressed(true);
                 if (ctn == 0) {
                     anInterface.increaseScore(15);
@@ -196,6 +211,7 @@ public class Player extends GameObject {
     }
 
     public void passLevel() {
+
         if (passage != null) {
             if (getBounds().intersects(passage.getBounds())) {
                 if (levelManager.isButtonPressed()) {
@@ -212,10 +228,23 @@ public class Player extends GameObject {
                         }
                     }
                     ctn = 0;
+
                 }
             }
         }
     }
+
+    public void passTutorial() {
+
+        if (passage != null) {
+            if (getBounds().intersects(passage.getBounds())) {
+                if (levelManager.isButtonPressed()) {
+                    System.out.println("tutorial finished");
+                }
+            }
+        }
+    }
+
 
     private void getItem() {
         int offSet = 0;

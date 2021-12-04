@@ -84,6 +84,7 @@ public class Interface {
     }
 
     public void setHealth(int life) {
+
         health += life;
         healthBar += life;
         barG += life;
