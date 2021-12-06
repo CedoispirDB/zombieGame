@@ -53,9 +53,9 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Leaderboard leaderboard;
     private final ScoreManager scoreManager;
     private final ImageManager imageManager;
-    private final Tutorial tutorial;
+    private Tutorial tutorial;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.GAME;
+    public static STATE gameState = STATE.TUTORIAL;
 
 
     public GamePanel() {
@@ -74,16 +74,21 @@ public class GamePanel extends JPanel implements ActionListener {
         inventory = new Inventory(handler, anInterface);
         levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager);
         levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
-        tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
+
+        if (gameState == STATE.TUTORIAL) {
+            tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
+            this.addKeyListener(tutorial);
+
+        }
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
+
         if (gameState == STATE.BUILD) {
             this.addMouseListener(levelBuilder);
         }
 
         this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface, imageManager, levelManager));
-        this.addKeyListener(tutorial);
         this.addMouseListener(menu);
         this.addMouseListener(help);
         this.addMouseListener(leaderboard);

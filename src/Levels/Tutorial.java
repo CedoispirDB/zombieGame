@@ -16,6 +16,8 @@ import UI.Pause;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.font.FontRenderContext;
+import java.util.LinkedList;
 
 public class Tutorial extends KeyAdapter {
 
@@ -31,6 +33,8 @@ public class Tutorial extends KeyAdapter {
     private int count;
     private int keysPressed;
     private int previous;
+    private LinkedList<Integer> pressed;
+    private int index;
     private boolean gotGun;
     private boolean killed;
     private boolean gotHealing;
@@ -39,6 +43,8 @@ public class Tutorial extends KeyAdapter {
     private boolean gotCoins;
     private boolean scrolled;
     private boolean walked;
+    private final Font font;
+    private int cnt;
 
     public Tutorial(Handler handler, Inventory inventory, LevelManager levelManager, Interface anInterface, Pause pause, ScoreManager scoreManager, ImageManager imageManager) {
         this.handler = handler;
@@ -72,7 +78,11 @@ public class Tutorial extends KeyAdapter {
         gotCoins = false;
         scrolled = false;
         walked = false;
+        pressed = new LinkedList<>();
+        index = 0;
+        cnt = 0;
 
+        font = new Font("Arial", Font.BOLD, 15);
     }
 
     public void tick() {
@@ -80,8 +90,10 @@ public class Tutorial extends KeyAdapter {
         inventory.tick();
 
         if (player != null) {
-            if (!phases[5] == player.canPress()) {
+            if (cnt == 0) {
+
                 player.toggleCanPress();
+                cnt++;
             }
         }
 
@@ -91,6 +103,7 @@ public class Tutorial extends KeyAdapter {
             handler.addObject(new Passage(672, 480, 0, 0, 32, 32, handler, ID.PASSAGE, levelManager, imageManager));
             Player player = new Player(480, 320, 0, 0, handler, ID.PLAYER, inventory, levelManager, anInterface, scoreManager, imageManager);
             handler.addObject(player);
+            this.player = player;
 
             count++;
         }
@@ -101,7 +114,7 @@ public class Tutorial extends KeyAdapter {
         if (phases[2] && count == 3) {
 //            handler.addEnemy(new BasicZombie(480, 96, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
 //            handler.addEnemy(new BasicZombie(480, 640, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
-            handler.addEnemy(new BasicZombie(608, 320, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
+            handler.addEnemy(new BasicZombie(672, 320, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
 //            handler.addEnemy(new BasicZombie(128, 320, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
             count++;
         }
@@ -170,30 +183,40 @@ public class Tutorial extends KeyAdapter {
             phases[0] = false;
             keysPressed = 0;
             previous = 0;
+            System.out.println("1 done");
+            walked = false;
         }
 
         if (gotGun) {
             // Get the gun
             phases[2] = true;
             phases[1] = false;
+            System.out.println("2 done");
+            gotGun = false;
         }
 
         if (killed) {
             // Kill the zombies
             phases[3] = true;
             phases[2] = false;
+            System.out.println("3 done");
+            killed = false;
 
         }
 
         if (scrolled) {
             phases[4] = true;
             phases[3] = false;
+            System.out.println("4 done");
+            scrolled = false;
         }
 
         if (healed) {
             // Heal
             phases[5] = true;
             phases[4] = false;
+            System.out.println("5 done");
+            healed = false;
         }
 
         if (gotCoins) {
@@ -203,6 +226,8 @@ public class Tutorial extends KeyAdapter {
             if (player != null) {
                 player.toggleCanPress();
             }
+            System.out.println("6 done");
+            gotCoins = false;
         }
 //
 //        if () {
@@ -214,6 +239,10 @@ public class Tutorial extends KeyAdapter {
 
 
     public void render(Graphics g) {
+
+        Graphics2D g2d = (Graphics2D) g;
+        FontRenderContext frc = g2d.getFontRenderContext();
+
         levelManager.renderLevel(g);
         anInterface.render(g);
         inventory.render(g);
@@ -228,47 +257,55 @@ public class Tutorial extends KeyAdapter {
             pause.render(g);
         }
 
+        g.setFont(font);
         // Instructions
         if (phases[0]) {
-
+            printMessage("Use the keys WASD to walk", g, frc);
         }
 
         if (phases[1]) {
-
+            printMessage("Go over an item to collect it", g, frc);
         }
 
         if (phases[2]) {
-
+            printMessage("Use space bar to use your items", g, frc);
         }
 
         if (phases[3]) {
-
+            printMessage("Use the key Q or E to change the selected item", g, frc);
         }
 
         if (phases[4]) {
-
+            printMessage("Collect the potion and use it to recover life", g, frc);
         }
 
         if (phases[5]) {
-
+            printMessage("Collect the coins to get points", g, frc);
         }
 
         if (phases[6]) {
-
+            printMessage("Press the button and pass through the door to complete a level", g, frc);
         }
-
 
     }
 
+    private void printMessage(String text, Graphics g, FontRenderContext frc) {
+        double w = font.getStringBounds(text, frc).getWidth();
+        double h = font.getStringBounds(text, frc).getHeight();
+        g.drawString(text, (int)(player.getPosX() - w / 2) + 16 , (int)player.getPosY() - 10);
+    }
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
         if (phases[0]) {
-            if ((code == 87 || code == 83 || code == 65 || code == 68) && code != previous) {
-                keysPressed++;
-                previous = code;
-                if (keysPressed == 4) {
+            if (code == 87 || code == 83 || code == 65 || code == 68) {
+                if (!pressed.contains(code)) {
+                     pressed.add(code);
+                }
+
+                if (pressed.size() == 4) {
                     walked = true;
+                    pressed.clear();
                 }
             }
         }
