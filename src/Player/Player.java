@@ -190,9 +190,7 @@ public class Player extends GameObject {
     }
 
     public void toggleCanPress() {
-        System.out.println("was " + canPress);
         canPress = !canPress;
-        System.out.println("toggling to " + canPress);
     }
 
     public boolean canPress() {

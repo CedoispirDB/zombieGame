@@ -121,7 +121,7 @@ public class LevelManager {
                     case "w" -> handler.addObject(new Walls(x, y, 0, 0, w, h, handler, ID.WALL, imageManager));
                     case "b" -> handler.addObject(new Button(x, y, 0, 0, w, h, handler, ID.BUTTON, imageManager));
                     case "p" -> handler.addObject(new Passage(x, y, 0, 0, w, h, handler, ID.PASSAGE, this, imageManager));
-                    case "c" -> handler.addObject(new Coin(x, y, 0, 0, handler, ID.COIN));
+                    case "c" -> handler.addObject(new Coin(x + 8, y + 8, 0, 0, handler, ID.COIN));
                     case "h" -> inventory.addItem(new HealingPotion(x + 9, y + 7, 0, 0, inventory, ID.HEALING, handler));
                     case "g" -> inventory.addItem(new Pistol(x + 4, y + 8, 0, 0, inventory, ID.PISTOL, handler));
                     case "z" -> handler.addEnemy(new BasicZombie(x, y, 0, 0, handler, ID.BASIC_ZOMBIE, this, anInterface, imageManager));
