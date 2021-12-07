@@ -1,0 +1,6 @@
+Bia 90
+Leo 75
+Joao 10
+Bianca 10
+Marco 10
+Marcelo 0
