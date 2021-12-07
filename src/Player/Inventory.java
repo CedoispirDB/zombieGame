@@ -2,10 +2,7 @@ package Player;
 
 import Levels.LevelManager;
 import Main.GamePanel;
-import Manager.GameObject;
-import Manager.Handler;
-import Manager.ID;
-import Manager.ItemObject;
+import Manager.*;
 import Map.Node;
 
 import java.awt.*;
@@ -190,8 +187,8 @@ public class Inventory {
 //                    tempItem.setPosX(player.getPosX() + 32 + 4);
 //                    tempItem.setPosY(available.getY() + 8);
 //
-//                    System.out.println("Setting to x: "  + dx);
-//                    System.out.println("Setting to y: "  + dy);
+                    System.out.println("Setting to x: "  + dx);
+                    System.out.println("Setting to y: "  + dy);
                     tempItem.setPosX(dx);
                     tempItem.setPosY(dy);
                 }
@@ -204,6 +201,8 @@ public class Inventory {
         pos++;
         selectedItem = null;
     }
+
+
 
     public ItemObject getSelectedItem() {
         for (int i = 0; i < inventoryItems.size(); i++) {

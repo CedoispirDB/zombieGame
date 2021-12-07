@@ -7,6 +7,7 @@ import Items.HealingPotion;
 import Items.Pistol;
 import Main.GamePanel;
 import Manager.*;
+import Map.Node;
 import Player.Interface;
 import Player.Inventory;
 import Player.Player;
@@ -43,6 +44,7 @@ public class Tutorial extends KeyAdapter {
     private boolean gotCoins;
     private boolean scrolled;
     private boolean walked;
+    private boolean dropped;
     private final Font font;
     private int cnt;
 
@@ -55,7 +57,7 @@ public class Tutorial extends KeyAdapter {
         this.scoreManager = scoreManager;
         this.imageManager = imageManager;
 
-        phases = new boolean[7];
+        phases = new boolean[8];
 
         phases[0] = true;
         phases[1] = false;
@@ -64,6 +66,7 @@ public class Tutorial extends KeyAdapter {
         phases[4] = false;
         phases[5] = false;
         phases[6] = false;
+        phases[7] = false;
 
         count = 1;
         keysPressed = 0;
@@ -78,11 +81,24 @@ public class Tutorial extends KeyAdapter {
         gotCoins = false;
         scrolled = false;
         walked = false;
+        dropped = false;
         pressed = new LinkedList<>();
         index = 0;
         cnt = 0;
 
         font = new Font("Arial", Font.BOLD, 15);
+
+        Node[][] grid = levelManager.getGrid();
+
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j < 24; j++) {
+                grid[i][j].addNeighbors(grid);
+            }
+        }
+
+
+//        handler.addObject(new Walls(0,0,0,0,32, 768, handler, ID.WALL, imageManager));
+//        handler.addObject(new Walls(992,0,0,0,32, 768, handler, ID.WALL, imageManager));
     }
 
     public void tick() {
@@ -108,6 +124,7 @@ public class Tutorial extends KeyAdapter {
             count++;
         }
         if (phases[1] && count == 2) {
+            System.out.println("Creating a new weapon");
             inventory.addItem(new Pistol(612, 328, 0, 0, inventory, ID.PISTOL, handler));
             count++;
         }
@@ -129,11 +146,16 @@ public class Tutorial extends KeyAdapter {
             count++;
         }
         if (phases[5] && count == 6) {
-            handler.addObject(new Coin(576, 128, 0, 0, handler, ID.COIN));
-            handler.addObject(new Coin(384, 128, 0, 0, handler, ID.COIN));
+            handler.addObject(new Coin(584, 136, 0, 0, handler, ID.COIN));
+            handler.addObject(new Coin(392, 136, 0, 0, handler, ID.COIN));
             count++;
         }
+
         if (phases[6] && count == 7) {
+            count ++;
+        }
+
+        if (phases[7] && count == 8) {
             count++;
         }
 
@@ -174,6 +196,13 @@ public class Tutorial extends KeyAdapter {
 
             if (handler.object.size() == 3) {
                 gotCoins = true;
+            }
+        }
+
+        if (phases[6]) {
+            // check if item dropped
+            if (inventory.inventoryItems.size() == 0) {
+                dropped = true;
             }
         }
 
@@ -223,12 +252,22 @@ public class Tutorial extends KeyAdapter {
             // Get coins
             phases[6] = true;
             phases[5] = false;
-            if (player != null) {
-                player.toggleCanPress();
-            }
+
             System.out.println("6 done");
             gotCoins = false;
         }
+
+        if (dropped) {
+            phases[7] = true;
+            phases[6] = false;
+            if (player != null) {
+                player.toggleCanPress();
+            }
+            dropped = false;
+            System.out.println("7 done");
+
+        }
+
 //
 //        if () {
 //            // Click button and pass passage;
@@ -243,11 +282,11 @@ public class Tutorial extends KeyAdapter {
         Graphics2D g2d = (Graphics2D) g;
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        levelManager.renderLevel(g);
-        anInterface.render(g);
-        inventory.render(g);
 
-        if (phases[6]) {
+        levelManager.renderLevel(g);
+
+
+        if (phases[7]) {
             handler.render(g);
         } else {
             handler.renderObjects(g);
@@ -256,6 +295,9 @@ public class Tutorial extends KeyAdapter {
         if (GamePanel.gameState == STATE.PAUSE) {
             pause.render(g);
         }
+
+        anInterface.render(g);
+        inventory.render(g);
 
         g.setFont(font);
         // Instructions
@@ -284,6 +326,10 @@ public class Tutorial extends KeyAdapter {
         }
 
         if (phases[6]) {
+            printMessage("Select and press F to drop an item", g, frc);
+        }
+
+        if (phases[7]) {
             printMessage("Press the button and pass through the door to complete a level", g, frc);
         }
 
