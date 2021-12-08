@@ -187,8 +187,8 @@ public class Inventory {
 //                    tempItem.setPosX(player.getPosX() + 32 + 4);
 //                    tempItem.setPosY(available.getY() + 8);
 //
-                    System.out.println("Setting to x: "  + dx);
-                    System.out.println("Setting to y: "  + dy);
+//                    System.out.println("Setting to x: "  + dx);
+//                    System.out.println("Setting to y: "  + dy);
                     tempItem.setPosX(dx);
                     tempItem.setPosY(dy);
                 }

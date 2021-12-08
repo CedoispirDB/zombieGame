@@ -32,7 +32,7 @@ public class Player extends GameObject {
     private Node[][] grid;
     private Rectangle barRecX;
     private Rectangle barRecY;
-    private int damage = 5;
+    private int damage;
     private ImageManager imageManager;
     private Animation animation;
     private LinkedList<BufferedImage> idle, left, right, yDir;
@@ -51,6 +51,8 @@ public class Player extends GameObject {
         this.levelManager = levelManager;
         this.scoreManager = scoreManager;
         this.imageManager = imageManager;
+
+        damage = 10;
 
         barRecX = new Rectangle(32, 0, 160, 30);
         barRecY = new Rectangle(40, 0, 144, 32);
@@ -171,7 +173,7 @@ public class Player extends GameObject {
             passTutorial();
         }
         enemyCollision();
-        wallCollision();
+//        wallCollision();
         getItem();
         collectCoin();
     }
@@ -215,6 +217,11 @@ public class Player extends GameObject {
         if (passage != null) {
             if (getBounds().intersects(passage.getBounds())) {
                 if (levelManager.isButtonPressed()) {
+                    // 4 is the last level for now
+                    if (levelManager.getLevel() == 4) {
+                        GamePanel.gameState = STATE.END;
+                        return;
+                    }
                     anInterface.increaseScore(50);
                     levelManager.setButtonPressed(false);
                     levelManager.setLevel();
@@ -239,7 +246,12 @@ public class Player extends GameObject {
         if (passage != null) {
             if (getBounds().intersects(passage.getBounds())) {
                 if (levelManager.isButtonPressed()) {
-                    System.out.println("tutorial finished");
+                    GamePanel.gameState = STATE.GAME;
+                    System.out.println(levelManager.getLevel());
+                    levelManager.setButtonPressed(false);
+                    levelManager.loadLevel(1);
+                    levelManager.setLevel(1);
+
                 }
             }
         }

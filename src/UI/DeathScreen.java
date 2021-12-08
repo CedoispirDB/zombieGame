@@ -1,5 +1,6 @@
 package UI;
 
+import DataManager.DataManager;
 import DataManager.ScoreManager;
 import Main.GamePanel;
 import Manager.STATE;
@@ -18,8 +19,9 @@ public class DeathScreen extends MouseAdapter {
     private int ox = (GamePanel.SCREEN_WIDTH - buttonWidth) / 2;
     private int oy = (GamePanel.SCREEN_HEIGHT - buttonHeight) / 2;
     private final Interface anInterface;
-    private final ScoreManager scoreManager;
+    //    private final ScoreManager scoreManager;
     private final GamePanel gamePanel;
+    private final DataManager dataManager;
     private String input;
     private Color inputColor;
     private boolean canWrite;
@@ -38,10 +40,12 @@ public class DeathScreen extends MouseAdapter {
     private boolean r;
 
 
-    public DeathScreen(Interface anInterface, ScoreManager scoreManager, GamePanel gamePanel) {
+    public DeathScreen(Interface anInterface, ScoreManager scoreManager, GamePanel gamePanel, DataManager dataManager) {
         this.anInterface = anInterface;
-        this.scoreManager = scoreManager;
+//        this.scoreManager = scoreManager;
         this.gamePanel = gamePanel;
+        this.dataManager = dataManager;
+
         input = "";
         inputColor = Color.WHITE;
         submitColor = Color.WHITE;
@@ -70,11 +74,12 @@ public class DeathScreen extends MouseAdapter {
         int mx = e.getX();
         int my = e.getY();
 
-        if (GamePanel.gameState == STATE.DEATH) {
+        if (GamePanel.gameState == STATE.DEATH || GamePanel.gameState == STATE.END) {
             if (promptClicked) {
                 if (mouseOver(mx, my, buttonX, buttonY, 50, 45)) {
                     submitColor = Color.GRAY;
-                    nameAvailable = scoreManager.saveScore(anInterface.getScore(), input);
+                    nameAvailable = dataManager.saveScore(input, anInterface.getScore());
+                    dataManager.printData();
                 }
 
             } else {
@@ -86,7 +91,7 @@ public class DeathScreen extends MouseAdapter {
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (GamePanel.gameState == STATE.DEATH) {
+        if (GamePanel.gameState == STATE.DEATH || GamePanel.gameState == STATE.END) {
             int mx = e.getX();
             int my = e.getY();
 
@@ -98,8 +103,8 @@ public class DeathScreen extends MouseAdapter {
                     submitColor = Color.WHITE;
                     if (nameAvailable) {
                         inputColor = Color.WHITE;
-                        scoreManager.saveScore(anInterface.getScore(), input);
-                        leaderboard = scoreManager.getLeaderboard(10);
+//                        scoreManager.saveScore(anInterface.getScore(), input);
+//                        leaderboard = scoreManager.getLeaderboard(10);
                         input = "";
                     }
                 } else {
@@ -117,13 +122,13 @@ public class DeathScreen extends MouseAdapter {
 
     }
 
-    private int x = 0;
+//    private int x = 0;
 
     public void render(Graphics g) {
-        if (x == 0) {
-            r = scoreManager.newHighest(anInterface.getScore());
-            x++;
-        }
+//        if (x == 0) {
+//            r = scoreManager.newHighest(anInterface.getScore());
+//            x++;
+//        }
 
 
         // Painting background
@@ -131,7 +136,7 @@ public class DeathScreen extends MouseAdapter {
         g.fillRect(0, 0, GamePanel.SCREEN_WIDTH, GamePanel.SCREEN_HEIGHT);
 
 
-        if (r) {
+        if (GamePanel.gameState == STATE.END) {
             buttonX = 648;
             buttonY = 232;
 
@@ -142,7 +147,7 @@ public class DeathScreen extends MouseAdapter {
             inputY = 232;
 
             congratulations(g);
-        } else {
+        } else if (GamePanel.gameState == STATE.DEATH){
             buttonX = 648;
             buttonY = 170;
 
@@ -182,6 +187,7 @@ public class DeathScreen extends MouseAdapter {
 
 
         if (promptClicked) {
+            System.out.println(pos - 25);
             renderInput(g, fnt3, pos - 25, y + 70);
         } else {
             renderPrompt(g, fnt3, pos2, frc, y + 103);
@@ -201,15 +207,14 @@ public class DeathScreen extends MouseAdapter {
         Graphics2D g2d = (Graphics2D) g;
         FontRenderContext frc = g2d.getFontRenderContext();
 
-        String mess = "YOU DIED";
+        String mess = "Congratulations!";
         int pos = ox + ((buttonWidth - (int) fnt.getStringBounds(mess, frc).getWidth()) / 2);
 
-        g.setColor(Color.red);
+        g.setColor(Color.GREEN.darker());
         g.setFont(fnt);
         g.drawString(mess, pos, y);
-        g.setColor(Color.GREEN.darker());
         g.setFont(fnt4);
-        mess = "But you beat the highest score!!!";
+        mess = "You have finished the game";
         g.drawString(mess, ox + ((buttonWidth - (int) fnt4.getStringBounds(mess, frc).getWidth()) / 2), y + 65);
 
         String text = "Total Score: " + anInterface.getScore();
@@ -218,7 +223,7 @@ public class DeathScreen extends MouseAdapter {
 
 
         if (promptClicked) {
-            renderInput(g, fnt3, pos - 25, y + 132);
+            renderInput(g, fnt3, 338, y + 135);
 
         } else {
             renderPrompt(g, fnt3, pos2, frc, y + 163);
@@ -262,7 +267,7 @@ public class DeathScreen extends MouseAdapter {
     }
 
     private void renderLeaderboard(Graphics g, Font fnt, FontRenderContext frc, int y) {
-        leaderboard = scoreManager.getLeaderboard(8);
+        leaderboard = dataManager.getLeaderboard(8);
         y += 180;
         for (String line : leaderboard.split("\n")) {
             g.drawString(line, ox + ((buttonWidth - (int) fnt.getStringBounds("YOU DIED", frc).getWidth()) / 2), y);

@@ -1,3 +1,9 @@
+marco 100
+a 100
+b 100
+c 100
+d 100
+joao 100
 Bia 90
 Leo 75
 Joao 10

@@ -8,5 +8,6 @@ public enum STATE {
     LEADERBOARD,
     HELP,
     BUILD,
-    TUTORIAL
+    TUTORIAL,
+    END
 }

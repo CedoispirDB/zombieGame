@@ -212,7 +212,6 @@ public class Tutorial extends KeyAdapter {
             phases[0] = false;
             keysPressed = 0;
             previous = 0;
-            System.out.println("1 done");
             walked = false;
         }
 
@@ -220,7 +219,6 @@ public class Tutorial extends KeyAdapter {
             // Get the gun
             phases[2] = true;
             phases[1] = false;
-            System.out.println("2 done");
             gotGun = false;
         }
 
@@ -228,7 +226,6 @@ public class Tutorial extends KeyAdapter {
             // Kill the zombies
             phases[3] = true;
             phases[2] = false;
-            System.out.println("3 done");
             killed = false;
 
         }
@@ -236,7 +233,6 @@ public class Tutorial extends KeyAdapter {
         if (scrolled) {
             phases[4] = true;
             phases[3] = false;
-            System.out.println("4 done");
             scrolled = false;
         }
 
@@ -244,7 +240,6 @@ public class Tutorial extends KeyAdapter {
             // Heal
             phases[5] = true;
             phases[4] = false;
-            System.out.println("5 done");
             healed = false;
         }
 
@@ -253,7 +248,6 @@ public class Tutorial extends KeyAdapter {
             phases[6] = true;
             phases[5] = false;
 
-            System.out.println("6 done");
             gotCoins = false;
         }
 
@@ -264,7 +258,6 @@ public class Tutorial extends KeyAdapter {
                 player.toggleCanPress();
             }
             dropped = false;
-            System.out.println("7 done");
 
         }
 

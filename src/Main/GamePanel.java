@@ -1,5 +1,6 @@
 package Main;
 
+import DataManager.DataManager;
 import DataManager.SaveData;
 import DataManager.ScoreManager;
 import Input.KeyInput;
@@ -12,6 +13,7 @@ import Map.Node;
 import Player.Interface;
 import Player.Inventory;
 import Render.BufferedImageLoader;
+import  DataManager.Deserializer;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -44,7 +46,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private boolean editMode = true;
     private Inventory inventory;
     private Node[][] grid;
-    private final int level = 0;
+    private final int level = 1;
     private final Interface anInterface;
     private final Menu menu;
     private final Help help;
@@ -53,12 +55,16 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Leaderboard leaderboard;
     private final ScoreManager scoreManager;
     private final ImageManager imageManager;
+    private final DataManager dataManager;
     private Tutorial tutorial;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.TUTORIAL;
+    public static STATE gameState = STATE.END;
 
 
     public GamePanel() {
+
+        Deserializer deserializer = new Deserializer();
+        dataManager = deserializer.loadData();
 
         random = new Random();
         handler = new Handler();
@@ -68,18 +74,16 @@ public class GamePanel extends JPanel implements ActionListener {
         scoreManager = new ScoreManager();
         leaderboard = new Leaderboard(scoreManager);
         pause = new Pause(this);
-        deathScreen = new DeathScreen(anInterface, scoreManager, this);
+        deathScreen = new DeathScreen(anInterface, scoreManager, this, dataManager);
         saveData = new SaveData();
         imageManager = new ImageManager();
         inventory = new Inventory(handler, anInterface);
-        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager);
+        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager, dataManager);
         levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
 
-        if (gameState == STATE.TUTORIAL) {
-            tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
-            this.addKeyListener(tutorial);
-
-        }
+//        dataManager.printData();
+        tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
+        this.addKeyListener(tutorial);
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
@@ -110,7 +114,9 @@ public class GamePanel extends JPanel implements ActionListener {
     public void startGame() {
         grid = levelManager.getGrid();
         if (gameState == STATE.GAME) {
+            System.out.println("Loading first level");
             levelManager.loadLevel(level);
+            levelManager.setLevel(level);
         }
     }
 
@@ -175,7 +181,7 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                 }
                 leaderboard.render(g);
-            } else if (gameState == STATE.DEATH) {
+            } else if (gameState == STATE.DEATH || gameState == STATE.END) {
                 deathScreen.render(g);
             } else if (gameState == STATE.TUTORIAL) {
                 tutorial.render(g);

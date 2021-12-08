@@ -84,6 +84,7 @@ public class KeyInput extends KeyAdapter {
             }
 
             if (code == 10) {
+                System.out.println("leving");
                 GamePanel.gameState = STATE.MENU;
                 gamePanel.restartGame();
             }
@@ -245,6 +246,7 @@ public class KeyInput extends KeyAdapter {
             }
         } else if (GamePanel.gameState == STATE.PAUSE) {
             if (code == KeyEvent.VK_P) {
+
                 GamePanel.gameState = STATE.GAME;
             }
         }

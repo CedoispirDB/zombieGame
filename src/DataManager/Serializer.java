@@ -11,12 +11,12 @@ public class Serializer {
     public Serializer() {
     }
 
-    public void saveData(LevelManager levelManager) {
+    public void saveData(DataManager dataManager) {
 
         try {
-            FileOutputStream outputStream = new FileOutputStream("./LevelsData/data.ser");
+            FileOutputStream outputStream = new FileOutputStream("./Data/data.ser");
             ObjectOutputStream out = new ObjectOutputStream(outputStream);
-            out.writeObject(levelManager);
+            out.writeObject(dataManager);
             out.close();
             outputStream.close();
 

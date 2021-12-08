@@ -1,5 +1,6 @@
 package Levels;
 
+import DataManager.DataManager;
 import DataManager.SaveData;
 import DataManager.ScoreManager;
 import Enemies.BasicZombie;
@@ -18,6 +19,7 @@ import Player.Interface;
 import Render.ImageManager;
 
 
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
@@ -38,16 +40,18 @@ public class LevelManager {
     private final ScoreManager scoreManager;
     private boolean hasNeighbors;
     private final ImageManager imageManager;
+    private final DataManager dataManager;
 
     private Node[][] grid;
 
-    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager) {
+    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager, DataManager dataManager) {
         this.handler = handler;
         this.saveData = saveData;
         this.inventory = inventory;
         this.anInterface = anInterface;
         this.scoreManager = scoreManager;
         this.imageManager = imageManager;
+        this.dataManager = dataManager;
 
 
         available = new LinkedList<>();
@@ -72,7 +76,7 @@ public class LevelManager {
 
     public void loadLevel(int level) {
 
-        LinkedList<String> savedData = saveData.readFromFile(level);
+        LinkedList<String> savedData = dataManager.loadLevel(level);
 
         hasNeighbors = false;
 
@@ -276,6 +280,7 @@ public class LevelManager {
     }
 
     public void setLevel() {
+        System.out.println("Setting level");
         level++;
     }
 
@@ -296,7 +301,7 @@ public class LevelManager {
     }
 
     public void resetLevel() {
-        System.out.println("reseting level");
+//        System.out.println("reseting level");
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
                 grid[i][j] = new Node(i * 32, j * 32, 32, 32, i, j, rows, cols, "n");

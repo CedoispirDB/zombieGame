@@ -12,14 +12,14 @@ public class Deserializer implements Serializable {
 //            System.out.println(new Timestamp(System.currentTimeMillis()) + ": initializing deserializer");
     }
 
-    public LevelManager loadData() {
-        LevelManager levelManager = null;
+    public DataManager loadData() {
+        DataManager dataManager = null;
 //        System.out.println(new Timestamp(System.currentTimeMillis()) + ": loading data");
 
         try {
-            FileInputStream inputStream = new FileInputStream("./LevelsData/data.ser");
+            FileInputStream inputStream = new FileInputStream("./Data/data.ser");
             ObjectInputStream in = new ObjectInputStream(inputStream);
-            levelManager = (LevelManager) in.readObject();
+            dataManager = (DataManager) in.readObject();
             in.close();
             inputStream.close();
         } catch (FileNotFoundException e) {
@@ -28,7 +28,7 @@ public class Deserializer implements Serializable {
             e.printStackTrace();
         }
 
-        return levelManager;
+        return dataManager;
     }
 }
 

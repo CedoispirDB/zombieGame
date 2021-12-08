@@ -26,6 +26,7 @@ public class Menu extends MouseAdapter {
     private Color quitColor;
     private boolean canQuit;
     private GamePanel gamePanel;
+    private boolean tutorialAvailable;
 
     public Menu(GamePanel gamePanel) {
         playColor = Color.WHITE;
@@ -34,6 +35,7 @@ public class Menu extends MouseAdapter {
         quitColor = Color.WHITE;
         canQuit = false;
         this.gamePanel = gamePanel;
+        tutorialAvailable = true;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -71,7 +73,12 @@ public class Menu extends MouseAdapter {
 
             // Play button clicked
             if (mouseOver(mx, my, ox, oy - gap, buttonWidth, buttonHeight)) {
-                GamePanel.gameState = STATE.GAME;
+                if (tutorialAvailable) {
+                    GamePanel.gameState = STATE.TUTORIAL;
+                    tutorialAvailable = false;
+                } else {
+                    GamePanel.gameState = STATE.GAME;
+                }
                 gamePanel.startGame();
                 playColor = Color.WHITE;
             }

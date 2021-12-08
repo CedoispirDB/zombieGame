@@ -1,10 +1,9 @@
 package DataManager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ScoreManager {
 
@@ -33,6 +32,8 @@ public class ScoreManager {
 
     private LinkedHashMap<String, Integer> readFromFile() {
         LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+
+
 
         try {
             File file = new File("Data/scores.txt");
@@ -147,4 +148,22 @@ public class ScoreManager {
         return score > Integer.parseInt(data.substring(data.indexOf(" ") + 1));
     }
 
+    private void read() throws IOException, URISyntaxException {
+        String path = new File(ScoreManager.class.getProtectionDomain().getCodeSource().getLocation()
+                .toURI()).getPath();
+        System.out.println(path);
+        String actual = "." + path + "/scores.txt";
+        System.out.println(actual);
+        InputStream inputStream = ScoreManager.class.getResourceAsStream(actual);
+        System.out.println(inputStream);
+        assert inputStream != null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String contents = reader.lines()
+                .collect(Collectors.joining(System.lineSeparator()));
+        System.out.println(contents);
+    }
+
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        new ScoreManager().read();
+    }
 }

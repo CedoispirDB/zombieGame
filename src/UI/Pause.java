@@ -98,8 +98,8 @@ public class Pause extends MouseAdapter {
 
             g.setFont(new Font("Arial", Font.BOLD, 15));
             g.drawString("Movement: WASD", posX, oy - 85);
-            g.drawString("Drop items: Q", posX, oy - 65);
-            g.drawString("Select items: E", posX, oy - 45);
+            g.drawString("Drop items: F", posX, oy - 65);
+            g.drawString("Select items: Q and E", posX, oy - 45);
 
             g.setFont(fnt2);
             g.drawString("Back", posX + ((titleWidth - (int) fnt2.getStringBounds("Back", frc).getWidth()) / 2), oy + 27);
