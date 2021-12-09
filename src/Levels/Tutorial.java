@@ -44,10 +44,11 @@ public class Tutorial extends KeyAdapter {
     private boolean walked;
     private boolean dropped;
     private boolean paused, unpaused;
-    private final Font font;
+    private final Font font, font2;
     private int cnt;
     private int time;
     public static boolean isTutorial;
+    private float alpha;
 
     public Tutorial(Handler handler, Inventory inventory, LevelManager levelManager, Interface anInterface, Pause pause, ImageManager imageManager) {
         this.handler = handler;
@@ -94,6 +95,7 @@ public class Tutorial extends KeyAdapter {
 
 
         font = new Font("Arial", Font.BOLD, 15);
+        font2 = new Font("Arial", Font.BOLD, 35);
 
         Node[][] grid = levelManager.getGrid();
 
@@ -102,6 +104,8 @@ public class Tutorial extends KeyAdapter {
                 grid[i][j].addNeighbors(grid);
             }
         }
+
+        alpha = 1.0f;
 
 
 //        handler.addObject(new Walls(0,0,0,0,32, 768, handler, ID.WALL, imageManager));
@@ -309,10 +313,19 @@ public class Tutorial extends KeyAdapter {
         anInterface.render(g);
         inventory.render(g);
 
-        g.setFont(font);
-        g.setColor(Color.RED.darker());
-        // Instructions
+        if (alpha >= 0) {
+            g.setColor(new Color(1, 0, 0, alpha));
+            alpha -= 0.02;
+            g.setFont(font2);
+            String text = "Tutorial";
+            g.drawString(text, (int)(GamePanel.SCREEN_WIDTH / 2 - font2.getStringBounds(text, frc).getWidth() / 2), 100);
+        }
 
+
+
+        g.setColor(Color.RED.darker());
+        g.setFont(font);
+        // Instructions
         if (phases[0]) {
             printMessage("Press P to pause the game", g, frc);
 
