@@ -19,7 +19,6 @@ public class DeathScreen extends MouseAdapter {
     private int ox = (GamePanel.SCREEN_WIDTH - buttonWidth) / 2;
     private int oy = (GamePanel.SCREEN_HEIGHT - buttonHeight) / 2;
     private final Interface anInterface;
-    //    private final ScoreManager scoreManager;
     private final GamePanel gamePanel;
     private final DataManager dataManager;
     private String input;
@@ -41,9 +40,8 @@ public class DeathScreen extends MouseAdapter {
     private boolean r;
 
 
-    public DeathScreen(Interface anInterface, ScoreManager scoreManager, GamePanel gamePanel, DataManager dataManager) {
+    public DeathScreen(Interface anInterface, GamePanel gamePanel, DataManager dataManager) {
         this.anInterface = anInterface;
-//        this.scoreManager = scoreManager;
         this.gamePanel = gamePanel;
         this.dataManager = dataManager;
 

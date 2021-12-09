@@ -37,19 +37,17 @@ public class LevelManager {
     public boolean buttonPressed;
     public int level;
     private final Interface anInterface;
-    private final ScoreManager scoreManager;
     private boolean hasNeighbors;
     private final ImageManager imageManager;
     private final DataManager dataManager;
 
     private Node[][] grid;
 
-    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager, DataManager dataManager) {
+    public LevelManager(Handler handler, SaveData saveData, Inventory inventory, Interface anInterface, ImageManager imageManager, DataManager dataManager) {
         this.handler = handler;
         this.saveData = saveData;
         this.inventory = inventory;
         this.anInterface = anInterface;
-        this.scoreManager = scoreManager;
         this.imageManager = imageManager;
         this.dataManager = dataManager;
 
@@ -143,7 +141,7 @@ public class LevelManager {
 //                        }
 //                        if (!playerExists) {
 //                        System.out.println("Creating player at: " + x + " and  " + y);
-                        handler.addObject(new Player(x, y, 0, 0, handler, ID.PLAYER, inventory, this, anInterface, scoreManager, imageManager));
+                        handler.addObject(new Player(x, y, 0, 0, handler, ID.PLAYER, inventory, this, anInterface, imageManager));
 //                        } else {
 //                            for (int i = 0; i < handler.object.size(); i++) {
 //                                GameObject temp = handler.object.get(i);

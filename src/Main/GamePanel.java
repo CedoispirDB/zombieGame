@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final Pause pause;
     private final DeathScreen deathScreen;
     private final Leaderboard leaderboard;
-    private final ScoreManager scoreManager;
+//    private final ScoreManager scoreManager;
     private final ImageManager imageManager;
     private final DataManager dataManager;
     private Tutorial tutorial;
@@ -70,19 +70,19 @@ public class GamePanel extends JPanel implements ActionListener {
         anInterface = new Interface();
         menu = new Menu(this);
         help = new Help();
-        scoreManager = new ScoreManager();
-        leaderboard = new Leaderboard(scoreManager, dataManager);
+//        scoreManager = new ScoreManager();
+        leaderboard = new Leaderboard(dataManager);
         pause = new Pause(this);
-        deathScreen = new DeathScreen(anInterface, scoreManager, this, dataManager);
+        deathScreen = new DeathScreen(anInterface, this, dataManager);
         saveData = new SaveData();
         imageManager = new ImageManager();
         inventory = new Inventory(handler, anInterface);
-        levelManager = new LevelManager(handler, saveData, inventory, anInterface, scoreManager, imageManager, dataManager);
+        levelManager = new LevelManager(handler, saveData, inventory, anInterface, imageManager, dataManager);
         levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
 
 //        dataManager.printData();
 
-        tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
+        tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, imageManager);
         this.addKeyListener(tutorial);
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));

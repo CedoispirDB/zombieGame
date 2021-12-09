@@ -27,7 +27,6 @@ public class Tutorial extends KeyAdapter {
     private final LevelManager levelManager;
     private final Interface anInterface;
     private final Pause pause;
-    private final ScoreManager scoreManager;
     private final ImageManager imageManager;
     private Player player;
     private boolean[] phases;
@@ -51,13 +50,12 @@ public class Tutorial extends KeyAdapter {
     private int time;
     public static boolean isTutorial;
 
-    public Tutorial(Handler handler, Inventory inventory, LevelManager levelManager, Interface anInterface, Pause pause, ScoreManager scoreManager, ImageManager imageManager) {
+    public Tutorial(Handler handler, Inventory inventory, LevelManager levelManager, Interface anInterface, Pause pause, ImageManager imageManager) {
         this.handler = handler;
         this.inventory = inventory;
         this.levelManager = levelManager;
         this.anInterface = anInterface;
         this.pause = pause;
-        this.scoreManager = scoreManager;
         this.imageManager = imageManager;
 
         phases = new boolean[9];
@@ -133,7 +131,7 @@ public class Tutorial extends KeyAdapter {
         if (phases[0] && count == 1) {
             handler.addObject(new Button(352, 480, 0, 0, 32, 32, handler, ID.BUTTON, imageManager));
             handler.addObject(new Passage(672, 480, 0, 0, 32, 32, handler, ID.PASSAGE, levelManager, imageManager));
-            Player player = new Player(480, 320, 0, 0, handler, ID.PLAYER, inventory, levelManager, anInterface, scoreManager, imageManager);
+            Player player = new Player(480, 320, 0, 0, handler, ID.PLAYER, inventory, levelManager, anInterface, imageManager);
             handler.addObject(player);
             this.player = player;
             count++;

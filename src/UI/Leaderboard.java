@@ -21,7 +21,7 @@ public class Leaderboard extends MouseAdapter {
 //    private ScoreManager scoreManager;
     private DataManager dataManager;
 
-    public Leaderboard(ScoreManager scoreManager, DataManager dataManager) {
+    public Leaderboard(DataManager dataManager) {
 //        this.scoreManager = scoreManager;
         this.dataManager = dataManager;
         backColor = Color.WHITE;

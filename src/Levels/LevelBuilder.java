@@ -165,7 +165,7 @@ public class LevelBuilder extends MouseAdapter {
             }
             case 'm' -> {
                 recentID = ID.PLAYER;
-                handler.addObject(new Player(x, y, 0, 0, handler, recentID, inventory, levelManager, null, null, imageManager));
+                handler.addObject(new Player(x, y, 0, 0, handler, recentID, inventory, levelManager, null,  imageManager));
                 currentType = "m";
 
             }

@@ -25,7 +25,6 @@ public class Player extends GameObject {
     private GameObject button;
     private GameObject passage;
     private final Interface anInterface;
-    private final ScoreManager scoreManager;
 
     private int ctn;
     private Node currentNode;
@@ -40,7 +39,7 @@ public class Player extends GameObject {
     private int count = 0;
     public boolean canPress;
 
-    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ScoreManager scoreManager, ImageManager imageManager) {
+    public Player(double posX, double posY, double velX, double velY, Handler handler, ID id, Inventory inventory, LevelManager levelManager, Interface anInterface, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
 
         ctn = 0;
@@ -50,7 +49,7 @@ public class Player extends GameObject {
         this.handler = handler;
         this.inventory = inventory;
         this.levelManager = levelManager;
-        this.scoreManager = scoreManager;
+
         this.imageManager = imageManager;
 
         damage = 10;
