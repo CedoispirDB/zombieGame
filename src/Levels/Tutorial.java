@@ -1,6 +1,5 @@
 package Levels;
 
-import DataManager.ScoreManager;
 import Enemies.BasicZombie;
 import Items.Coin;
 import Items.HealingPotion;
@@ -301,7 +300,6 @@ public class Tutorial extends KeyAdapter {
 
 
         if (phases[8]) {
-            System.out.println("rendering everything");
             handler.render(g);
         } else {
             handler.renderObjects(g);
@@ -312,6 +310,7 @@ public class Tutorial extends KeyAdapter {
         inventory.render(g);
 
         g.setFont(font);
+        g.setColor(Color.RED.darker());
         // Instructions
 
         if (phases[0]) {

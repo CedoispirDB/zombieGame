@@ -1,7 +1,6 @@
 package UI;
 
 import DataManager.DataManager;
-import DataManager.ScoreManager;
 import Main.Game;
 import Main.GamePanel;
 import Manager.STATE;

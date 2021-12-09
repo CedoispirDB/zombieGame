@@ -24,15 +24,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="sort method created to list player and scores in sorted order from highest to lowers&#10;Beta ready">
+    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zombieGame_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/zombieGame_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/data.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Data/data.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/DataManager/ScoreManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/DataManager/Serializer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/DataManager/Serializer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataManager/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataManager/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataManager/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataManager/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/DeathScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/UI/DeathScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/Leaderboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/UI/Leaderboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/LevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/LevelManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Tutorial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Tutorial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/DeathScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/DeathScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Leaderboard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +104,7 @@
       <recent name="$PROJECT_DIR$/res" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DataManager$run">
+  <component name="RunManager" selected="Application.Game (1)">
     <configuration name="DataManager$run" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DataManager.DataManager$run" />
       <module name="zombieGame" />
@@ -168,8 +179,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DataManager$run" />
         <item itemvalue="Application.Game (1)" />
+        <item itemvalue="Application.DataManager$run" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.DataManager" />
         <item itemvalue="Application.ScoreManager" />
@@ -500,7 +511,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639019608378</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="sort method created to list player and scores in sorted order from highest to lowers&#10;Beta ready">
+      <created>1639020771827</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1639020771827</updated>
+    </task>
+    <task id="LOCAL-00047" summary="ScoreManager disabled for now">
+      <created>1639020991958</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1639020991958</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -517,8 +542,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Inventory system done&#10;Working on new map system using nodes" />
-    <MESSAGE value="Zombie path algorithm half way done.&#10;Right now it can go back, making a loop sometimes. Need to debug this part so that he avoids walking the same path more than once" />
     <MESSAGE value="Basic Zombie simply walking algorithm done&#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie" />
     <MESSAGE value="Basic Zombie simply walking algorithm really done now &#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie&#10; · Work on collision system&#10; · Work on inventory system" />
     <MESSAGE value="Solved bugs on the simple zombie and in the level manager" />
@@ -542,7 +565,9 @@
     <MESSAGE value="Tutorial done" />
     <MESSAGE value="Tutorial done&#10;New data manager created&#10;Celebratory message created" />
     <MESSAGE value="Tutorial done(2/2)&#10;New door opened texture added&#10;Fixed collision bug(1/2)&#10;Bug on level 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tutorial done(2/2)&#10;New door opened texture added&#10;Fixed collision bug(1/2)&#10;Bug on level 4" />
+    <MESSAGE value="sort method created to list player and scores in sorted order from highest to lowers&#10;Beta ready" />
+    <MESSAGE value="ScoreManager disabled for now" />
+    <option name="LAST_COMMIT_MESSAGE" value="ScoreManager disabled for now" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/zombieGame$Game__1_.ic" NAME="Game (1) Coverage Results" MODIFIED="1638930580516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

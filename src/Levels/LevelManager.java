@@ -2,7 +2,6 @@ package Levels;
 
 import DataManager.DataManager;
 import DataManager.SaveData;
-import DataManager.ScoreManager;
 import Enemies.BasicZombie;
 import Enemies.SmartEnemy;
 import Items.Coin;

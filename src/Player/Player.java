@@ -1,6 +1,5 @@
 package Player;
 
-import DataManager.ScoreManager;
 import Levels.LevelManager;
 import Levels.Tutorial;
 import Main.Game;
