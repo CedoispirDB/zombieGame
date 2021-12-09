@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class ImageManager {
 
-    private final BufferedImage texture, playerSprite, explosionSprite, zombieSprite, bulletSprite;
+    private final BufferedImage texture, playerSprite, explosionSprite, zombieSprite, bulletSprite, openedDoor;
     private final CreateImages createImages;
     private final Animation animation;
 
@@ -20,6 +20,7 @@ public class ImageManager {
         explosionSprite = loader.loadImage("/explosion.png");
         zombieSprite = loader.loadImage("/basicZombieSprite.png");
         bulletSprite = loader.loadImage("/bullet.png");
+        openedDoor = loader.loadImage("/openedDoor.png");
 //        coinTexture = loader.loadImage("/coin.png");
 
     }
@@ -28,9 +29,10 @@ public class ImageManager {
         BufferedImage image = null;
         switch (opt) {
             case "w" -> image = texture.getSubimage(0,0,32,32);
-            case "p" -> image = texture.getSubimage(96,0,32,64);
+            case "cd" -> image = texture.getSubimage(96,0,32,64);
             case "b" -> image = texture.getSubimage(64,0,32,32);
             case "f" -> image = texture.getSubimage(32, 0, 32, 32);
+            case "od" -> image = openedDoor;
         }
 
         return image;

@@ -34,6 +34,7 @@ public class DeathScreen extends MouseAdapter {
     private Font fnt2 = new Font("Arial", Font.BOLD, 30);
     private Font fnt3 = new Font("Arial", Font.BOLD, 25);
     private Font fnt4 = new Font("Arial", Font.BOLD, 35);
+    private Font fnt5 = new Font("Arial", Font.BOLD, 15);
     private int buttonX, buttonY;
     private int inputX, inputY;
     private int promptX, promptY;
@@ -79,7 +80,9 @@ public class DeathScreen extends MouseAdapter {
                 if (mouseOver(mx, my, buttonX, buttonY, 50, 45)) {
                     submitColor = Color.GRAY;
                     nameAvailable = dataManager.saveScore(input, anInterface.getScore());
-                    dataManager.printData();
+                    if (nameAvailable) {
+                        dataManager.printScores();
+                    }
                 }
 
             } else {
@@ -160,6 +163,12 @@ public class DeathScreen extends MouseAdapter {
             death(g);
         }
 
+        g.setColor(Color.RED);
+        g.setFont(fnt5);
+        Graphics2D g2d = (Graphics2D) g;
+        FontRenderContext frc = g2d.getFontRenderContext();
+        String mess = "(Press return to continue)";
+        g.drawString(mess,GamePanel.SCREEN_WIDTH / 2 - (int)(fnt5.getStringBounds(mess, frc).getWidth() / 2) ,GamePanel.SCREEN_HEIGHT- 50);
 
     }
 
@@ -187,7 +196,6 @@ public class DeathScreen extends MouseAdapter {
 
 
         if (promptClicked) {
-            System.out.println(pos - 25);
             renderInput(g, fnt3, pos - 25, y + 70);
         } else {
             renderPrompt(g, fnt3, pos2, frc, y + 103);

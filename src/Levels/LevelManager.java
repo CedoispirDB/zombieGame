@@ -82,7 +82,7 @@ public class LevelManager {
 
         if (savedData != null) {
 //            System.out.println("Loading: " + savedData);
-            System.out.println("Loading level " + level);
+//            System.out.println("Loading level " + level);
             LinkedList<String> data = new LinkedList<>(savedData);
             resetLevel();
 
@@ -192,6 +192,10 @@ public class LevelManager {
         return hasNeighbors;
     }
 
+    public void setHasNeighbors(boolean b) {
+        hasNeighbors = b;
+    }
+
     public void renderLevel(Graphics g) {
         BufferedImage image;
 
@@ -280,7 +284,6 @@ public class LevelManager {
     }
 
     public void setLevel() {
-        System.out.println("Setting level");
         level++;
     }
 

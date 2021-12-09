@@ -23,6 +23,7 @@ public class Bullet extends GameObject {
     private Animation animation;
     private boolean hit;
     private boolean destroy;
+    private int ox, oy;
 
     public Bullet(double posX, double posY, double velX, double velY, Handler handler, ID id, String dir, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
@@ -44,21 +45,29 @@ public class Bullet extends GameObject {
                 this.velX = 0;
                 this.velY = -speed;
                 image = sprite.getSubimage(16, 16, 16, 16);
+                ox = -8;
+                oy = 0;
             }
             case "s" -> {
                 this.velX = 0;
                 this.velY = speed;
                 image = sprite.getSubimage(0, 16, 16, 16);
+                ox = -8;
+                oy = 0;
             }
             case "d" -> {
                 this.velX = speed;
                 this.velY = 0;
                 image = sprite.getSubimage(0, 0, 16, 16);
+                ox = 0;
+                oy = -8;
             }
             case "a" -> {
                 this.velX = -speed;
                 this.velY = 0;
                 image = sprite.getSubimage(16, 0, 16, 16);
+                ox = 0;
+                oy = -8;
             }
         }
 
@@ -84,6 +93,8 @@ public class Bullet extends GameObject {
     public void tick() {
 //        System.out.println(velX);
 //        System.out.println(velY);
+//        System.out.println("posX: " +posX);
+//        System.out.println("bound: " + (GamePanel.SCREEN_WIDTH - 30));
 
         if (destroy) {
             handler.removeObject(this);
@@ -94,7 +105,7 @@ public class Bullet extends GameObject {
             posY += velY;
         }
 
-        if (posX < 0 || posX >= GamePanel.SCREEN_WIDTH - 30|| posY < 0 || posY >= GamePanel.SCREEN_HEIGHT - 32) {
+        if (posX < 0 || posX + 16 >= GamePanel.SCREEN_WIDTH - 10 || posY < 0 || posY + 16 >= GamePanel.SCREEN_HEIGHT - 10) {
             hit = true;
 
         }
@@ -128,12 +139,11 @@ public class Bullet extends GameObject {
 
 //        g.setColor(Color.WHITE);
 //        g.fillOval((int) posX, (int) posY, 10, 10);
-//        g.setColor(Color.red);
-//        ((Graphics2D) g).draw(getBounds());
+
 
         if (hit) {
             boolean c = animation.runAnimation(1);
-            animation.renderAnimation(g, (int) posX, (int) posY);
+            animation.renderAnimation(g, (int) posX + ox, (int) posY + oy);
 
             if (c) {
                 destroy = true;
@@ -141,10 +151,12 @@ public class Bullet extends GameObject {
         } else {
             g.drawImage(image, (int) posX, (int) posY, null);
         }
+//        g.setColor(Color.red);
+//        ((Graphics2D) g).draw(getBounds());
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int) posX, (int) posY, 10, 10);
+        return new Rectangle((int) posX, (int) posY, image.getWidth(), image.getHeight());
     }
 
     public Node getNode() {

@@ -4,7 +4,6 @@ import Manager.GameObject;
 import Manager.Handler;
 import Manager.ID;
 import Map.Node;
-import Render.BufferedImageLoader;
 import Render.ImageManager;
 
 import java.awt.*;
@@ -17,6 +16,7 @@ public class Passage extends GameObject {
     private LevelManager levelManager;
     private int currentLevel = 1;
     private BufferedImage image;
+    private BufferedImage openedDoor;
 
     public Passage(double posX, double posY, double velX, double velY, int w, int h, Handler handler, ID id, LevelManager levelManager, ImageManager imageManager) {
         super(posX, posY, velX, velY, handler, id);
@@ -24,12 +24,15 @@ public class Passage extends GameObject {
         this.h = h;
         this.levelManager = levelManager;
 
-        image = imageManager.getTexture("p");
+        image = imageManager.getTexture("cd");
+        openedDoor = imageManager.getTexture("od");
 
     }
 
     public void tick() {
-
+        if (levelManager.isButtonPressed()) {
+            image = openedDoor;
+        }
 
     }
 

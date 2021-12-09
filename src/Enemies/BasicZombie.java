@@ -74,7 +74,7 @@ public class BasicZombie extends EnemyObject {
     public void tick() {
 //        System.out.println("enemy Health: " + enemyHealth);
         if (levelManager.hasNeighbors()) {
-//            movement();
+            movement();
         }
 
 //        System.out.println(enemyHealth);

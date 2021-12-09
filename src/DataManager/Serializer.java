@@ -15,6 +15,7 @@ public class Serializer {
 
         try {
             FileOutputStream outputStream = new FileOutputStream("./Data/data.ser");
+
             ObjectOutputStream out = new ObjectOutputStream(outputStream);
             out.writeObject(dataManager);
             out.close();

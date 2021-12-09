@@ -59,10 +59,10 @@ public class Handler {
 
 
     public void render(Graphics g) {
+        renderEnemies(g);
         for (int i = 0; i< object.size(); i++) {
             object.get(i).render(g);
         }
-        renderEnemies(g);
     }
 
     public void removePlayer() {

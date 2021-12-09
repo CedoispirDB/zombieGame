@@ -2,6 +2,7 @@ package Player;
 
 import DataManager.ScoreManager;
 import Levels.LevelManager;
+import Levels.Tutorial;
 import Main.Game;
 import Main.GamePanel;
 import Manager.*;
@@ -124,7 +125,7 @@ public class Player extends GameObject {
 
         if (GamePanel.gameState != STATE.BUILD) {
             if (anInterface.getHealth() <= 0) {
-//            GamePanel.gameState = STATE.DEATH;
+            GamePanel.gameState = STATE.DEATH;
             }
         }
 
@@ -173,7 +174,7 @@ public class Player extends GameObject {
             passTutorial();
         }
         enemyCollision();
-//        wallCollision();
+        wallCollision();
         getItem();
         collectCoin();
     }
@@ -251,6 +252,10 @@ public class Player extends GameObject {
                     levelManager.setButtonPressed(false);
                     levelManager.loadLevel(1);
                     levelManager.setLevel(1);
+                    anInterface.setScore(0);
+                    anInterface.setHealth(160);
+                    inventory.cleanInventory();
+                    Tutorial.isTutorial = false;
 
                 }
             }

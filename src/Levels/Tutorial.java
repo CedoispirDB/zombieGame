@@ -45,8 +45,11 @@ public class Tutorial extends KeyAdapter {
     private boolean scrolled;
     private boolean walked;
     private boolean dropped;
+    private boolean paused, unpaused;
     private final Font font;
     private int cnt;
+    private int time;
+    public static boolean isTutorial;
 
     public Tutorial(Handler handler, Inventory inventory, LevelManager levelManager, Interface anInterface, Pause pause, ScoreManager scoreManager, ImageManager imageManager) {
         this.handler = handler;
@@ -57,7 +60,7 @@ public class Tutorial extends KeyAdapter {
         this.scoreManager = scoreManager;
         this.imageManager = imageManager;
 
-        phases = new boolean[8];
+        phases = new boolean[9];
 
         phases[0] = true;
         phases[1] = false;
@@ -67,11 +70,13 @@ public class Tutorial extends KeyAdapter {
         phases[5] = false;
         phases[6] = false;
         phases[7] = false;
+        phases[8] = false;
 
         count = 1;
         keysPressed = 0;
         previous = 0;
         anInterface.hit(25);
+        levelManager.setHasNeighbors(true);
 
         gotGun = false;
         killed = false;
@@ -82,9 +87,14 @@ public class Tutorial extends KeyAdapter {
         scrolled = false;
         walked = false;
         dropped = false;
+        paused = false;
+        unpaused = false;
         pressed = new LinkedList<>();
         index = 0;
         cnt = 0;
+        time = 0;
+
+
 
         font = new Font("Arial", Font.BOLD, 15);
 
@@ -99,9 +109,15 @@ public class Tutorial extends KeyAdapter {
 
 //        handler.addObject(new Walls(0,0,0,0,32, 768, handler, ID.WALL, imageManager));
 //        handler.addObject(new Walls(992,0,0,0,32, 768, handler, ID.WALL, imageManager));
+
     }
 
     public void tick() {
+
+        if (!isTutorial) {
+            isTutorial = true;
+        }
+
         handler.tick();
         inventory.tick();
 
@@ -120,15 +136,16 @@ public class Tutorial extends KeyAdapter {
             Player player = new Player(480, 320, 0, 0, handler, ID.PLAYER, inventory, levelManager, anInterface, scoreManager, imageManager);
             handler.addObject(player);
             this.player = player;
-
             count++;
         }
-        if (phases[1] && count == 2) {
-            System.out.println("Creating a new weapon");
+
+
+        if (phases[2] && count == 2) {
+//            System.out.println("Creating a new weapon");
             inventory.addItem(new Pistol(612, 328, 0, 0, inventory, ID.PISTOL, handler));
             count++;
         }
-        if (phases[2] && count == 3) {
+        if (phases[3] && count == 3) {
 //            handler.addEnemy(new BasicZombie(480, 96, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
 //            handler.addEnemy(new BasicZombie(480, 640, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
             handler.addEnemy(new BasicZombie(672, 320, 0, 0, handler, ID.BASIC_ZOMBIE, levelManager, anInterface, imageManager));
@@ -136,49 +153,49 @@ public class Tutorial extends KeyAdapter {
             count++;
         }
 
-        if (phases[3] && count == 4) {
+        if (phases[4] && count == 4) {
             count++;
         }
 
 
-        if (phases[4] && count == 5) {
+        if (phases[5] && count == 5) {
             inventory.addItem(new HealingPotion(329, 327, 0, 0, inventory, ID.HEALING, handler));
             count++;
         }
-        if (phases[5] && count == 6) {
+        if (phases[6] && count == 6) {
             handler.addObject(new Coin(584, 136, 0, 0, handler, ID.COIN));
             handler.addObject(new Coin(392, 136, 0, 0, handler, ID.COIN));
             count++;
         }
 
-        if (phases[6] && count == 7) {
+        if (phases[7] && count == 7) {
             count ++;
         }
 
-        if (phases[7] && count == 8) {
+        if (phases[8] && count == 8) {
             count++;
         }
 
 
-        if (phases[1]) {
+        if (phases[2]) {
             if (inventory.inventoryItems.size() == 1) {
                 // Got gun
                 gotGun = true;
             }
         }
 
-        if (phases[2]) {
+        if (phases[3]) {
             if (handler.enemies.size() == 0) {
                 // killed all zombies
                 killed = true;
             }
         }
 
-        if (phases[3]) {
+        if (phases[4]) {
 
         }
 
-        if (phases[4]) {
+        if (phases[5]) {
             if (inventory.inventoryItems.size() == 2) {
                 gotHealing = true;
             }
@@ -192,24 +209,30 @@ public class Tutorial extends KeyAdapter {
             }
         }
 
-        if (phases[5]) {
+        if (phases[6]) {
 
             if (handler.object.size() == 3) {
                 gotCoins = true;
             }
         }
 
-        if (phases[6]) {
+        if (phases[7]) {
             // check if item dropped
             if (inventory.inventoryItems.size() == 0) {
                 dropped = true;
             }
         }
 
-        if (walked) {
-            // How to move
+        if (unpaused) {
             phases[1] = true;
             phases[0] = false;
+            unpaused = false;
+        }
+
+        if (walked) {
+            // How to move
+            phases[2] = true;
+            phases[1] = false;
             keysPressed = 0;
             previous = 0;
             walked = false;
@@ -217,43 +240,43 @@ public class Tutorial extends KeyAdapter {
 
         if (gotGun) {
             // Get the gun
-            phases[2] = true;
-            phases[1] = false;
+            phases[3] = true;
+            phases[2] = false;
             gotGun = false;
         }
 
         if (killed) {
             // Kill the zombies
-            phases[3] = true;
-            phases[2] = false;
+            phases[4] = true;
+            phases[3] = false;
             killed = false;
 
         }
 
         if (scrolled) {
-            phases[4] = true;
-            phases[3] = false;
+            phases[5] = true;
+            phases[4] = false;
             scrolled = false;
         }
 
         if (healed) {
             // Heal
-            phases[5] = true;
-            phases[4] = false;
+            phases[6] = true;
+            phases[5] = false;
             healed = false;
         }
 
         if (gotCoins) {
             // Get coins
-            phases[6] = true;
-            phases[5] = false;
+            phases[7] = true;
+            phases[6] = false;
 
             gotCoins = false;
         }
 
         if (dropped) {
-            phases[7] = true;
-            phases[6] = false;
+            phases[8] = true;
+            phases[7] = false;
             if (player != null) {
                 player.toggleCanPress();
             }
@@ -279,51 +302,57 @@ public class Tutorial extends KeyAdapter {
         levelManager.renderLevel(g);
 
 
-        if (phases[7]) {
+        if (phases[8]) {
+            System.out.println("rendering everything");
             handler.render(g);
         } else {
             handler.renderObjects(g);
         }
 
-        if (GamePanel.gameState == STATE.PAUSE) {
-            pause.render(g);
-        }
 
         anInterface.render(g);
         inventory.render(g);
 
         g.setFont(font);
         // Instructions
+
         if (phases[0]) {
-            printMessage("Use the keys WASD to walk", g, frc);
+            printMessage("Press P to pause the game", g, frc);
+
         }
 
         if (phases[1]) {
-            printMessage("Go over an item to collect it", g, frc);
+            printMessage("Use the keys WASD to walk", g, frc);
         }
 
         if (phases[2]) {
-            printMessage("Use space bar to use your items", g, frc);
+            printMessage("Go over an item to collect it", g, frc);
         }
 
         if (phases[3]) {
-            printMessage("Use the key Q or E to change the selected item", g, frc);
+            printMessage("Use space bar to use your items. Kill the zombies to gain points", g, frc);
         }
 
         if (phases[4]) {
-            printMessage("Collect the potion and use it to recover life", g, frc);
+            printMessage("Use the key Q or E to change the selected item", g, frc);
         }
 
         if (phases[5]) {
-            printMessage("Collect the coins to get points", g, frc);
+            printMessage("Collect the potion and use it to recover life", g, frc);
         }
 
         if (phases[6]) {
-            printMessage("Select and press F to drop an item", g, frc);
+            printMessage("Collect the coins to get points", g, frc);
         }
 
         if (phases[7]) {
+            printMessage("Select and press F to drop an item", g, frc);
+        }
+
+        if (phases[8]) {
+
             printMessage("Press the button and pass through the door to complete a level", g, frc);
+
         }
 
     }
@@ -337,6 +366,16 @@ public class Tutorial extends KeyAdapter {
         int code = e.getKeyCode();
 
         if (phases[0]) {
+            if (code == 80) {
+                keysPressed++;
+                if (keysPressed == 2) {
+                    unpaused = true;
+                    keysPressed = 0;
+                }
+            }
+        }
+
+        if (phases[1]) {
             if (code == 87 || code == 83 || code == 65 || code == 68) {
                 if (!pressed.contains(code)) {
                      pressed.add(code);
@@ -349,7 +388,7 @@ public class Tutorial extends KeyAdapter {
             }
         }
 
-        if (phases[3]) {
+        if (phases[4]) {
             if ((code == 69 || code == 81) && code != previous) {
                 keysPressed++;
                 previous = code;
@@ -359,7 +398,7 @@ public class Tutorial extends KeyAdapter {
             }
         }
 
-        if (phases[4]) {
+        if (phases[5]) {
             if (code == 32 && healSelected) {
                 healed = true;
             }

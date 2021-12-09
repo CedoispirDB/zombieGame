@@ -58,11 +58,10 @@ public class GamePanel extends JPanel implements ActionListener {
     private final DataManager dataManager;
     private Tutorial tutorial;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.END;
+    public static STATE gameState = STATE.TUTORIAL;
 
 
     public GamePanel() {
-
         Deserializer deserializer = new Deserializer();
         dataManager = deserializer.loadData();
 
@@ -72,7 +71,7 @@ public class GamePanel extends JPanel implements ActionListener {
         menu = new Menu(this);
         help = new Help();
         scoreManager = new ScoreManager();
-        leaderboard = new Leaderboard(scoreManager);
+        leaderboard = new Leaderboard(scoreManager, dataManager);
         pause = new Pause(this);
         deathScreen = new DeathScreen(anInterface, scoreManager, this, dataManager);
         saveData = new SaveData();
@@ -82,6 +81,7 @@ public class GamePanel extends JPanel implements ActionListener {
         levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
 
 //        dataManager.printData();
+
         tutorial = new Tutorial(handler, inventory, levelManager, anInterface, pause, scoreManager, imageManager);
         this.addKeyListener(tutorial);
 
@@ -98,7 +98,6 @@ public class GamePanel extends JPanel implements ActionListener {
         this.addMouseListener(leaderboard);
         this.addMouseListener(pause);
         this.addMouseListener(deathScreen);
-        anInterface.increaseScore(100);
         init();
         startGame();
     }
@@ -149,7 +148,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
             BufferedImage image = imageManager.getTexture("f");
 
-            if (gameState == STATE.GAME || gameState == STATE.PAUSE) {
+            if (gameState == STATE.GAME || gameState == STATE.PAUSE && !Tutorial.isTutorial) {
                 levelManager.renderLevel(g);
                 handler.render(g);
                 inventory.render(g);
@@ -183,8 +182,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 leaderboard.render(g);
             } else if (gameState == STATE.DEATH || gameState == STATE.END) {
                 deathScreen.render(g);
-            } else if (gameState == STATE.TUTORIAL) {
+            } else if (gameState == STATE.TUTORIAL || gameState == STATE.PAUSE) {
                 tutorial.render(g);
+                if (gameState == STATE.PAUSE) {
+                    pause.render(g);
+                }
             } else if (gameState == STATE.BUILD) {
 
 
@@ -219,14 +221,14 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // Print coordinates
-            g.setFont(new Font(null, 0, 10));
-            g.setColor(Color.red);
-            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-                g.drawString(String.valueOf(i * 32), i * 32, 16);
-            }
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
-            }
+//            g.setFont(new Font(null, 0, 10));
+//            g.setColor(Color.red);
+//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), i * 32, 16);
+//            }
+//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
+//            }
 //
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {

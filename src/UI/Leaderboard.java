@@ -1,5 +1,6 @@
 package UI;
 
+import DataManager.DataManager;
 import DataManager.ScoreManager;
 import Main.Game;
 import Main.GamePanel;
@@ -17,10 +18,12 @@ public class Leaderboard extends MouseAdapter {
     private final int ox = (GamePanel.SCREEN_WIDTH - buttonWidth) / 2;
     private final int oy = (GamePanel.SCREEN_HEIGHT - buttonHeight) / 2;
     private Color backColor;
-    private ScoreManager scoreManager;
+//    private ScoreManager scoreManager;
+    private DataManager dataManager;
 
-    public Leaderboard(ScoreManager scoreManager) {
-        this.scoreManager = scoreManager;
+    public Leaderboard(ScoreManager scoreManager, DataManager dataManager) {
+//        this.scoreManager = scoreManager;
+        this.dataManager = dataManager;
         backColor = Color.WHITE;
     }
 
@@ -87,7 +90,7 @@ public class Leaderboard extends MouseAdapter {
         g.drawString("Back", ox + ((buttonWidth - (int) fnt2.getStringBounds("Back", frc).getWidth()) / 2), GamePanel.SCREEN_HEIGHT - buttonHeight  + 23);
 
         // scoreboard
-        String leaderboard = scoreManager.getLeaderboard(10);
+        String leaderboard = dataManager.getLeaderboard(10);
         int y = 200;
         for (String line : leaderboard.split("\n")) {
             g.drawString(line, (GamePanel.SCREEN_WIDTH / 2) - (titleWidth / 2), y);

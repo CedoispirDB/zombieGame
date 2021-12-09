@@ -79,6 +79,10 @@ public class Interface {
         score += points;
     }
 
+    public void setScore(int points) {
+        score = points;
+    }
+
     public int getHealth() {
         return health;
     }

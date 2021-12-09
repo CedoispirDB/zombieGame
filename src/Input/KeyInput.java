@@ -2,6 +2,7 @@ package Input;
 
 import Levels.LevelBuilder;
 import Levels.LevelManager;
+import Levels.Tutorial;
 import Manager.*;
 import Main.GamePanel;
 import Player.Bullet;
@@ -70,7 +71,7 @@ public class KeyInput extends KeyAdapter {
             System.exit(0);
         }
 
-        if (GamePanel.gameState == STATE.DEATH) {
+        if (GamePanel.gameState == STATE.DEATH || GamePanel.gameState == STATE.END) {
             String str = String.valueOf((char) code);
 //            System.out.println("str 1: " + str);
 
@@ -84,7 +85,6 @@ public class KeyInput extends KeyAdapter {
             }
 
             if (code == 10) {
-                System.out.println("leving");
                 GamePanel.gameState = STATE.MENU;
                 gamePanel.restartGame();
             }
@@ -246,8 +246,11 @@ public class KeyInput extends KeyAdapter {
             }
         } else if (GamePanel.gameState == STATE.PAUSE) {
             if (code == KeyEvent.VK_P) {
-
-                GamePanel.gameState = STATE.GAME;
+                if (Tutorial.isTutorial) {
+                    GamePanel.gameState = STATE.TUTORIAL;
+                } else {
+                    GamePanel.gameState = STATE.GAME;
+                }
             }
         }
 

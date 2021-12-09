@@ -17,7 +17,8 @@ public class Deserializer implements Serializable {
 //        System.out.println(new Timestamp(System.currentTimeMillis()) + ": loading data");
 
         try {
-            FileInputStream inputStream = new FileInputStream("./Data/data.ser");
+//            FileInputStream inputStream = new FileInputStream("./Data/data.ser");
+            InputStream inputStream = this.getClass().getResourceAsStream("/data.ser");
             ObjectInputStream in = new ObjectInputStream(inputStream);
             dataManager = (DataManager) in.readObject();
             in.close();
