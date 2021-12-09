@@ -26,8 +26,13 @@
   <component name="ChangeListManager">
     <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/data.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Data/data.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/DeathScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/UI/DeathScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataManager/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataManager/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Levels/Tutorial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Levels/Tutorial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/DeathScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/DeathScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +73,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -516,7 +521,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639021904533</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Changes on the tutorial">
+      <created>1639067678270</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1639067678270</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -533,7 +545,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Basic Zombie simply walking algorithm done&#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie" />
     <MESSAGE value="Basic Zombie simply walking algorithm really done now &#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie&#10; · Work on collision system&#10; · Work on inventory system" />
     <MESSAGE value="Solved bugs on the simple zombie and in the level manager" />
     <MESSAGE value="All working thank GODDDDD" />
@@ -558,7 +569,8 @@
     <MESSAGE value="Tutorial done(2/2)&#10;New door opened texture added&#10;Fixed collision bug(1/2)&#10;Bug on level 4" />
     <MESSAGE value="sort method created to list player and scores in sorted order from highest to lowers&#10;Beta ready" />
     <MESSAGE value="ScoreManager disabled for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="ScoreManager disabled for now" />
+    <MESSAGE value="Changes on the tutorial" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes on the tutorial" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/zombieGame$Game__1_.ic" NAME="Game (1) Coverage Results" MODIFIED="1638930580516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

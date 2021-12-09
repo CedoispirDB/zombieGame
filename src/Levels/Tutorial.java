@@ -323,7 +323,7 @@ public class Tutorial extends KeyAdapter {
 
 
 
-        g.setColor(Color.RED.darker());
+        g.setColor(Color.RED);
         g.setFont(font);
         // Instructions
         if (phases[0]) {

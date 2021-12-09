@@ -37,6 +37,7 @@ public class BasicZombie extends EnemyObject {
     private BufferedImage image;
     private LinkedList<BufferedImage> right, left, yDir;
     private Animation animation;
+    private final int speed;
 
 
     public BasicZombie(double posX, double posY, double velX, double velY, Handler handler, ID id, LevelManager levelManager, Interface anInterface, ImageManager imageManager) {
@@ -47,7 +48,7 @@ public class BasicZombie extends EnemyObject {
         this.levelManager = levelManager;
         this.imageManager = imageManager;
 
-        enemyHealth = 100;
+        enemyHealth = 50;
         grid = levelManager.getGrid();
         currentNode = grid[(int) (posX / 32)][(int) (posY / 32)];
 
@@ -66,6 +67,7 @@ public class BasicZombie extends EnemyObject {
         animation.init(3);
         animation.setFrames(right);
 
+        speed = 1;
 
 //        System.out.println("Current Node: " + currentNode);
 //        System.out.println("Wall Node: " + grid[(384 + 96) / 32][224 / 32] + "\n");
@@ -137,23 +139,23 @@ public class BasicZombie extends EnemyObject {
 
 
         if (posX > nextX) {
-            posX -= 1;
+            posX -= speed;
             animation.setFrames(left, nextX);
 
         }
         if (posX < nextX) {
-            posX += 1;
+            posX += speed;
             animation.setFrames(right, nextX);
 
         }
 
         if (posY > nextY) {
-            posY -= 1;
+            posY -= speed;
             animation.setFrames(yDir, nextY);
 
         }
         if (posY < nextY) {
-            posY += 1;
+            posY += speed;
             animation.setFrames(yDir, nextY);
         }
 

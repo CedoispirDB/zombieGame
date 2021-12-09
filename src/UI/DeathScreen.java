@@ -110,12 +110,15 @@ public class DeathScreen extends MouseAdapter {
                     }
                 } else {
                     inputColor = Color.WHITE;
+                    canWrite = false;
                 }
 
             } else {
 
                 if (mouseOver(mx, my, promptX, promptY, 194, 28)) {
                     promptClicked = true;
+                    inputColor = Color.red.darker();
+                    canWrite = true;
                 }
             }
 
