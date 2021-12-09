@@ -21,7 +21,7 @@ public class Serializer {
             out.close();
             outputStream.close();
 
-            System.out.println("Data saved");
+//            System.out.println("Data saved");
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");

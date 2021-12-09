@@ -5,5 +5,7 @@ public class Test {
         DataManager dataManager = new Deserializer().loadData();
         System.out.println(dataManager.getScores());
         dataManager.sort(dataManager.getScores());
+        System.out.println(dataManager.getScores());
+
     }
 }
