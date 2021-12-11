@@ -109,7 +109,7 @@ public class Tutorial extends KeyAdapter {
 
         alpha = 1.0f;
 
-
+        isTutorial = true;
 //        handler.addObject(new Walls(0,0,0,0,32, 768, handler, ID.WALL, imageManager));
 //        handler.addObject(new Walls(992,0,0,0,32, 768, handler, ID.WALL, imageManager));
 
@@ -117,9 +117,6 @@ public class Tutorial extends KeyAdapter {
 
     public void tick() {
 
-        if (!isTutorial) {
-            isTutorial = true;
-        }
 
         handler.tick();
         inventory.tick();

@@ -24,14 +24,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
+    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="New coin texture added">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/zombieGame_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/zombieGame_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/data.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Data/data.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/UI/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataManager/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataManager/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,21 +55,17 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1k7GnzuGWD6d2fBbOn5ditGHIzQ" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GameJar" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -82,8 +74,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/res" />
       <recent name="C:\Users\marco\Desktop\zombieGame\res" />
+      <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$/Sounds" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
@@ -94,32 +86,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Game (1)">
-    <configuration name="DataManager$run" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DataManager.DataManager$run" />
-      <module name="zombieGame" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DataManager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DataManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DataManager.DataManager" />
-      <module name="zombieGame" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="DataManager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Game (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main.Game" />
       <module name="zombieGame" />
@@ -153,12 +119,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DataManager.Test" />
+    <configuration name="SoundManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Sound.SoundManager" />
       <module name="zombieGame" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DataManager.*" />
+          <option name="PATTERN" value="Sound.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Timer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="zombieGame.Timer" />
+      <module name="zombieGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="zombieGame.Player.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ed" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="zombieGame.ed" />
+      <module name="zombieGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="zombieGame.Player.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -169,10 +161,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Game (1)" />
-        <item itemvalue="Application.DataManager$run" />
-        <item itemvalue="Application.Test" />
-        <item itemvalue="Application.DataManager" />
+        <item itemvalue="Application.SoundManager" />
         <item itemvalue="Application.ScoreManager" />
+        <item itemvalue="Application.Timer" />
+        <item itemvalue="Application.ed" />
       </list>
     </recent_temporary>
   </component>
@@ -184,6 +176,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1605044387212</updated>
+    </task>
+    <task id="LOCAL-00001" summary="intial commit 2">
+      <created>1605048065766</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1605048065766</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Hit class created,">
+      <created>1605061320165</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1605061320165</updated>
     </task>
     <task id="LOCAL-00003" summary="EasyZombie created&#10;Obstacles created&#10;Player can't pass through objects">
       <created>1605416673740</created>
@@ -444,91 +450,7 @@
       <option name="project" value="LOCAL" />
       <updated>1638498275695</updated>
     </task>
-    <task id="LOCAL-00040" summary="First part of the tutorial implemented">
-      <created>1638595520529</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1638595520529</updated>
-    </task>
-    <task id="LOCAL-00041" summary="Tutorial implemented, new some adjusts">
-      <created>1638760224897</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1638760224897</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Help menu updated&#10;Need to add how to drop items on tutorial">
-      <created>1638760624015</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1638760624015</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Tutorial done">
-      <created>1638895191265</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1638895191265</updated>
-    </task>
-    <task id="LOCAL-00044" summary="Tutorial done&#10;New data manager created&#10;Celebratory message created">
-      <created>1638931291709</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1638931291709</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Tutorial done(2/2)&#10;New door opened texture added&#10;Fixed collision bug(1/2)&#10;Bug on level 4">
-      <created>1639019608378</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1639019608378</updated>
-    </task>
-    <task id="LOCAL-00046" summary="sort method created to list player and scores in sorted order from highest to lowers&#10;Beta ready">
-      <created>1639020771827</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1639020771827</updated>
-    </task>
-    <task id="LOCAL-00047" summary="ScoreManager disabled for now">
-      <created>1639020991958</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1639020991958</updated>
-    </task>
-    <task id="LOCAL-00048" summary="ScoreManager disabled for now">
-      <created>1639021904533</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1639021904533</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Changes on the tutorial">
-      <created>1639067678270</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1639067678270</updated>
-    </task>
-    <task id="LOCAL-00050" summary="Enemy healthy updated">
-      <created>1639068759224</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1639068759225</updated>
-    </task>
-    <task id="LOCAL-00051" summary="UI update to facilitate understanding&#10;new tutorial features in the pause button">
-      <created>1639193557613</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1639193557613</updated>
-    </task>
-    <option name="localTasksCounter" value="52" />
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -544,7 +466,17 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="pet obediente, map class done, castle(initial level) done" />
+    <MESSAGE value="nani" />
+    <MESSAGE value="A" />
+    <MESSAGE value="enemy spider created" />
+    <MESSAGE value="Game structure changed.&#10;Working on inventory system, render system and path finding algorithm" />
+    <MESSAGE value="Merge branch 'main' of https://github.com/CedoispirDB/zombieGame into main&#10;# Please enter a commit message to explain why this merge is necessary,&#10;# especially if it merges an updated upstream into a topic branch.&#10;#&#10;# Lines starting with '#' will be ignored, and an empty message aborts&#10;# the commit." />
+    <MESSAGE value="Inventory system done&#10;Working on new map system using nodes" />
+    <MESSAGE value="Zombie path algorithm half way done.&#10;Right now it can go back, making a loop sometimes. Need to debug this part so that he avoids walking the same path more than once" />
+    <MESSAGE value="Basic Zombie simply walking algorithm done&#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie" />
+    <MESSAGE value="Basic Zombie simply walking algorithm really done now &#10;TODO:&#10; · Start working on animation system&#10; · Working on A* path finding algorithm and implementing in a smart zombie&#10; · Work on collision system&#10; · Work on inventory system" />
+    <MESSAGE value="Solved bugs on the simple zombie and in the level manager" />
     <MESSAGE value="All working thank GODDDDD" />
     <MESSAGE value="Animation system created. Not tested, need to draw the spriteSheets" />
     <MESSAGE value="Animation system created. Not tested, need to draw the spriteSheets&#10;Level changing working" />
@@ -559,21 +491,10 @@
     <MESSAGE value="Fixed inventory system&#10;Created sound manager, sound not implemented yet" />
     <MESSAGE value="New animation of basic zombie added&#10;New sprite sheets added&#10;New death screen with congratulation message in case the user scores higher" />
     <MESSAGE value="New maps added&#10;Healing potion bug fixed" />
-    <MESSAGE value="First part of the tutorial implemented" />
-    <MESSAGE value="Tutorial implemented, new some adjusts" />
-    <MESSAGE value="Help menu updated&#10;Need to add how to drop items on tutorial" />
-    <MESSAGE value="Tutorial done" />
-    <MESSAGE value="Tutorial done&#10;New data manager created&#10;Celebratory message created" />
-    <MESSAGE value="Tutorial done(2/2)&#10;New door opened texture added&#10;Fixed collision bug(1/2)&#10;Bug on level 4" />
-    <MESSAGE value="sort method created to list player and scores in sorted order from highest to lowers&#10;Beta ready" />
-    <MESSAGE value="ScoreManager disabled for now" />
-    <MESSAGE value="Changes on the tutorial" />
-    <MESSAGE value="Enemy healthy updated" />
-    <MESSAGE value="UI update to facilitate understanding&#10;new tutorial features in the pause button" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI update to facilitate understanding&#10;new tutorial features in the pause button" />
+    <option name="LAST_COMMIT_MESSAGE" value="New maps added&#10;Healing potion bug fixed" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/zombieGame$Game__1_.ic" NAME="Game (1) Coverage Results" MODIFIED="1638930580516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/zombieGame$Game__1_.ic" NAME="Game (1) Coverage Results" MODIFIED="1636762471881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>Main.*</FILTER>
     </SUITE>
   </component>
