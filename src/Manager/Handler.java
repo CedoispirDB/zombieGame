@@ -59,9 +59,24 @@ public class Handler {
 
 
     public void render(Graphics g) {
+        renderCoins(g);
         renderEnemies(g);
         for (int i = 0; i< object.size(); i++) {
-            object.get(i).render(g);
+            GameObject temp = object.get(i);
+            if (temp.getId() != ID.COIN) {
+                temp.render(g);
+            }
+
+        }
+    }
+
+    public void renderCoins(Graphics g) {
+        for (int i = 0; i< object.size(); i++) {
+            GameObject temp = object.get(i);
+            if (temp.getId() == ID.COIN) {
+                temp.render(g);
+            }
+
         }
     }
 

@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final DataManager dataManager;
     private Tutorial tutorial;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.TUTORIAL;
+    public static STATE gameState = STATE.MENU;
 
 
     public GamePanel() {

@@ -84,7 +84,8 @@ public class Help extends MouseAdapter {
         g.drawString(" Use E or Q to change the selected items in the inventory bar.",ox - 155, 290);
         g.drawString(" Use F to drop a selected item.",ox - 155, 320);
         g.drawString(" Use P to pause the game.",ox - 155, 350);
-        g.drawString("While paused you will find a help button, click it to find all these instructions.", ox - 155, 380);
+        g.drawString(" Use ESC to quit the game.",ox - 155, 380);
+        g.drawString(" While paused you will find a help button, click it to find all these instructions.", ox - 155, 410);
 
 
         g.setFont(fnt2);
