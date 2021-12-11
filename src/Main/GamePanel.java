@@ -57,7 +57,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private final DataManager dataManager;
     private Tutorial tutorial;
     private LevelBuilder levelBuilder;
-    public static STATE gameState = STATE.MENU;
+    public static STATE gameState = STATE.TUTORIAL;
 
 
     public GamePanel() {
@@ -112,7 +112,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public void startGame() {
         grid = levelManager.getGrid();
         if (gameState == STATE.GAME) {
-            System.out.println("Loading first level");
             levelManager.loadLevel(level);
             levelManager.setLevel(level);
         }
@@ -183,9 +182,6 @@ public class GamePanel extends JPanel implements ActionListener {
                 deathScreen.render(g);
             } else if (gameState == STATE.TUTORIAL || gameState == STATE.PAUSE) {
                 tutorial.render(g);
-                if (gameState == STATE.PAUSE) {
-                    pause.render(g);
-                }
             } else if (gameState == STATE.BUILD) {
 
 

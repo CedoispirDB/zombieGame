@@ -1,5 +1,6 @@
 package UI;
 
+import Levels.Tutorial;
 import Main.GamePanel;
 import Manager.STATE;
 
@@ -7,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
+import java.util.concurrent.TimeUnit;
 
 public class Pause extends MouseAdapter {
 
@@ -16,10 +18,12 @@ public class Pause extends MouseAdapter {
     private int titleWidth;
     private boolean help;
     private GamePanel gamePanel;
+    public static boolean resumeClicked;
 
     public Pause(GamePanel gamePanel) {
         help = false;
         this.gamePanel = gamePanel;
+        resumeClicked = false;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -33,7 +37,12 @@ public class Pause extends MouseAdapter {
 
             if (mouseOver(mx, my,posX, oy - 120, titleWidth, 40)) {
                 if (!help) {
-                    GamePanel.gameState = STATE.GAME;
+                    if (Tutorial.isTutorial) {
+                        GamePanel.gameState = STATE.TUTORIAL;
+                        resumeClicked = true;
+                    } else {
+                        GamePanel.gameState = STATE.GAME;
+                    }
                 }
             }
 
@@ -82,7 +91,8 @@ public class Pause extends MouseAdapter {
             g.drawRect(posX, oy - 120, titleWidth, 40);
             g.drawRect(posX, oy - 60, titleWidth, 40);
             g.drawRect(posX, oy, titleWidth, 40);
-
+//            System.out.println(posX);
+//            System.out.println(oy);
             g.setFont(fnt2);
             g.drawString("Continue", posX + ((titleWidth - (int) fnt2.getStringBounds("Continue", frc).getWidth()) / 2), oy - 93);
             g.drawString("Help", posX + ((titleWidth - (int) fnt2.getStringBounds("Help", frc).getWidth()) / 2), oy - 33);
@@ -97,9 +107,10 @@ public class Pause extends MouseAdapter {
             g.drawRect(posX, oy, titleWidth, 40);
 
             g.setFont(new Font("Arial", Font.BOLD, 15));
-            g.drawString("Movement: WASD", posX, oy - 85);
-            g.drawString("Drop items: F", posX, oy - 65);
-            g.drawString("Select items: Q and E", posX, oy - 45);
+            g.drawString("Movement: WASD", posX, oy - 95);
+            g.drawString("Drop items: F", posX, oy - 75);
+            g.drawString("Select items: Q or E", posX, oy - 55);
+            g.drawString("Use items: Space", posX, oy - 35);
 
             g.setFont(fnt2);
             g.drawString("Back", posX + ((titleWidth - (int) fnt2.getStringBounds("Back", frc).getWidth()) / 2), oy + 27);

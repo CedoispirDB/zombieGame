@@ -60,7 +60,7 @@ public class Help extends MouseAdapter {
         g.setColor(new Color(90, 90, 90).darker());
         g.fillRect(0, 20, GamePanel.SCREEN_WIDTH, 95);
 
-        String title = "Help";
+        String title = "Instructions";
         FontRenderContext frc = g2d.getFontRenderContext();
         int titleWidth = (int) fnt.getStringBounds(title, frc).getWidth();
         int titleHeight = (int) fnt.getStringBounds(title, frc).getHeight();
@@ -81,9 +81,10 @@ public class Help extends MouseAdapter {
         g.drawString(" Gain Points by passing levels, killing monsters, and collecting coins.",ox - 155, 200);
         g.drawString(" Use WASD to control the player movement.",ox - 155, 230);
         g.drawString(" Use space bar to use your items.",ox - 155, 260);
-        g.drawString(" Use E and Q to change the selected items in the inventory bar.",ox - 155, 290);
+        g.drawString(" Use E or Q to change the selected items in the inventory bar.",ox - 155, 290);
         g.drawString(" Use F to drop a selected item.",ox - 155, 320);
         g.drawString(" Use P to pause the game.",ox - 155, 350);
+        g.drawString("While paused you will find a help button, click it to find all these instructions.", ox - 155, 380);
 
 
         g.setFont(fnt2);

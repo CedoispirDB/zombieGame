@@ -153,7 +153,7 @@ public class Menu extends MouseAdapter {
         g.drawString("Leaderboard", ox + ((buttonWidth - (int) fnt2.getStringBounds("Leaderboard", frc).getWidth()) / 2), yi);
 
         g.drawRect(ox, oy + gap, buttonWidth, buttonHeight);
-        g.drawString("Help", ox + ((buttonWidth - (int) fnt2.getStringBounds("Help", frc).getWidth()) / 2), yi + gap);
+        g.drawString("Instructions", ox + ((buttonWidth - (int) fnt2.getStringBounds("Instructions", frc).getWidth()) / 2), yi + gap);
 
         g.drawRect(ox, oy + 2 * gap, buttonWidth, buttonHeight);
         g.drawString("Quit", ox + ((buttonWidth - (int) fnt2.getStringBounds("Quit", frc).getWidth()) / 2), yi + 2 * gap);

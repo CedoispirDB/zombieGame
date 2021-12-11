@@ -49,6 +49,8 @@ public class Tutorial extends KeyAdapter {
     private int time;
     public static boolean isTutorial;
     private float alpha;
+    private int pauseClicked;
+    private STATE previousState;
 
     public Tutorial(Handler handler, Inventory inventory, LevelManager levelManager, Interface anInterface, Pause pause, ImageManager imageManager) {
         this.handler = handler;
@@ -91,7 +93,7 @@ public class Tutorial extends KeyAdapter {
         index = 0;
         cnt = 0;
         time = 0;
-
+        pauseClicked = 0;
 
 
         font = new Font("Arial", Font.BOLD, 15);
@@ -170,7 +172,7 @@ public class Tutorial extends KeyAdapter {
         }
 
         if (phases[7] && count == 7) {
-            count ++;
+            count++;
         }
 
         if (phases[8] && count == 8) {
@@ -222,6 +224,15 @@ public class Tutorial extends KeyAdapter {
             if (inventory.inventoryItems.size() == 0) {
                 dropped = true;
             }
+        }
+
+        if (paused && Pause.resumeClicked){
+            paused = false;
+            if (phases[0]) {
+                unpaused = true;
+            }
+            Pause.resumeClicked = false;
+            pauseClicked = 0;
         }
 
         if (unpaused) {
@@ -318,9 +329,8 @@ public class Tutorial extends KeyAdapter {
             alpha -= 0.02;
             g.setFont(font2);
             String text = "Tutorial";
-            g.drawString(text, (int)(GamePanel.SCREEN_WIDTH / 2 - font2.getStringBounds(text, frc).getWidth() / 2), 100);
+            g.drawString(text, (int) (GamePanel.SCREEN_WIDTH / 2 - font2.getStringBounds(text, frc).getWidth() / 2), 100);
         }
-
 
 
         g.setColor(Color.RED);
@@ -330,6 +340,7 @@ public class Tutorial extends KeyAdapter {
             printMessage("Press P to pause the game", g, frc);
 
         }
+
 
         if (phases[1]) {
             printMessage("Use the keys WASD to walk", g, frc);
@@ -344,7 +355,7 @@ public class Tutorial extends KeyAdapter {
         }
 
         if (phases[4]) {
-            printMessage("Use the key Q or E to change the selected item", g, frc);
+            printMessage("Use either the key Q or E to change the selected item", g, frc);
         }
 
         if (phases[5]) {
@@ -352,11 +363,11 @@ public class Tutorial extends KeyAdapter {
         }
 
         if (phases[6]) {
-            printMessage("Collect the coins to get points", g, frc);
+            printMessage("Collect coins to get points", g, frc);
         }
 
         if (phases[7]) {
-            printMessage("Select and press F to drop an item", g, frc);
+            printMessage("Select an item and press F to drop an item", g, frc);
         }
 
         if (phases[8]) {
@@ -365,22 +376,78 @@ public class Tutorial extends KeyAdapter {
 
         }
 
+        if (GamePanel.gameState == STATE.PAUSE) {
+            pause.render(g);
+        }
+
+        if (paused) {
+//345
+//posX: 450
+//125
+
+//469
+//491
+//486
+            g.setColor(Color.RED);
+            g.setFont(font);
+            // Draw lines
+            g.drawLine(580, 225, 645, 200);
+            g.drawLine(445, 305, 380, 280);
+            g.drawLine(580, 380, 645, 365);
+
+            // Draw messages
+            String text = "Press Continue to resume the game";
+            int w;
+            int h;
+            g.drawString(text, 650, 200);
+
+            text = "Press Help to see the instructions for how to play";
+            w = (int) font.getStringBounds(text, frc).getWidth();
+            g.drawString(text, 375 - w, 280);
+
+            text = "Press Menu to go back to the menu";
+            h = (int) font.getStringBounds(text, frc).getHeight();
+            g.drawString(text, 650, 365);
+
+            text = "Doing so will restart the game";
+            g.drawString(text, 650, 370 + h);
+
+        }
+
     }
 
     private void printMessage(String text, Graphics g, FontRenderContext frc) {
         double w = font.getStringBounds(text, frc).getWidth();
         double h = font.getStringBounds(text, frc).getHeight();
-        g.drawString(text, (int)(player.getPosX() - w / 2) + 16 , (int)player.getPosY() - 10);
+        g.drawString(text, (int) (player.getPosX() - w / 2) + 16, (int) player.getPosY() - 10);
     }
+
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+
+
         if (phases[0]) {
             if (code == 80) {
-                keysPressed++;
-                if (keysPressed == 2) {
+                pauseClicked++;
+                if (pauseClicked == 1) {
+                    paused = true;
+                }
+                if (pauseClicked == 2) {
                     unpaused = true;
-                    keysPressed = 0;
+                    paused = false;
+                    pauseClicked = 0;
+                }
+            }
+        } else {
+            if (code == 80) {
+                pauseClicked++;
+                if (pauseClicked == 1) {
+                    paused = true;
+                }
+                if (pauseClicked == 2) {
+                    paused = false;
+                    pauseClicked = 0;
                 }
             }
         }
@@ -388,7 +455,7 @@ public class Tutorial extends KeyAdapter {
         if (phases[1]) {
             if (code == 87 || code == 83 || code == 65 || code == 68) {
                 if (!pressed.contains(code)) {
-                     pressed.add(code);
+                    pressed.add(code);
                 }
 
                 if (pressed.size() == 4) {
