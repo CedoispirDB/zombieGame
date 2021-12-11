@@ -13,7 +13,7 @@ public class GameFrame extends JFrame {
 
         if (screen > -1 && screen < gd.length) {
             x = gd[screen].getDefaultConfiguration().getBounds().x + (gd[screen].getDisplayMode().getWidth() - w) / 2;
-            frame.setLocation(x, frame.getY());
+            frame.setLocation(208, frame.getY());
         } else if (gd.length > 0) {
             x = gd[screen - 1].getDefaultConfiguration().getBounds().x + (gd[screen - 1].getDisplayMode().getWidth() - w) / 2;
             frame.setLocation(x, frame.getY());

@@ -181,7 +181,6 @@ public class GamePanel extends JPanel implements ActionListener {
             } else if (gameState == STATE.DEATH || gameState == STATE.END) {
                 deathScreen.render(g);
             } else if (gameState == STATE.TUTORIAL || gameState == STATE.PAUSE) {
-                System.out.println("rendering tutorial");
                 tutorial.render(g);
             } else if (gameState == STATE.BUILD) {
 
