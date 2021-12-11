@@ -56,6 +56,7 @@ public class Pause extends MouseAdapter {
                 if (!help) {
                     gamePanel.restartGame();
                     GamePanel.gameState = STATE.MENU;
+                    Tutorial.isTutorial = false;
                 } else {
                     help = false;
                 }
