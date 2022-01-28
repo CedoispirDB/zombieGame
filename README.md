@@ -22,4 +22,6 @@ Following the guidelines:
 TODO:
 -New level building system 
 -New enemies 
+-New levels
+-Boss fight
 
