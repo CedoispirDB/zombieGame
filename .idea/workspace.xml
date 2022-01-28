@@ -25,10 +25,104 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Data/builder.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Builder/LevelBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/DataManager/Deserializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/DataManager/Serializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Main/Game.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Main/GameFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Main/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/data.ser" beforeDir="false" afterPath="$PROJECT_DIR$/Data/data.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/DataManager/Deserializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/DataManager/SaveData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/DataManager/Serializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Enemies/BasicZombie.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Enemies/SmartEnemy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Input/KeyInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Items/Coin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Items/HealingPotion.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Items/Pistol.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Items/Shotgun.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Button.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/LevelManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Passage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Tutorial.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/Walls.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Levels/World.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GameFrame.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Main/GamePanel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/EnemyObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/GameObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/Handler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/ID.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/ItemObject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Manager/STATE.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Map/Node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Bullet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Interface.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Inventory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Player/Shooting.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Render/Animation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Render/BufferedImageLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Render/CreateImages.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Render/ImageManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Render/SpriteSheet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/Sound/SoundManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/DeathScreen.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/Help.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/Leaderboard.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/Menu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/zombieGame/UI/Pause.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataManager/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/DataManager/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataManager/Deserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/DataManager/Deserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataManager/SaveData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/DataManager/SaveData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataManager/ScoreManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/DataManager/ScoreManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataManager/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/DataManager/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemies/BasicZombie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Enemies/BasicZombie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enemies/SmartEnemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Enemies/SmartEnemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Input/KeyInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Items/Coin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Items/Coin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Items/HealingPotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Items/HealingPotion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Items/Pistol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Items/Pistol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Items/Shotgun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Items/Shotgun.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/LevelBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/LevelBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/LevelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/LevelManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Passage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/Passage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Tutorial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/Tutorial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/Walls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/Walls.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Levels/World.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Levels/World.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Main/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Main/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/EnemyObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Manager/EnemyObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Manager/GameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Manager/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/ID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Manager/ID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/ItemObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Manager/ItemObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/STATE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Manager/STATE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Map/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Map/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Interface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player/Interface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Inventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player/Inventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player/Shooting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Player/Shooting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Render/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/BufferedImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Render/BufferedImageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/CreateImages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Render/CreateImages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/ImageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Render/ImageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Render/SpriteSheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Render/SpriteSheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Sound/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Sound/SoundManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/DeathScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/UI/DeathScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/End.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/UI/End.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/UI/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/UI/Leaderboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/UI/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Pause.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/UI/Pause.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +133,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="package-info" />
         <option value="Class" />
       </list>
     </option>
@@ -67,7 +162,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GameJar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/LevelBuilder/DataManager" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -77,24 +172,30 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/LevelBuilder/DataManager" />
+      <recent name="$PROJECT_DIR$/src/LevelBuilder/Main" />
       <recent name="C:\Users\marco\Desktop\zombieGame\res" />
       <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$/Sounds" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/zombieGame/Enemies" />
       <recent name="$PROJECT_DIR$/res" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="LevelBuilder.Builder" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.DataManager$run">
+  <component name="RunManager" selected="Application.Game">
     <configuration name="DataManager$run" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="DataManager.DataManager$run" />
+      <option name="MAIN_CLASS_NAME" value="Game.DataManager.DataManager$run" />
       <module name="zombieGame" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DataManager.*" />
+          <option name="PATTERN" value="Game.DataManager.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -102,12 +203,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Game (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main.Game" />
+    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Game.Main.Game" />
       <module name="zombieGame" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Main.*" />
+          <option name="PATTERN" value="Game.Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,7 +228,7 @@
       <module name="zombieGame" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="DataManager.*" />
+          <option name="PATTERN" value="Game.DataManager.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -136,11 +237,11 @@
       </method>
     </configuration>
     <configuration name="SoundManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Sound.SoundManager" />
+      <option name="MAIN_CLASS_NAME" value="Game.Sound.SoundManager" />
       <module name="zombieGame" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Sound.*" />
+          <option name="PATTERN" value="Game.Sound.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -163,8 +264,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Game" />
         <item itemvalue="Application.DataManager$run" />
-        <item itemvalue="Application.Game (1)" />
         <item itemvalue="Application.SoundManager" />
         <item itemvalue="Application.ScoreManager" />
         <item itemvalue="Application.Timer" />
@@ -460,7 +561,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639240188911</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Pause bug fixed">
+      <created>1639241817645</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1639241817645</updated>
+    </task>
+    <task id="LOCAL-00042" summary="data reset">
+      <created>1639241935360</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1639241935360</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -476,7 +591,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="nani" />
     <MESSAGE value="A" />
     <MESSAGE value="enemy spider created" />
     <MESSAGE value="Game structure changed.&#10;Working on inventory system, render system and path finding algorithm" />
@@ -501,7 +615,8 @@
     <MESSAGE value="New animation of basic zombie added&#10;New sprite sheets added&#10;New death screen with congratulation message in case the user scores higher" />
     <MESSAGE value="New maps added&#10;Healing potion bug fixed" />
     <MESSAGE value="Pause bug fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pause bug fixed" />
+    <MESSAGE value="data reset" />
+    <option name="LAST_COMMIT_MESSAGE" value="data reset" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/zombieGame$Game__1_.ic" NAME="Game (1) Coverage Results" MODIFIED="1638930580516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
