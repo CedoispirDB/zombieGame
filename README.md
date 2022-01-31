@@ -20,6 +20,8 @@ Following the guidelines:
 - The game should have an instructional display.
 
 TODO:
--New level building system 
--New enemies 
+- New level building system 
+- New enemies 
+- New levels
+- Boss fight
 
