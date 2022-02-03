@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public class Entity {
 
     private BufferedImage image;
-    private int x,y, w,h;
+    private int x,y, w,h, id;
 
     public Entity(String type, int x, int y, int w, int h, ImageManager manager) {
         image = manager.getTexture(type);

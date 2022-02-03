@@ -24,15 +24,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Manager/Handler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Manager/ImageManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/Objects/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/UserInput/KeyInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/UserInput/MouseDragged.java" afterDir="false" />
+    <list default="true" id="68a10035-1630-4dcf-814e-44a3f5e5b924" name="Default Changelist" comment="Level build modified in new package new hover feature added, and all things working as before, working on redo, erase, save, and load features">
+      <change afterPath="$PROJECT_DIR$/src/LevelBuilder/DataManager/DataManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/builder.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/DataManager/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/DataManager/DataManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LevelBuilder/Builder/LevelBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/Builder/LevelBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/DataManager/Deserializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/DataManager/Deserializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/DataManager/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/DataManager/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/Main/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LevelBuilder/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/Main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/Manager/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/Manager/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/Objects/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/Objects/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/UserInput/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/UserInput/KeyInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelBuilder/UserInput/MouseDragged.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelBuilder/UserInput/MouseDragged.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +49,7 @@
       <list>
         <option value="Enum" />
         <option value="package-info" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -68,6 +74,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -126,12 +133,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DataManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LevelBuilder.DataManager.DataManager" />
+      <module name="zombieGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="LevelBuilder.DataManager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Game.Main.Game" />
       <module name="zombieGame" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="Game.Main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GamePanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LevelBuilder.Main.GamePanel" />
+      <module name="zombieGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="LevelBuilder.Main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -150,12 +183,16 @@
       <item itemvalue="Application.DataManager$run" />
       <item itemvalue="Application.Game" />
       <item itemvalue="Application.Builder" />
+      <item itemvalue="Application.DataManager" />
+      <item itemvalue="Application.GamePanel" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Builder" />
-        <item itemvalue="Application.Game" />
+        <item itemvalue="Application.GamePanel" />
+        <item itemvalue="Application.DataManager" />
         <item itemvalue="Application.DataManager$run" />
+        <item itemvalue="Application.Game" />
       </list>
     </recent_temporary>
   </component>
@@ -469,7 +506,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643337909522</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Level build modified in new package new hover feature added, and all things working as before, working on redo, erase, save, and load features">
+      <created>1643602003702</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1643602003703</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -485,7 +529,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="enemy spider created" />
     <MESSAGE value="Game structure changed.&#10;Working on inventory system, render system and path finding algorithm" />
     <MESSAGE value="Merge branch 'main' of https://github.com/CedoispirDB/zombieGame into main&#10;# Please enter a commit message to explain why this merge is necessary,&#10;# especially if it merges an updated upstream into a topic branch.&#10;#&#10;# Lines starting with '#' will be ignored, and an empty message aborts&#10;# the commit." />
     <MESSAGE value="Inventory system done&#10;Working on new map system using nodes" />
@@ -510,7 +553,8 @@
     <MESSAGE value="Pause bug fixed" />
     <MESSAGE value="data reset" />
     <MESSAGE value="Divided the game in two packages: Game where all the game will be stored and LevelBuilder where the system for map creation will be stored.&#10;Classes for data management and algorithm for mpa created created in LevelBuilder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Divided the game in two packages: Game where all the game will be stored and LevelBuilder where the system for map creation will be stored.&#10;Classes for data management and algorithm for mpa created created in LevelBuilder" />
+    <MESSAGE value="Level build modified in new package new hover feature added, and all things working as before, working on redo, erase, save, and load features" />
+    <option name="LAST_COMMIT_MESSAGE" value="Level build modified in new package new hover feature added, and all things working as before, working on redo, erase, save, and load features" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/zombieGame$Game__1_.ic" NAME="Game (1) Coverage Results" MODIFIED="1638930580516" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

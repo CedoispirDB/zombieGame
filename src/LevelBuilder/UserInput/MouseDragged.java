@@ -11,11 +11,10 @@ public class MouseDragged implements MouseMotionListener {
 
 
     public void mouseDragged(MouseEvent e) {
-        
+
     }
 
     // y < 160 x < 253
-
     public void mouseMoved(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();

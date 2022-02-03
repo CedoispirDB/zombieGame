@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-public class DataManager implements Serializable {
+    public class DataManager implements Serializable {
 
 //    * means the start of a new level;
 
@@ -46,7 +46,7 @@ public class DataManager implements Serializable {
         return data;
     }
 
-    public  void saveLevel(String str) {
+    public void saveLevel(String str) {
         String sub;
         int b = 0;
         int e = str.indexOf(" ");

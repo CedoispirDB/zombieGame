@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class Handler {
 
-    LinkedList<Entity> objects;
+    public LinkedList<Entity> objects;
 
     public  Handler() {
         objects = new LinkedList<>();
@@ -22,6 +22,16 @@ public class Handler {
 
     public void addObject(Entity obj) {
         objects.add(obj);
+    }
+
+    public void removeObject() {
+        if(objects.size() > 0) {
+            objects.remove(objects.size() - 1);
+        }
+    }
+
+    public void removeAll() {
+        objects.clear();
     }
 
 }

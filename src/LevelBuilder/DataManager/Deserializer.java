@@ -1,7 +1,7 @@
 package LevelBuilder.DataManager;
 
 
-import Game.DataManager.DataManager;
+import LevelBuilder.DataManager.DataManager;
 
 import java.io.*;
 

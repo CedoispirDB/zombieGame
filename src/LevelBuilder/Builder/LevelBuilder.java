@@ -1,11 +1,13 @@
 package LevelBuilder.Builder;
 
 
+import LevelBuilder.DataManager.DataManager;
 import LevelBuilder.Main.GamePanel;
 import LevelBuilder.Manager.ImageManager;
 import LevelBuilder.Manager.Handler;
 import LevelBuilder.Objects.Entity;
 
+import javax.xml.crypto.Data;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -15,20 +17,26 @@ public class LevelBuilder extends MouseAdapter {
     public static String type = "w";
     public static char position = 't';
     public static boolean drag = false;
-    public static LinkedList<String> data = new LinkedList<>();
+    public LinkedList<String> data = new LinkedList<>();
+    public String levelData;
+
 
     private final int unitSize;
     private int xi, yi;
     private boolean dragged = false;
+    private boolean load = false;
+    private int lvl = 0;
 
     private ImageManager imageManager;
     private Handler handler;
+    private DataManager dataManager;
 
-    public LevelBuilder(Handler handler, ImageManager imageManager) {
+    public LevelBuilder(Handler handler, ImageManager imageManager, DataManager dataManager) {
         this.handler = handler;
         this.imageManager = imageManager;
+        this.dataManager = dataManager;
         unitSize = GamePanel.UNIT_SIZE;
-
+        levelData = "";
 
     }
 
@@ -121,26 +129,72 @@ public class LevelBuilder extends MouseAdapter {
         }
 
 
-        addData(String.valueOf(x), String.valueOf(y), String.valueOf(w), String.valueOf(h), currentType);
+        addData(String.valueOf(x), String.valueOf(y), String.valueOf(w), String.valueOf(h), type);
 
     }
 
 
-    public static void undo() {
-
+    // Remove last placed object
+    public void undo() {
+        handler.removeObject();
     }
 
-    public static void reset() {
-
+    // Clean all objects from screen
+    public void reset() {
+        handler.removeAll();
     }
 
-    public static void addData(String x, String y, String w, String h, String type) {
+    // Load an existing level to work on
+    public void load(int lvl) {
+        load = true;
+        this.lvl = lvl;
+        LinkedList<String> data = dataManager.loadData(lvl);
+        int i = 0;
+        String t;
+        int x, y, w, h;
+
+
+        do {
+            x = Integer.parseInt(data.get(i));
+            y = Integer.parseInt(data.get(i + 1));
+            w = Integer.parseInt(data.get(i + 2));
+            h = Integer.parseInt((data.get(i + 3)));
+            t = data.get(i + 4);
+
+            handler.addObject(new Entity(t, x, y, w, h, imageManager));
+
+            if (!levelData.equals("")) {
+                levelData = levelData + " ";
+            }
+
+            levelData = levelData + x + " " +  y + " " + w + " " + h + " " + t;
+
+
+            i += 5;
+        } while (i < data.size());
+
+        System.out.println(levelData);
+    }
+
+    // Save level data
+    public void save() {
+//        System.out.println("Data: " + levelData);
+        if (!load) {
+            dataManager.saveData(levelData + "\n*");
+        } else {
+            System.out.println("load:" + levelData);
+//            dataManager.insert(levelData , lvl);
+            load = false;
+        }
+    }
+
+//    data = x + y + w + h + type
+    public void addData(String x, String y, String w, String h, String type) {
         if (x.length() > 0 && y.length() > 0 && type.length() > 0) {
-            data.add(x);
-            data.add(y);
-            data.add(w);
-            data.add(h);
-            data.add(type);
+            if (!levelData.equals("")) {
+                levelData = levelData + " ";
+            }
+            levelData = levelData + x + " " +  y + " " + w + " " + h + " " + type;
         }
 
     }
@@ -164,5 +218,6 @@ public class LevelBuilder extends MouseAdapter {
     public void toggleDrag() {
         drag = !drag;
     }
+
 
 }
