@@ -21,7 +21,7 @@ public class HealingPotion extends ItemObject {
         super(posX, posY, iconX, iconY, inventory, id);
 
         BufferedImageLoader loader = new BufferedImageLoader();
-        image = loader.loadImage("/health_2.png");
+        image = loader.loadImage("/health.png");
 
         this.inventory = inventory;
 

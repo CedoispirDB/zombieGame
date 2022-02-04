@@ -2,6 +2,8 @@ package LevelBuilder.UserInput;
 
 import LevelBuilder.Builder.LevelBuilder;
 import LevelBuilder.DataManager.DataManager;
+import LevelBuilder.Main.GamePanel;
+import LevelBuilder.UI.Input;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -13,6 +15,7 @@ public class KeyInput extends KeyAdapter {
     private int typeIndex;
     private boolean one, two;
 
+
     private LevelBuilder levelBuilder;
     private DataManager dataManager;
 
@@ -21,21 +24,28 @@ public class KeyInput extends KeyAdapter {
         this.dataManager = dataManager;
         options = new LinkedList<>();
         options.add("w");
-        options.add("cd");
-        options.add("b");
         options.add("p");
+        options.add("b");
+        options.add("m");
         options.add("z");
         options.add("c");
+        options.add("g");
+        options.add("h");
 
         typeIndex = 1;
 
         one = false;
         two = false;
+
     }
 
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        if (code == KeyEvent.VK_ENTER) {
+            GamePanel.canInput = !GamePanel.canInput;
+        }
 
+        if (!GamePanel.canInput){
         switch (code) {
             case KeyEvent.VK_V -> {
                 levelBuilder.setType(options.get(typeIndex));
@@ -49,8 +59,9 @@ public class KeyInput extends KeyAdapter {
             case KeyEvent.VK_J -> levelBuilder.reset();
             case KeyEvent.VK_Z -> levelBuilder.undo();
             case KeyEvent.VK_K -> levelBuilder.save();
-            case KeyEvent.VK_P -> dataManager.getLevelData();
-            case KeyEvent.VK_L -> levelBuilder.load(1);
+            case KeyEvent.VK_P -> dataManager.printLevelData();
+            case KeyEvent.VK_L -> levelBuilder.load(Input.getNum());
+
         }
 
         // 157 16 68
@@ -68,12 +79,13 @@ public class KeyInput extends KeyAdapter {
             }
         }
 
-        if(two && code != 16) {
+        if (two && code != 16) {
             if (code == 68) {
                 dataManager.deleteData();
             }
             one = false;
             two = false;
         }
+    }
     }
 }

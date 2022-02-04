@@ -211,14 +211,14 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // Print coordinates
-//            g.setFont(new Font(null, 0, 10));
-//            g.setColor(Color.red);
-//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), i * 32, 16);
-//            }
-//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-//                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
-//            }
+            g.setFont(new Font(null, 0, 10));
+            g.setColor(Color.red);
+            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+                g.drawString(String.valueOf(i * 32), i * 32, 16);
+            }
+            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
+            }
 //
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {

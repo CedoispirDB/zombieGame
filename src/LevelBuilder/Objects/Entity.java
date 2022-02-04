@@ -16,6 +16,7 @@ public class Entity {
         this.y = y;
         this.w = w;
         this.h = h;
+//        System.out.println("creating " + type + " at x: " + x + " and y: " + y);
     }
 
 

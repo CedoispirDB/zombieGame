@@ -18,7 +18,7 @@ public class LevelBuilder extends MouseAdapter {
     public static char position = 't';
     public static boolean drag = false;
     public LinkedList<String> data = new LinkedList<>();
-    public String levelData;
+    public LinkedList<String> levelData;
 
 
     private final int unitSize;
@@ -36,7 +36,7 @@ public class LevelBuilder extends MouseAdapter {
         this.imageManager = imageManager;
         this.dataManager = dataManager;
         unitSize = GamePanel.UNIT_SIZE;
-        levelData = "";
+        levelData = new LinkedList<>();
 
     }
 
@@ -121,11 +121,13 @@ public class LevelBuilder extends MouseAdapter {
 
         switch (type) {
             case "w" -> handler.addObject(new Entity("w", x,y, w, h, imageManager));
-            case "cd" -> handler.addObject(new Entity("cd", x,y, w, h, imageManager));
-            case "b" -> handler.addObject(new Entity("b", x,y, w, h,imageManager));
             case "p" -> handler.addObject(new Entity("p", x,y, w, h, imageManager));
+            case "b" -> handler.addObject(new Entity("b", x,y, w, h,imageManager));
+            case "m" -> handler.addObject(new Entity("m", x,y, w, h, imageManager));
             case "z" -> handler.addObject(new Entity("z", x,y,w, h, imageManager));
             case "c" -> handler.addObject(new Entity("c", x,y, w, h,imageManager));
+            case "g" -> handler.addObject(new Entity("g", x,y, w, h,imageManager));
+            case "h" -> handler.addObject(new Entity("h", x,y, w, h,imageManager));
         }
 
 
@@ -146,6 +148,8 @@ public class LevelBuilder extends MouseAdapter {
 
     // Load an existing level to work on
     public void load(int lvl) {
+        levelData.clear();
+        handler.removeAll();
         load = true;
         this.lvl = lvl;
         LinkedList<String> data = dataManager.loadData(lvl);
@@ -163,12 +167,11 @@ public class LevelBuilder extends MouseAdapter {
 
             handler.addObject(new Entity(t, x, y, w, h, imageManager));
 
-            if (!levelData.equals("")) {
-                levelData = levelData + " ";
-            }
-
-            levelData = levelData + x + " " +  y + " " + w + " " + h + " " + t;
-
+            levelData.add(String.valueOf(x));
+            levelData.add(String.valueOf(y));
+            levelData.add(String.valueOf(w));
+            levelData.add(String.valueOf(h));
+            levelData.add(String.valueOf(t));
 
             i += 5;
         } while (i < data.size());
@@ -179,11 +182,13 @@ public class LevelBuilder extends MouseAdapter {
     // Save level data
     public void save() {
 //        System.out.println("Data: " + levelData);
+        levelData.add(0, "*");
+        levelData.add(levelData.size(), "*");
         if (!load) {
-            dataManager.saveData(levelData + "\n*");
+            dataManager.saveData(levelData);
         } else {
-            System.out.println("load:" + levelData);
-//            dataManager.insert(levelData , lvl);
+//            System.out.println("load:" + levelData);
+            dataManager.insert(levelData , lvl);
             load = false;
         }
     }
@@ -191,10 +196,11 @@ public class LevelBuilder extends MouseAdapter {
 //    data = x + y + w + h + type
     public void addData(String x, String y, String w, String h, String type) {
         if (x.length() > 0 && y.length() > 0 && type.length() > 0) {
-            if (!levelData.equals("")) {
-                levelData = levelData + " ";
-            }
-            levelData = levelData + x + " " +  y + " " + w + " " + h + " " + type;
+            levelData.add(x);
+            levelData.add(y);
+            levelData.add(w);
+            levelData.add(h);
+            levelData.add(type);
         }
 
     }
