@@ -1,13 +1,12 @@
 package LevelBuilder.Builder;
 
 
-import LevelBuilder.DataManager.DataManager;
+import LevelBuilder.DataManager.BuilderManager;
 import LevelBuilder.Main.GamePanel;
 import LevelBuilder.Manager.ImageManager;
 import LevelBuilder.Manager.Handler;
 import LevelBuilder.Objects.Entity;
 
-import javax.xml.crypto.Data;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
@@ -29,9 +28,9 @@ public class LevelBuilder extends MouseAdapter {
 
     private ImageManager imageManager;
     private Handler handler;
-    private DataManager dataManager;
+    private BuilderManager dataManager;
 
-    public LevelBuilder(Handler handler, ImageManager imageManager, DataManager dataManager) {
+    public LevelBuilder(Handler handler, ImageManager imageManager, BuilderManager dataManager) {
         this.handler = handler;
         this.imageManager = imageManager;
         this.dataManager = dataManager;
@@ -148,6 +147,8 @@ public class LevelBuilder extends MouseAdapter {
 
     // Load an existing level to work on
     public void load(int lvl) {
+
+
         levelData.clear();
         handler.removeAll();
         load = true;

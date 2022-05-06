@@ -1,20 +1,18 @@
 package LevelBuilder.DataManager;
 
-import LevelBuilder.DataManager.DataManager;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 
-public class Serializer {
+public class BuilderSerializer {
 
 
-    public Serializer() {
+    public BuilderSerializer() {
     }
 
-    public void saveData(DataManager dataManager) {
+    public void saveData(BuilderManager dataManager) {
 
         try {
             FileOutputStream outputStream = new FileOutputStream("Data/builder.ser");

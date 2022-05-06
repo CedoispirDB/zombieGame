@@ -1,25 +1,23 @@
 package LevelBuilder.DataManager;
 
 
-import LevelBuilder.DataManager.DataManager;
-
 import java.io.*;
 
-public class Deserializer implements Serializable {
+public class BuilderDeserializer implements Serializable {
 
-    public Deserializer() {
+    public BuilderDeserializer() {
 //            System.out.println(new Timestamp(System.currentTimeMillis()) + ": initializing deserializer");
     }
 
-    public DataManager loadData() {
-        DataManager dataManager = null;
+    public BuilderManager loadData() {
+        BuilderManager dataManager = null;
 //        System.out.println(new Timestamp(System.currentTimeMillis()) + ": loading data");
 
         try {
 //            FileInputStream inputStream = new FileInputStream("Data/data.ser");
             InputStream inputStream = this.getClass().getResourceAsStream("/builder.ser");
             ObjectInputStream in = new ObjectInputStream(inputStream);
-            dataManager = (DataManager) in.readObject();
+            dataManager = (BuilderManager) in.readObject();
             in.close();
             inputStream.close();
         } catch (FileNotFoundException e) {

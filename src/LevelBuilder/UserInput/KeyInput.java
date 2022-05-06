@@ -1,7 +1,7 @@
 package LevelBuilder.UserInput;
 
 import LevelBuilder.Builder.LevelBuilder;
-import LevelBuilder.DataManager.DataManager;
+import LevelBuilder.DataManager.BuilderManager;
 import LevelBuilder.Main.GamePanel;
 import LevelBuilder.UI.Input;
 
@@ -17,9 +17,9 @@ public class KeyInput extends KeyAdapter {
 
 
     private LevelBuilder levelBuilder;
-    private DataManager dataManager;
+    private BuilderManager dataManager;
 
-    public KeyInput(LevelBuilder levelBuilder, DataManager dataManager) {
+    public KeyInput(LevelBuilder levelBuilder, BuilderManager dataManager) {
         this.levelBuilder = levelBuilder;
         this.dataManager = dataManager;
         options = new LinkedList<>();
@@ -58,9 +58,19 @@ public class KeyInput extends KeyAdapter {
             case KeyEvent.VK_B -> levelBuilder.toggleDrag();
             case KeyEvent.VK_J -> levelBuilder.reset();
             case KeyEvent.VK_Z -> levelBuilder.undo();
-            case KeyEvent.VK_K -> levelBuilder.save();
+            case KeyEvent.VK_K -> {
+                levelBuilder.save();
+                dataManager.increaseNumbOfLevels();
+            }
             case KeyEvent.VK_P -> dataManager.printLevelData();
-            case KeyEvent.VK_L -> levelBuilder.load(Input.getNum());
+            case KeyEvent.VK_L -> {
+                int num = Input.getNum();
+                if (num <= dataManager.getNumberOfLevels()){
+                    levelBuilder.load(num);
+                    Input.updateNum();
+                }
+            }
+            case KeyEvent.VK_H -> GamePanel.help = !GamePanel.help;
 
         }
 

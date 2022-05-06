@@ -32,7 +32,7 @@ public class Menu extends MouseAdapter {
         quitColor = Color.WHITE;
         canQuit = false;
         this.gamePanel = gamePanel;
-        tutorialAvailable = true;
+        tutorialAvailable = false;
     }
 
     public void mousePressed(MouseEvent e) {

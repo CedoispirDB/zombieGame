@@ -21,7 +21,6 @@ public class KeyInput extends KeyAdapter {
     private final boolean[] keyDown = new boolean[4];
     private int typeIndex = 1;
     private int turnIndex = 1;
-    private final LevelBuilder levelBuilder;
     private final Inventory inventory;
     private String lastDir;
     private boolean canShoot;
@@ -34,9 +33,8 @@ public class KeyInput extends KeyAdapter {
     private LevelManager levelManager;
 
 
-    public KeyInput(GamePanel gamePanel, Handler handler, LevelBuilder levelBuilder, Inventory inventory, DeathScreen deathScreen, Interface anInterface, ImageManager imageManager, LevelManager levelManager) {
+    public KeyInput(GamePanel gamePanel, Handler handler, Inventory inventory, DeathScreen deathScreen, Interface anInterface, ImageManager imageManager, LevelManager levelManager) {
         this.handler = handler;
-        this.levelBuilder = levelBuilder;
         this.inventory = inventory;
         this.deathScreen = deathScreen;
         this.gamePanel = gamePanel;
@@ -103,53 +101,8 @@ public class KeyInput extends KeyAdapter {
         }
 
 
-        if (GamePanel.gameState == STATE.BUILD) {
-            switch (code) {
-                case KeyEvent.VK_V -> {
-                    LinkedList<Character> options = new LinkedList<>();
-                    options.add('w');
-                    options.add('b');
-                    options.add('p');
-                    options.add('h');
-                    options.add('g');
-                    options.add('s');
-                    options.add('z');
-                    options.add('m');
 
-                    LevelBuilder.type = options.get(typeIndex);
-                    typeIndex++;
-
-                    if (typeIndex == options.size()) {
-                        typeIndex = 0;
-                    }
-                }
-                case KeyEvent.VK_T -> {
-                    LinkedList<Character> options = new LinkedList<>();
-                    options.add('t');
-                    options.add('l');
-                    options.add('b');
-                    options.add('r');
-
-
-                    LevelBuilder.position = options.get(turnIndex);
-                    turnIndex++;
-
-                    if (turnIndex == options.size()) {
-                        turnIndex = 0;
-                    }
-                }
-                case KeyEvent.VK_W -> LevelBuilder.position = 't';
-                case KeyEvent.VK_A -> LevelBuilder.position = 'l';
-                case KeyEvent.VK_S -> LevelBuilder.position = 'b';
-                case KeyEvent.VK_D -> LevelBuilder.position = 'r';
-                case KeyEvent.VK_B -> LevelBuilder.drag = !LevelBuilder.drag;
-                case KeyEvent.VK_Z -> LevelBuilder.undo();
-                case KeyEvent.VK_K -> levelBuilder.saveLevel();
-                case KeyEvent.VK_J -> LevelBuilder.reset();
-                case KeyEvent.VK_M -> levelBuilder.getData();
-
-            }
-        } else if (GamePanel.gameState == STATE.GAME || GamePanel.gameState == STATE.TUTORIAL) {
+         if (GamePanel.gameState == STATE.GAME || GamePanel.gameState == STATE.TUTORIAL) {
 
             for (int i = 0; i < handler.object.size(); i++) {
                 GameObject tempObject = handler.object.get(i);

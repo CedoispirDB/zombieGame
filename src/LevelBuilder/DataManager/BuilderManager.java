@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class DataManager implements Serializable {
+public class BuilderManager implements Serializable {
 
     private final LinkedList<String> levelData;
+    private int numberOfLevels = 4;
 
 
-    public DataManager() {
+    public BuilderManager() {
         levelData = new LinkedList<>();
     }
 
@@ -19,7 +20,7 @@ public class DataManager implements Serializable {
             levelData.add(newData.get(i));
         }
 
-        new Serializer().saveData(this);
+        new BuilderSerializer().saveData(this);
     }
 
     public void saveData(String str) {
@@ -36,7 +37,7 @@ public class DataManager implements Serializable {
             str = str.substring(e + 1);
             e = str.indexOf(" ");
         } while (true);
-        new Serializer().saveData(this);
+        new BuilderSerializer().saveData(this);
     }
 
     public LinkedList<String> loadData(int lvl) {
@@ -107,7 +108,7 @@ public class DataManager implements Serializable {
             b++;
             k++;
         } while (k < newLevel.size());
-        new Serializer().saveData(this);
+        new BuilderSerializer().saveData(this);
     }
 
     public void printLevelData() {
@@ -138,5 +139,12 @@ public class DataManager implements Serializable {
         }
     }
 
+    public int getNumberOfLevels() {
+        return numberOfLevels;
+    }
+
+    public void increaseNumbOfLevels() {
+        numberOfLevels++;
+    }
 
 }

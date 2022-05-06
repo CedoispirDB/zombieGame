@@ -51,13 +51,20 @@ public class GamePanel extends JPanel implements ActionListener {
     private final ImageManager imageManager;
     private final DataManager dataManager;
     private Tutorial tutorial;
-    private LevelBuilder levelBuilder;
     public static STATE gameState = STATE.MENU;
 
 
     public GamePanel() {
+        DataManager dataManager1;
         Deserializer deserializer = new Deserializer();
-        dataManager = deserializer.loadData();
+        dataManager1 = deserializer.loadData();
+
+        if (dataManager1 == null) {
+            dataManager1 = new DataManager();
+        }
+
+        dataManager = dataManager1;
+        dataManager.printLevelData();
 
         random = new Random();
         handler = new Handler();
@@ -72,7 +79,6 @@ public class GamePanel extends JPanel implements ActionListener {
         imageManager = new ImageManager();
         inventory = new Inventory(handler, anInterface);
         levelManager = new LevelManager(handler, saveData, inventory, anInterface, imageManager, dataManager);
-        levelBuilder = new LevelBuilder(handler, saveData, inventory, imageManager, levelManager);
 
 //        dataManager.printData();
 
@@ -82,11 +88,9 @@ public class GamePanel extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setFocusable(true);
 
-        if (gameState == STATE.BUILD) {
-            this.addMouseListener(levelBuilder);
-        }
 
-        this.addKeyListener(new KeyInput(this, handler, levelBuilder, inventory, deathScreen, anInterface, imageManager, levelManager));
+
+        this.addKeyListener(new KeyInput(this, handler, inventory, deathScreen, anInterface, imageManager, levelManager));
         this.addMouseListener(menu);
         this.addMouseListener(help);
         this.addMouseListener(leaderboard);
@@ -211,14 +215,14 @@ public class GamePanel extends JPanel implements ActionListener {
             }
 
             // Print coordinates
-            g.setFont(new Font(null, 0, 10));
-            g.setColor(Color.red);
-            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
-                g.drawString(String.valueOf(i * 32), i * 32, 16);
-            }
-            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
-                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
-            }
+//            g.setFont(new Font(null, 0, 10));
+//            g.setColor(Color.red);
+//            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), i * 32, 16);
+//            }
+//            for (int i = 0; i < SCREEN_HEIGHT / UNIT_SIZE; i++) {
+//                g.drawString(String.valueOf(i * 32), 0, i * 32 + 16);
+//            }
 //
 //            for (int i = 0; i < SCREEN_WIDTH / UNIT_SIZE; i++) {
 //                for (int j = 0; j < SCREEN_HEIGHT / UNIT_SIZE; j++) {

@@ -44,9 +44,12 @@ public class Input extends KeyAdapter {
 
     public static int getNum() {
         System.out.println(num);
-        int prov = Integer.parseInt(num);
-        num = "";
-        return prov;
+        return Integer.parseInt(num);
     }
+
+    public static void updateNum() {
+        num = String.valueOf(Integer.parseInt(num) + 1);
+    }
+
 
 }
